@@ -6,8 +6,6 @@
 /public/bundles/
 /var/
 /vendor/
-.env
-.idea/workspace.xml
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
