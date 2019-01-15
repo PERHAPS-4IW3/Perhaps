@@ -1,62 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="59ab3e56-d7e5-4cc9-8db3-6dc72cc3a63f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/perhaps/.env" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/.env.test" beforeDir="false" afterPath="$PROJECT_DIR$/App/.env.test" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/App/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/bin/console" beforeDir="false" afterPath="$PROJECT_DIR$/App/bin/console" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/bin/phpunit" beforeDir="false" afterPath="$PROJECT_DIR$/App/bin/phpunit" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/App/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/App/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/config/bootstrap.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/config/bootstrap.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/config/bundles.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/config/packages/cache.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/App/config/packages/cache.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/config/packages/dev/debug.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/App/config/packages/dev/debug.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/config/packages/dev/easy_log_handler.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/App/config/packages/dev/easy_log_handler.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/config/packages/dev/monolog.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/App/config/packages/dev/monolog.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/config/packages/dev/routing.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/App/config/packages/dev/routing.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/config/packages/dev/swiftmailer.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/App/config/packages/dev/swiftmailer.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/config/packages/dev/web_profiler.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/App/config/packages/dev/web_profiler.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/config/packages/doctrine.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/App/config/packages/doctrine.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/config/packages/doctrine_migrations.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/App/config/packages/doctrine_migrations.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/config/packages/framework.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/App/config/packages/framework.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/config/packages/prod/doctrine.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/App/config/packages/prod/doctrine.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/config/packages/prod/monolog.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/App/config/packages/prod/monolog.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/config/packages/routing.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/App/config/packages/routing.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/App/config/packages/security.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/config/packages/sensio_framework_extra.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/App/config/packages/sensio_framework_extra.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/config/packages/swiftmailer.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/App/config/packages/swiftmailer.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/config/packages/test/framework.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/App/config/packages/test/framework.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/config/packages/test/monolog.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/App/config/packages/test/monolog.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/config/packages/test/routing.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/App/config/packages/test/routing.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/config/packages/test/swiftmailer.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/App/config/packages/test/swiftmailer.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/config/packages/test/web_profiler.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/App/config/packages/test/web_profiler.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/config/packages/translation.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/App/config/packages/translation.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/config/packages/twig.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/App/config/packages/twig.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/config/packages/validator.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/App/config/packages/validator.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/config/routes.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/App/config/routes.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/config/routes/annotations.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/App/config/routes/annotations.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/config/routes/dev/twig.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/App/config/routes/dev/twig.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/config/routes/dev/web_profiler.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/App/config/routes/dev/web_profiler.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/App/config/services.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/App/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/docs/ISSUE_TEMPLATE.md" beforeDir="false" afterPath="$PROJECT_DIR$/App/docs/ISSUE_TEMPLATE.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/docs/ISSUE_TEMPLATE/bugfix.md" beforeDir="false" afterPath="$PROJECT_DIR$/App/docs/ISSUE_TEMPLATE/bugfix.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/docs/ISSUE_TEMPLATE/feature.md" beforeDir="false" afterPath="$PROJECT_DIR$/App/docs/ISSUE_TEMPLATE/feature.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/docs/PULL_REQUEST_TEMPLATE.md" beforeDir="false" afterPath="$PROJECT_DIR$/App/docs/PULL_REQUEST_TEMPLATE.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/phpunit.xml.dist" beforeDir="false" afterPath="$PROJECT_DIR$/App/phpunit.xml.dist" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/public/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/public/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/src/Controller/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/App/src/Controller/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/src/Entity/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/App/src/Entity/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/src/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/src/Kernel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/src/Migrations/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/App/src/Migrations/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/src/Repository/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/App/src/Repository/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/App/symfony.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/App/templates/base.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/tests/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/App/tests/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perhaps/translations/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/App/translations/.gitignore" afterDir="false" />
-    </list>
+    <list default="true" id="59ab3e56-d7e5-4cc9-8db3-6dc72cc3a63f" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -380,12 +325,6 @@
               <item name="App" type="462c0819:PsiDirectoryNode" />
               <item name="assets" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="Perhaps" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Perhaps" type="462c0819:PsiDirectoryNode" />
-              <item name="App" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -421,17 +360,17 @@
       <option name="presentableId" value="Default" />
       <updated>1547482047604</updated>
       <workItem from="1547482057732" duration="1750000" />
-      <workItem from="1547557857530" duration="4628000" />
+      <workItem from="1547557857530" duration="4951000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6378000" />
+    <option name="totallyTimeSpent" value="6701000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="805" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2532189" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2532189" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -440,11 +379,11 @@
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32959327" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="9" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.32959327" />
+      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.32959327" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
