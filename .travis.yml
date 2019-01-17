@@ -32,7 +32,7 @@ install:
 
 script:
 - composer install
-- App/vendor/bin/phpunit
+- App/vendor/bin/simple-phpunit
 
 # After a build, send email notification with the build results
 notifications:
