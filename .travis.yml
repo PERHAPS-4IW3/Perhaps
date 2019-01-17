@@ -3,7 +3,7 @@ language: php
 
 # Start mariadb service
 services:
-- mariadb
+- postgresql
 
 # Cache composer packages so "composer install" is faster
 cache:
