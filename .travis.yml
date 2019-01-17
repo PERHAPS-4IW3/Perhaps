@@ -3,7 +3,8 @@ language: php
 
 # Start mariadb service
 services:
-- postgresql
+  - postgresql
+
 
 # Cache composer packages so "composer install" is faster
 cache:
@@ -25,7 +26,6 @@ matrix:
 
 # Install composer dependencies,
 install:
-- phpenv config-add travis.php.ini
 - composer self-update
 - composer install
 
