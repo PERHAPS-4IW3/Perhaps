@@ -26,15 +26,21 @@ class Projet
      */
     private $description_projet;
 
-    /**
-     * @ORM\Column(type="string", length=50)
-     */
-    private $temps;
 
     /**
      * @ORM\Column(type="integer")
      */
     private $budget;
+
+    /**
+     * @ORM\Column(type="string", length=150)
+     */
+    private $choix_contact;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $date_debut;
 
     public function getId(): ?int
     {
@@ -65,17 +71,6 @@ class Projet
         return $this;
     }
 
-    public function getTemps(): ?string
-    {
-        return $this->temps;
-    }
-
-    public function setTemps(string $temps): self
-    {
-        $this->temps = $temps;
-
-        return $this;
-    }
 
     public function getBudget(): ?int
     {
@@ -85,6 +80,30 @@ class Projet
     public function setBudget(int $budget): self
     {
         $this->budget = $budget;
+
+        return $this;
+    }
+
+    public function getChoixContact(): ?string
+    {
+        return $this->choix_contact;
+    }
+
+    public function setChoixContact(string $choix_contact): self
+    {
+        $this->choix_contact = $choix_contact;
+
+        return $this;
+    }
+
+    public function getDateDebut(): ?\DateTimeInterface
+    {
+        return $this->date_debut;
+    }
+
+    public function setDateDebut(\DateTimeInterface $date_debut): self
+    {
+        $this->date_debut = $date_debut;
 
         return $this;
     }
