@@ -26,9 +26,13 @@ matrix:
 
 # Install composer dependencies,
 install:
+- phpenv config-add travis.php.ini
 - composer self-update
 - composer install
 
+script:
+- composer install
+- App/vendor/bin/phpunit
 
 # After a build, send email notification with the build results
 notifications:
