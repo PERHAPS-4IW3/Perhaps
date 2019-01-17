@@ -1,9 +1,47 @@
+# Project language
 language: php
-php:
-  - '7.0'
-  - '7.1'
-  - '7.2'
 
+# Start mariadb service
+services:
+- mariadb
+
+# Cache composer packages so "composer install" is faster
+cache:
+  directories:
+  - $HOME/.composer/cache/files
+
+# Matrix to test in every php version
+matrix:
+  # Fast finish allows to set the build as "finished" even if the "allow_failures" matrix elements are not finished yet.
+  fast_finish: true
+  include:
+  - php: 5.6
+  - php: 7.1
+  - php: 7.2
+  - php: hhvm
+  allow_failures:
+  - php: hhvm
+
+
+# Install composer dependencies,
+install:
+- phpenv config-add travis.php.ini
+- composer self-update
+- composer install
+
+before_script:
+- wget https://cs.sensiolabs.org/download/php-cs-fixer-v2.phar -O php-cs-fixer
+- chmod a+x php-cs-fixer
+- composer install
+
+# Run script
 script:
-   - composer install
-   - vendor/bin/phpunit
+- "./php-cs-fixer fix src --rules=@Symfony --diff --dry-run -vvv"
+- docker run --rm -v $(pwd):/app phpqa/security-checker security:check
+
+# After a build, send email notification with the build results
+notifications:
+  email:
+    recipients:
+    - walid_mohsin10@hotmail.com
+    on_success: never
