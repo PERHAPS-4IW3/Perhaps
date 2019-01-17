@@ -22,12 +22,12 @@ class Facture
     private $nom_facture;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      */
     private $Prix_TTC;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      */
     private $Prix_HT;
 
@@ -37,7 +37,7 @@ class Facture
     private $Nbr_heures;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      */
     private $Taux_H;
 
