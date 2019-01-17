@@ -29,15 +29,6 @@ install:
 - composer self-update
 - composer install
 
-before_script:
-- wget https://cs.sensiolabs.org/download/php-cs-fixer-v2.phar -O php-cs-fixer
-- chmod a+x php-cs-fixer
-- composer install
-
-# Run script
-script:
-- "./php-cs-fixer fix src --rules=@Symfony --diff --dry-run -vvv"
-- docker run --rm -v $(pwd):/app phpqa/security-checker security:check
 
 # After a build, send email notification with the build results
 notifications:
