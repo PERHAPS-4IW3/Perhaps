@@ -19,33 +19,33 @@ class Facture
     /**
      * @ORM\Column(type="string", length=50)
      */
-    private $nom_facture;
+    private $nomFacture;
 
     /**
      * @ORM\Column(type="float")
      */
-    private $Prix_TTC;
+    private $prixTTC;
 
     /**
      * @ORM\Column(type="float")
      */
-    private $Prix_HT;
+    private $prixHT;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $Nbr_heures;
+    private $nbrHeures;
 
     /**
      * @ORM\Column(type="float")
      */
-    private $Taux_H;
+    private $tauxH;
 
     /**
      * @ORM\Column(type="float")
      */
 
-    private $Autres_charges;
+    private $autresCharges;
 
     public function getId(): ?int
     {
@@ -54,60 +54,60 @@ class Facture
 
     public function getNomFacture(): ?string
     {
-        return $this->nom_facture;
+        return $this->nomFacture;
     }
 
-    public function setNomFacture(string $nom_facture): self
+    public function setNomFacture(string $nomFacture): self
     {
-        $this->nom_facture = $nom_facture;
+        $this->nomFacture = $nomFacture;
 
         return $this;
     }
 
     public function getPrixTTC(): ?int
     {
-        return $this->Prix_TTC;
+        return $this->prixTTC;
     }
 
-    public function setPrixTTC(int $Prix_TTC): self
+    public function setPrixTTC(int $prixTTC): self
     {
-        $this->Prix_TTC = $Prix_TTC;
+        $this->prixTTC = $prixTTC;
 
         return $this;
     }
 
     public function getPrixHT(): ?int
     {
-        return $this->Prix_HT;
+        return $this->prixHT;
     }
 
-    public function setPrixHT(int $Prix_HT): self
+    public function setPrixHT(int $prixHT): self
     {
-        $this->Prix_HT = $Prix_HT;
+        $this->prixHT = $prixHT;
 
         return $this;
     }
 
     public function getNbrHeures(): ?int
     {
-        return $this->Nbr_heures;
+        return $this->nbrHeures;
     }
 
-    public function setNbrHeures(int $Nbr_heures): self
+    public function setNbrHeures(int $nbrHeures): self
     {
-        $this->Nbr_heures = $Nbr_heures;
+        $this->nbrHeures = $nbrHeures;
 
         return $this;
     }
 
     public function getTauxH(): ?int
     {
-        return $this->Taux_H;
+        return $this->tauxH;
     }
 
-    public function setTauxH(int $Taux_H): self
+    public function setTauxH(int $tauxH): self
     {
-        $this->Taux_H = $Taux_H;
+        $this->tauxH = $tauxH;
 
         return $this;
     }
@@ -115,12 +115,12 @@ class Facture
 
     public function getAutresCharges(): ?float
     {
-        return $this->Autres_charges;
+        return $this->autresCharges;
     }
 
-    public function setAutresCharges(float $Autres_charges): self
+    public function setAutresCharges(float $autresCharges): self
     {
-        $this->Autres_charges = $Autres_charges;
+        $this->autresCharges = $autresCharges;
 
         return $this;
     }
