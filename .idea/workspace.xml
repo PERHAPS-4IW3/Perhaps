@@ -1,25 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="59ab3e56-d7e5-4cc9-8db3-6dc72cc3a63f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/95734d26-8c66-40e0-9204-0c96117c4b7a.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/95734d26-8c66-40e0-9204-0c96117c4b7a.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/95734d26-8c66-40e0-9204-0c96117c4b7a/storage_v2/_src_/database/perhaps.WZuK1w/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/95734d26-8c66-40e0-9204-0c96117c4b7a/storage_v2/_src_/database/perhaps.WZuK1w/schema/public.abK9xQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/App/config/packages/security.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/config/packages/twig.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/App/config/packages/twig.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/config/routes/annotations.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/App/config/routes/annotations.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/App/config/services.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/src/Controller/Back/ProjetController.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/src/Controller/Back/ProjetController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/src/DataFixtures/ProjetFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/src/DataFixtures/ProjetFixtures.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/src/Entity/Freelancer.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/src/Entity/Freelancer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/src/Entity/Projet.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/src/Entity/Projet.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/src/Entity/TypeProjet.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/src/Entity/TypeProjet.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/src/Form/ProjetType.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/src/Form/ProjetType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/templates/Back/Projet/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/App/templates/Back/Projet/edit.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/templates/Back/Projet/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/App/templates/Back/Projet/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/templates/Front/Projet/show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/App/templates/Front/Projet/show.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/App/templates/base.html.twig" afterDir="false" />
-    </list>
+    <list default="true" id="59ab3e56-d7e5-4cc9-8db3-6dc72cc3a63f" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -762,7 +744,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="71801000" />
+    <option name="totallyTimeSpent" value="72075000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
