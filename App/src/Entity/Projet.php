@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Cocur\Slugify\Slugify;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProjetRepository")
@@ -19,13 +20,12 @@ class Projet
     /**
      * @ORM\Column(type="string", length=50)
      */
-    private $nom_projet;
+    private $nomProjet;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $description_projet;
-
+    private $descriptionProjet;
 
     /**
      * @ORM\Column(type="integer")
@@ -35,12 +35,27 @@ class Projet
     /**
      * @ORM\Column(type="string", length=150)
      */
-    private $choix_contact;
+    private $choixContact;
 
     /**
      * @ORM\Column(type="date")
      */
-    private $date_debut;
+    private $dateDebut;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default" : true})
+     */
+    private $isVisible = true;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+    }
 
     public function getId(): ?int
     {
@@ -49,28 +64,33 @@ class Projet
 
     public function getNomProjet(): ?string
     {
-        return $this->nom_projet;
+        return $this->nomProjet;
     }
 
-    public function setNomProjet(string $nom_projet): self
+    public function setNomProjet(string $nomProjet): self
     {
-        $this->nom_projet = $nom_projet;
+        $this->nomProjet = $nomProjet;
 
         return $this;
+    }
+
+    //Fonction Slug - Convertir un string en slug
+    public function getSlug(): string
+    {
+        return (new Slugify())->slugify($this->nomProjet);
     }
 
     public function getDescriptionProjet(): ?string
     {
-        return $this->description_projet;
+        return $this->descriptionProjet;
     }
 
-    public function setDescriptionProjet(string $description_projet): self
+    public function setDescriptionProjet(string $descriptionProjet): self
     {
-        $this->description_projet = $description_projet;
+        $this->descriptionProjet = $descriptionProjet;
 
         return $this;
     }
-
 
     public function getBudget(): ?int
     {
@@ -86,24 +106,48 @@ class Projet
 
     public function getChoixContact(): ?string
     {
-        return $this->choix_contact;
+        return $this->choixContact;
     }
 
-    public function setChoixContact(string $choix_contact): self
+    public function setChoixContact(string $choixContact): self
     {
-        $this->choix_contact = $choix_contact;
+        $this->choixContact = $choixContact;
 
         return $this;
     }
 
     public function getDateDebut(): ?\DateTimeInterface
     {
-        return $this->date_debut;
+        return $this->dateDebut;
     }
 
-    public function setDateDebut(\DateTimeInterface $date_debut): self
+    public function setDateDebut(\DateTimeInterface $dateDebut): self
     {
-        $this->date_debut = $date_debut;
+        $this->dateDebut = $dateDebut;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getIsVisible(): ?bool
+    {
+        return $this->isVisible;
+    }
+
+    public function setIsVisible(bool $isVisible): self
+    {
+        $this->isVisible = $isVisible;
 
         return $this;
     }

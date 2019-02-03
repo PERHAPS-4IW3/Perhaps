@@ -19,67 +19,67 @@ class Freelancer
     /**
      * @ORM\Column(type="string", length=150)
      */
-    private $nom_freelancer;
+    private $nomFreelancer;
 
     /**
      * @ORM\Column(type="string", length=150)
      */
-    private $prenom_freelancer;
+    private $prenomFreelancer;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $email_freelancer;
+    private $emailFreelancer;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $password_freelancer;
+    private $passwordFreelancer;
 
     /**
      * @ORM\Column(type="string", length=200)
      */
-    private $adresse_freelancer;
+    private $adresseFreelancer;
 
     /**
      * @ORM\Column(type="string", length=5)
      */
-    private $cp_freelancer;
+    private $cpFreelancer;
 
     /**
      * @ORM\Column(type="string", length=150)
      */
-    private $ville_freelancer;
+    private $villeFreelancer;
 
     /**
      * @ORM\Column(type="string", length=150)
      */
-    private $pays_freelancer;
+    private $paysFreelancer;
 
     /**
      * @ORM\Column(type="string", length=10)
      */
-    private $phone_freelancer;
+    private $phoneFreelancer;
 
     /**
      * @ORM\Column(type="string", length=150)
      */
-    private $statut_freelancer;
+    private $statutFreelancer;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $tarif_horaire_freelancer;
+    private $tarifForaireFreelancer;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $presentation_freelancer;
+    private $presentationFreelancer;
 
     /**
      * @ORM\Column(type="string", length=150)
      */
-    private $nom_societe_freelancer;
+    private $nomSocieteFreelancer;
 
     public function getId(): ?int
     {
@@ -88,156 +88,156 @@ class Freelancer
 
     public function getNomFreelancer(): ?string
     {
-        return $this->nom_freelancer;
+        return $this->nomFreelancer;
     }
 
-    public function setNomFreelancer(string $nom_freelancer): self
+    public function setNomFreelancer(string $nomFreelancer): self
     {
-        $this->nom_freelancer = $nom_freelancer;
+        $this->nomFreelancer = $nomFreelancer;
 
         return $this;
     }
 
     public function getPrenomFreelancer(): ?string
     {
-        return $this->prenom_freelancer;
+        return $this->prenomFreelancer;
     }
 
-    public function setPrenomFreelancer(string $prenom_freelancer): self
+    public function setPrenomFreelancer(string $prenomFreelancer): self
     {
-        $this->prenom_freelancer = $prenom_freelancer;
+        $this->prenomFreelancer = $prenomFreelancer;
 
         return $this;
     }
 
     public function getEmailFreelancer(): ?string
     {
-        return $this->email_freelancer;
+        return $this->emailFreelancer;
     }
 
-    public function setEmailFreelancer(string $email_freelancer): self
+    public function setEmailFreelancer(string $emailFreelancer): self
     {
-        $this->email_freelancer = $email_freelancer;
+        $this->emailFreelancer = $emailFreelancer;
 
         return $this;
     }
 
     public function getPasswordFreelancer(): ?string
     {
-        return $this->password_freelancer;
+        return $this->passwordFreelancer;
     }
 
-    public function setPasswordFreelancer(string $password_freelancer): self
+    public function setPasswordFreelancer(string $passwordFreelancer): self
     {
-        $this->password_freelancer = $password_freelancer;
+        $this->passwordFreelancer = $passwordFreelancer;
 
         return $this;
     }
 
     public function getAdresseFreelancer(): ?string
     {
-        return $this->adresse_freelancer;
+        return $this->adresseFreelancer;
     }
 
-    public function setAdresseFreelancer(string $adresse_freelancer): self
+    public function setAdresseFreelancer(string $adresseFreelancer): self
     {
-        $this->adresse_freelancer = $adresse_freelancer;
+        $this->adresseFreelancer = $adresseFreelancer;
 
         return $this;
     }
 
     public function getCpFreelancer(): ?string
     {
-        return $this->cp_freelancer;
+        return $this->cpFreelancer;
     }
 
-    public function setCpFreelancer(string $cp_freelancer): self
+    public function setCpFreelancer(string $cpFreelancer): self
     {
-        $this->cp_freelancer = $cp_freelancer;
+        $this->cpFreelancer = $cpFreelancer;
 
         return $this;
     }
 
     public function getVilleFreelancer(): ?string
     {
-        return $this->ville_freelancer;
+        return $this->villeFreelancer;
     }
 
-    public function setVilleFreelancer(string $ville_freelancer): self
+    public function setVilleFreelancer(string $villeFreelancer): self
     {
-        $this->ville_freelancer = $ville_freelancer;
+        $this->villeFreelancer = $villeFreelancer;
 
         return $this;
     }
 
     public function getPaysFreelancer(): ?string
     {
-        return $this->pays_freelancer;
+        return $this->paysFreelancer;
     }
 
-    public function setPaysFreelancer(string $pays_freelancer): self
+    public function setPaysFreelancer(string $paysFreelancer): self
     {
-        $this->pays_freelancer = $pays_freelancer;
+        $this->paysFreelancer = $paysFreelancer;
 
         return $this;
     }
 
     public function getPhoneFreelancer(): ?string
     {
-        return $this->phone_freelancer;
+        return $this->phoneFreelancer;
     }
 
-    public function setPhoneFreelancer(string $phone_freelancer): self
+    public function setPhoneFreelancer(string $phoneFreelancer): self
     {
-        $this->phone_freelancer = $phone_freelancer;
+        $this->phoneFreelancer = $phoneFreelancer;
 
         return $this;
     }
 
     public function getStatutFreelancer(): ?string
     {
-        return $this->statut_freelancer;
+        return $this->statutFreelancer;
     }
 
-    public function setStatutFreelancer(string $statut_freelancer): self
+    public function setStatutFreelancer(string $statutFreelancer): self
     {
-        $this->statut_freelancer = $statut_freelancer;
+        $this->statutFreelancer = $statutFreelancer;
 
         return $this;
     }
 
     public function getTarifHoraireFreelancer(): ?int
     {
-        return $this->tarif_horaire_freelancer;
+        return $this->tarifForaireFreelancer;
     }
 
-    public function setTarifHoraireFreelancer(int $tarif_horaire_freelancer): self
+    public function setTarifHoraireFreelancer(int $tarifForaireFreelancer): self
     {
-        $this->tarif_horaire_freelancer = $tarif_horaire_freelancer;
+        $this->tarifForaireFreelancer = $tarifForaireFreelancer;
 
         return $this;
     }
 
     public function getPresentationFreelancer(): ?string
     {
-        return $this->presentation_freelancer;
+        return $this->presentationFreelancer;
     }
 
-    public function setPresentationFreelancer(string $presentation_freelancer): self
+    public function setPresentationFreelancer(string $presentationFreelancer): self
     {
-        $this->presentation_freelancer = $presentation_freelancer;
+        $this->presentationFreelancer = $presentationFreelancer;
 
         return $this;
     }
 
     public function getNomSocieteFreelancer(): ?string
     {
-        return $this->nom_societe_freelancer;
+        return $this->nomSocieteFreelancer;
     }
 
-    public function setNomSocieteFreelancer(string $nom_societe_freelancer): self
+    public function setNomSocieteFreelancer(string $nomSocieteFreelancer): self
     {
-        $this->nom_societe_freelancer = $nom_societe_freelancer;
+        $this->nomSocieteFreelancer = $nomSocieteFreelancer;
 
         return $this;
     }

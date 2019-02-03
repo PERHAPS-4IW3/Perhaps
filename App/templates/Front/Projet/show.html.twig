@@ -1,0 +1,37 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ projet.nomProjet }}{% endblock %}
+
+{% block body %}
+    <div class="jumbotron">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>{{ projet.nomProjet }}</h1>
+                    <h3>{{ projet.descriptionProjet | nl2br }}</h3>
+                    <div class="text-primary">{{ projet.budget | number_format(0, '', ' ') }} €</div>
+                    <a href="#" class="btn btn-primary">Postuler</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-8">
+                <table class="table table-striped">
+                    <tr>
+                        <td>Publié le</td>
+                        <td> {{ projet.createdAt|date("m/d/Y") }}</td>
+                    </tr>
+                    <tr>
+                        <td>Budget indicatif</td>
+                        <td>{{ projet.budget | number_format(0, '', ' ') }} €</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-4">
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
