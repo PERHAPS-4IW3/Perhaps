@@ -19,7 +19,7 @@ class TypeProjet
     /**
      * @ORM\Column(type="string", length=50)
      */
-    private $nomtype;
+    private $nomType;
 
     public function getId(): ?int
     {
@@ -28,12 +28,12 @@ class TypeProjet
 
     public function getNomType(): ?string
     {
-        return $this->nomtype;
+        return $this->nomType;
     }
 
-    public function setNomType(string $nomtype): self
+    public function setNomType(string $nomType): self
     {
-        $this->nomtype = $nomtype;
+        $this->nomType = $nomType;
 
         return $this;
     }
