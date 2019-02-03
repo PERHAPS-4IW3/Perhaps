@@ -19,22 +19,22 @@ class Devis
     /**
      * @ORM\Column(type="text")
      */
-    private $description_devis;
+    private $descriptionDevis;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $offre_devis;
+    private $offreDevis;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $delai_devis;
+    private $delaiDevis;
 
     /**
      * @ORM\Column(type="date")
      */
-    private $date_devis;
+    private $dateDevis;
 
     public function getId(): ?int
     {
@@ -43,48 +43,48 @@ class Devis
 
     public function getDescriptionDevis(): ?string
     {
-        return $this->description_devis;
+        return $this->descriptionDevis;
     }
 
-    public function setDescriptionDevis(string $description_devis): self
+    public function setDescriptionDevis(string $descriptionDevis): self
     {
-        $this->description_devis = $description_devis;
+        $this->descriptionDevis = $descriptionDevis;
 
         return $this;
     }
 
     public function getOffreDevis(): ?int
     {
-        return $this->offre_devis;
+        return $this->offreDevis;
     }
 
-    public function setOffreDevis(?int $offre_devis): self
+    public function setOffreDevis(?int $offreDevis): self
     {
-        $this->offre_devis = $offre_devis;
+        $this->offreDevis = $offreDevis;
 
         return $this;
     }
 
     public function getDelaiDevis(): ?int
     {
-        return $this->delai_devis;
+        return $this->delaiDevis;
     }
 
-    public function setDelaiDevis(?int $delai_devis): self
+    public function setDelaiDevis(?int $delaiDevis): self
     {
-        $this->delai_devis = $delai_devis;
+        $this->delaiDevis = $delaiDevis;
 
         return $this;
     }
 
     public function getDateDevis(): ?\DateTimeInterface
     {
-        return $this->date_devis;
+        return $this->dateDevis;
     }
 
-    public function setDateDevis(\DateTimeInterface $date_devis): self
+    public function setDateDevis(\DateTimeInterface $dateDevis): self
     {
-        $this->date_devis = $date_devis;
+        $this->dateDevis = $dateDevis;
 
         return $this;
     }

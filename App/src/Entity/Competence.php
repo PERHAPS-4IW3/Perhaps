@@ -19,7 +19,7 @@ class Competence
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $nom_competence;
+    private $nomCompetence;
 
     public function getId(): ?int
     {
@@ -28,12 +28,12 @@ class Competence
 
     public function getNomCompetence(): ?string
     {
-        return $this->nom_competence;
+        return $this->nomCompetence;
     }
 
-    public function setNomCompetence(string $nom_competence): self
+    public function setNomCompetence(string $nomCompetence): self
     {
-        $this->nom_competence = $nom_competence;
+        $this->nomCompetence = $nomCompetence;
 
         return $this;
     }

@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Projet;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -19,6 +20,35 @@ class ProjetRepository extends ServiceEntityRepository
         parent::__construct($registry, Projet::class);
     }
 
+    /**
+     * @return array
+     */
+    public function findAllVisible(): array
+    {
+        return $this->findVisibleQuery()
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    /**
+     * @return array
+     */
+    public function findLatest(): array
+    {
+        return $this->findVisibleQuery()
+            ->orderBy('p.createdAt', 'ASC')
+            ->setMaxResults(8)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    private function findVisibleQuery(): QueryBuilder
+    {
+        return $this->createQueryBuilder('p')
+            ->Where('p.isVisible = true');
+    }
     // /**
     //  * @return Projet[] Returns an array of Projet objects
     //  */
