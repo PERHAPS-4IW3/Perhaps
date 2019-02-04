@@ -1,0 +1,46 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Gérer mes projets{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <div class="row flex">
+            <div class="col-8">
+                <h2>Gérer mes projets</h2>
+            </div>
+            <div class="col-2 mb-4">
+                <a href="{{ path('user_projet_new') }}" class="btn btn-success">Publier un projet</a>
+            </div>
+        </div>
+
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <div class="row flex mt-4">
+            {% for projet in projets %}
+                <div class="col-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                {{ projet.nomProjet }}
+                            </h5>
+                            <p class="card-text">
+                                {{ projet.descriptionProjet }}
+                            </p>
+                            <div class="text-primary">
+                                {{ projet.budget | number_format(0, '', ' ') }} €
+                            </div>
+                            <a href="{{ path('user_projet_edit', {id: projet.id}) }}" class="btn btn-primary" style="display: inline-block;">Éditer</a>
+                            <a href="{{ path('user_projet_delete', {id: projet.id, '_token': csrf_token('delete-project')}) }}" class="btn btn-danger" onclick="return confirm('Etes-vous sûr ?')">Supprimer</a>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                Vous n'avez encore aucun projet
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
