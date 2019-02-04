@@ -3,12 +3,18 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {{ encore_entry_link_tags('app') }}
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {{ encore_entry_script_tags('app') }}
-        {% block javascripts %}{% endblock %}
+        <!--<a href="{{ path('contact') }}">Contact</a>
+        { for message in app.flashes('success') %}
+            {{ message }}
+        { endfor %}-->
+        <div>
+            {{ form_start(our_form) }}
+            {{ form_widget(our_form) }}
+            <input type="submit" value="Send" />
+            {{ form_end(our_form) }}
+        </div>
     </body>
 </html>
