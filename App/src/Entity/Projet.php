@@ -4,12 +4,18 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProjetRepository")
  */
 class Projet
 {
+    const CONTACT = [
+        0 => 'Email',
+        1 => 'Téléphone'
+    ];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -19,26 +25,26 @@ class Projet
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Assert\Length(min=3, max=50)
      */
     private $nomProjet;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(min=30)
      */
     private $descriptionProjet;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Range(min=100, max=100000)
      */
     private $budget;
 
-    /**
-     * @ORM\Column(type="string", length=150)
-     */
-    private $choixContact;
 
     /**
      * @ORM\Column(type="date")
+     * @Assert\GreaterThan("today")
      */
     private $dateDebut;
 
@@ -51,6 +57,11 @@ class Projet
      * @ORM\Column(type="boolean", options={"default" : true})
      */
     private $isVisible = true;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $choixContact;
 
     public function __construct()
     {
@@ -104,18 +115,6 @@ class Projet
         return $this;
     }
 
-    public function getChoixContact(): ?string
-    {
-        return $this->choixContact;
-    }
-
-    public function setChoixContact(string $choixContact): self
-    {
-        $this->choixContact = $choixContact;
-
-        return $this;
-    }
-
     public function getDateDebut(): ?\DateTimeInterface
     {
         return $this->dateDebut;
@@ -151,4 +150,22 @@ class Projet
 
         return $this;
     }
+
+    public function getChoixContact(): ?int
+    {
+        return $this->choixContact;
+    }
+
+    public function setChoixContact(?int $choixContact): self
+    {
+        $this->choixContact = $choixContact;
+
+        return $this;
+    }
+
+    public function getChoixContactType(): string
+    {
+        return self::CONTACT[$this->choixContact];
+    }
+
 }

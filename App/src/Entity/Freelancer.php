@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\FreelancerRepository")
@@ -43,11 +44,13 @@ class Freelancer
 
     /**
      * @ORM\Column(type="string", length=5)
+     * @Assert\Regex("/^[0-9]{5}$/")
      */
     private $cpFreelancer;
 
     /**
      * @ORM\Column(type="string", length=150)
+     *
      */
     private $villeFreelancer;
 
@@ -69,7 +72,7 @@ class Freelancer
     /**
      * @ORM\Column(type="integer")
      */
-    private $tarifForaireFreelancer;
+    private $tarifHoraireFreelancer;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -208,12 +211,12 @@ class Freelancer
 
     public function getTarifHoraireFreelancer(): ?int
     {
-        return $this->tarifForaireFreelancer;
+        return $this->tarifHoraireFreelancer;
     }
 
-    public function setTarifHoraireFreelancer(int $tarifForaireFreelancer): self
+    public function setTarifHoraireFreelancer(int $tarifHoraireFreelancer): self
     {
-        $this->tarifForaireFreelancer = $tarifForaireFreelancer;
+        $this->tarifHoraireFreelancer = $tarifHoraireFreelancer;
 
         return $this;
     }

@@ -24,7 +24,7 @@ class ProjetFixtures extends Fixture
                 ->setNomProjet($faker->title)
                 ->setDescriptionProjet($faker->paragraph)
                 ->setBudget($faker->numberBetween(100, 100000))
-                ->setChoixContact($faker->randomElement(['email', 'phone']))
+                ->setChoixContact($faker->numberBetween(0, 1))
                 ->setDateDebut($faker->dateTime);
                 $manager->persist($projet);
 
