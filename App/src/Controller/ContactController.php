@@ -25,10 +25,10 @@ class ContactController extends AbstractController
                 ->setFrom($contactFormData['mail'])
                 ->setTo('noreply.perhaps@gmail.com')
                 ->setBody(
-                    "<html><body><h3>Prenom : ".$contactFormData['prenom'] ."<br /> Nom : ". $contactFormData['nom'] . "</h3><h4>"
-                    . $contactFormData['mail']. "</h4>
-                    <p>vous a écrit un mail : </p>
-                    <p>". $contactFormData['message']."</p></body></html>",
+                    "<html><body><h3>Prenom : ".$contactFormData['prenom'] ."<br /> Nom : "
+                    . $contactFormData['nom'] . "</h3><h4>"
+                    . $contactFormData['mail']. "</h4><p>vous a écrit un mail : </p><p>"
+                    . $contactFormData['message']."</p></body></html>",
                     'text/html'
                 );
             if($mailer->send($message)){

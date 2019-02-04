@@ -6,10 +6,10 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        <a href="{{ path('contact') }}">Contact</a>
-        {%  for message in app.flashes('success') %}
+        <!--<a href="{{ path('contact') }}">Contact</a>
+        { for message in app.flashes('success') %}
             {{ message }}
-        {% endfor %}
+        { endfor %}-->
         <div>
             {{ form_start(our_form) }}
             {{ form_widget(our_form) }}
