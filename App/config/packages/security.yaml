@@ -28,6 +28,10 @@ security:
 
             form_login:
                 check_path: login
+                login_path: login
+                csrf_token_generator: security.csrf.token_manager
+                default_target_path: app_front_home
+
 
             # https://symfony.com/doc/current/security/form_login_setup.html
 
