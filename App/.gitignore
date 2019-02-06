@@ -7,7 +7,9 @@
 /var/
 /vendor/
 ../.idea/
-.env
+/.idea/
+.idea/workspace.xml
+/.env
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
