@@ -6,9 +6,6 @@
 /public/bundles/
 /var/
 /vendor/
-../.idea/
-/.idea/
-.idea/workspace.xml
 /.env
 ###< symfony/framework-bundle ###
 
