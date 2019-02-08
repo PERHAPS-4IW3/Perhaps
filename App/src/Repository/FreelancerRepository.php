@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Freelancer;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -12,12 +13,45 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method Freelancer[]    findAll()
  * @method Freelancer[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
+
 class FreelancerRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Freelancer::class);
     }
+
+    /**
+     * @return array
+     */
+    /*public function findAllVisible(): array
+    {
+        return $this->findVisibleQuery()
+            ->getQuery()
+            ->getResult()
+            ;
+    }*/
+
+    /**
+     * @return array
+     */
+    /*public function findLatest(): array
+    {
+        return $this->findVisibleQuery()
+            //->orderBy('p.createdAt', 'ASC')
+            ->setMaxResults(8)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    */
+    /*private function findVisibleQuery(): QueryBuilder
+    {
+        return $this->createQueryBuilder('p')
+            ->Where('p.isVisible = true');
+    }*/
+
 
     // /**
     //  * @return Freelancer[] Returns an array of Freelancer objects

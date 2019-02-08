@@ -1,0 +1,42 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Géstion des Freelancers{% endblock %}
+{% block body %}
+<div class="container mt-4">
+    <div class="row flex">
+        <div class="col-8">
+            <h2>Gérer mes freelancers</h2>
+        </div>
+        <div class="col-2 mb-4">
+            <a href="{{ path('user_freelancer_new') }}" class="btn btn-success">S'inscrire</a>
+        </div>
+    </div>
+</div>
+
+    <div class="row flex mt-4">
+        {% for freelancer in freelanc %}
+            <div class="col-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            {{ freelancer.nomProjet }}
+                        </h5>
+                        <p class="card-text">
+                            {{ projet.descriptionProjet }}
+                        </p>
+                        <div class="text-primary">
+                            {{ projet.budget | number_format(0, '', ' ') }} €
+                        </div>
+                        <a href="{{ path('user_projet_edit', {id: projet.id}) }}" class="btn btn-primary" style="display: inline-block;">Éditer</a>
+                        <a href="{{ path('user_projet_delete', {id: projet.id, '_token': csrf_token('delete-project')}) }}" class="btn btn-danger" onclick="return confirm('Etes-vous sûr ?')">Supprimer</a>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            Vous n'avez encore aucun projet
+        {% endfor %}
+    </div>
+
+
+
+{% endblock %}

@@ -1,33 +1,37 @@
-{% extends "base.html.twig" %}
+{% extends 'base.html.twig' %}
 
-{% block title %}Projets{% endblock %}
+{% block title %} Freelancers{% endblock %}
 
 {% block body %}
-    <div class="container mt-4">
 
-        <h1>Nos Projets</h1>
-    </br>
-    </div>
     <div class="container">
 
+
+    </div>
+
+    <div class="container">
+        <h2>La liste des freelancers</h2>
         <div class="row flex">
-            {% for projet in projets %}
+
                 <div class="col-3">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">
-                                <a href="{{ path('projet_show', {id: projet.id, slug: projet.slug}) }}">{{ projet.nomProjet }}</a>
+
                             </h5>
                             <p class="card-text">
-                                {{ projet.descriptionProjet }}
+
                             </p>
                             <div class="text-primary">
-                                {{ projet.budget | number_format(0, '', ' ') }} €
+
                             </div>
                         </div>
                     </div>
                 </div>
-            {% endfor %}
+
         </div>
     </div>
+
+
+
 {% endblock %}
