@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -20,6 +21,9 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\Email(message="The email is not a valid email")
+     * @Assert\NotBlank
+     * @Assert\NotNull
      */
     private $email;
 
@@ -31,8 +35,44 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\NotBlank
      */
     private $password;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $nomUser;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $prenomUser;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $telephoneUser;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $adresseUser;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $codePostaleUser;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $ville;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $pays;
 
     public function getId(): ?int
     {
@@ -110,5 +150,89 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getNomUser(): ?string
+    {
+        return $this->nomUser;
+    }
+
+    public function setNomUser(string $nomUser): self
+    {
+        $this->nomUser = $nomUser;
+
+        return $this;
+    }
+
+    public function getPrenomUser(): ?string
+    {
+        return $this->prenomUser;
+    }
+
+    public function setPrenomUser(string $prenomUser): self
+    {
+        $this->prenomUser = $prenomUser;
+
+        return $this;
+    }
+
+    public function getTelephoneUser(): ?string
+    {
+        return $this->telephoneUser;
+    }
+
+    public function setTelephoneUser(string $telephoneUser): self
+    {
+        $this->telephoneUser = $telephoneUser;
+
+        return $this;
+    }
+
+    public function getAdresseUser(): ?string
+    {
+        return $this->adresseUser;
+    }
+
+    public function setAdresseUser(string $adresseUser): self
+    {
+        $this->adresseUser = $adresseUser;
+
+        return $this;
+    }
+
+    public function getCodePostaleUser(): ?string
+    {
+        return $this->codePostaleUser;
+    }
+
+    public function setCodePostaleUser(string $codePostaleUser): self
+    {
+        $this->codePostaleUser = $codePostaleUser;
+
+        return $this;
+    }
+
+    public function getVille(): ?string
+    {
+        return $this->ville;
+    }
+
+    public function setVille(string $ville): self
+    {
+        $this->ville = $ville;
+
+        return $this;
+    }
+
+    public function getPays(): ?string
+    {
+        return $this->pays;
+    }
+
+    public function setPays(string $pays): self
+    {
+        $this->pays = $pays;
+
+        return $this;
     }
 }
