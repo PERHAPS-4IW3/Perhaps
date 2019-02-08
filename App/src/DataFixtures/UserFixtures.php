@@ -32,6 +32,7 @@ class UserFixtures extends Fixture
         $user = new User();
         $user->setEmail('perhaps@gmail.com');
         $user->setPassword($this->encoder->encodePassword($user, 'demo'));
+        $user->setRoles(['ROLE_USER']);
 
         $manager->persist($user);
         $manager->flush();

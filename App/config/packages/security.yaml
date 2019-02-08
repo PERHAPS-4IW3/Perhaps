@@ -1,4 +1,7 @@
 security:
+    role_hierarchy:
+        ROLE_ADMIN:  [ROLE_USER, ROLE_FREELANCER]
+
     encoders:
         App\Entity\User:
             algorithm: argon2i
@@ -28,11 +31,15 @@ security:
 
             form_login:
                 check_path: login
+                login_path: login
+                csrf_token_generator: security.csrf.token_manager
+                default_target_path: app_front_home
+
 
             # https://symfony.com/doc/current/security/form_login_setup.html
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+         - { path: ^/user, roles: ROLE_USER }
         # - { path: ^/profile, roles: ROLE_USER }

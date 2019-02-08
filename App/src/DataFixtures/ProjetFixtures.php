@@ -21,7 +21,7 @@ class ProjetFixtures extends Fixture
 
         for($i = 0; $i <10; $i++){
             $projet = (new Projet())
-                ->setNomProjet($faker->title)
+                ->setNomProjet('Projet Informatique '.$i)
                 ->setDescriptionProjet($faker->paragraph)
                 ->setBudget($faker->numberBetween(100, 100000))
                 ->setChoixContact($faker->numberBetween(0, 1))
