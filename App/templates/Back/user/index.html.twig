@@ -2,52 +2,50 @@
 
 {% block title %}User index{% endblock %}
 
+
+
 {% block body %}
-    <h1>User index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Email</th>
-                <th>Roles</th>
-                <th>Password</th>
-                <th>NomUser</th>
-                <th>PrenomUser</th>
-                <th>TelephoneUser</th>
-                <th>AdresseUser</th>
-                <th>CodePostalUser</th>
-                <th>Ville</th>
-                <th>Pays</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for user in users %}
-            <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-                <td>{{ user.password }}</td>
-                <td>{{ user.nomUser }}</td>
-                <td>{{ user.prenomUser }}</td>
-                <td>{{ user.telephoneUser }}</td>
-                <td>{{ user.adresseUser }}</td>
-                <td>{{ user.codePostaleUser }}</td>
-                <td>{{ user.ville }}</td>
-                <td>{{ user.pays }}</td>
-                <td>
-                    <a href="{{ path('user_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="12">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 
-    <a href="{{ path('user_new') }}">Create new</a>
+    {% for user in users %}
+        <div class="container">
+        <h1>Vos informations personnelles</h1>
+        <form>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                <label for="inputFirstName">PRENOM</label>
+                <input type="text" class="form-control" id="inputPrenom" placeholder={{ user.prenomUser }} readonly>
+                </div>
+                <div class="form-group col-md-4">
+            <label for="inputName">NOM</label>
+            <input type="text" class="form-control" id="inputNom" placeholder={{ user.nomUser }} readonly>
+                </div>
+            </div>
+                <div class="form-group col-md-8">
+                    <label for="inputAddress">ADRESSE</label>
+                    <input type="text" class="form-control" id="inputAddress" placeholder={{ user.adresseUser }} readonly>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+            <label for="inputCity">VILLE</label>
+            <input type="text" class="form-control" id="inputCity" placeholder={{ user.ville }} readonly>
+                    </div>
+                    <div class="form-group col-md-4">
+            <label for="inputState">PAYS</label>
+            <input type="text" class="form-control" id="inputState" placeholder={{ user.pays }} readonly>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="inputZip">CODEPOSTALE</label>
+                        <input type="text" class="form-control" id="inputZip" placeholder={{ user.codePostalUser }} readonly>
+                    </div>
+                </div>
+
+            <a href="{{ path('user_edit', {id: user.id}) }}" class="btn btn-primary">Modifier mes informations</a>
+            <a href="{{ path('user_delete', {id: user.id, '_token': csrf_token('user_delete')}) }}" class="btn btn-danger" onclick="return confirm('Etes-vous sûr ?')">Supprimer</a>
+        </form>
+        </div>
+    {% else %}
+        no records found
+    {% endfor %}
+
 {% endblock %}

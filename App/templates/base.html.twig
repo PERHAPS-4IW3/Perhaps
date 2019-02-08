@@ -3,25 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Welcome !{% endblock %}</title>
+    {% block stylesheets %}
+        {# 'app' must match the first argument to addEntry() in webpack.config.js #}
+        {{ encore_entry_link_tags('app') }}
+
+        <!-- Renders a link tag (if your module requires any CSS)
+             <link rel="stylesheet" href="/build/app.css"> -->
+    {% endblock %}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    {% block stylesheets %}{% endblock %}
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="{{ path('app_front_home') }}">Accueil</a>
+        <a href="{{ path('app_front_home') }}"><img class="navbar-brand"  src="images/logo.png" alt="Acceuil" id="logo"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
+
+
                 <li class="nav-item">
-                    <a class="nav-link {% if current_menu is defined and current_menu == 'projets' %}active{% endif %}" href="{{ path('projet_index') }}">Projets</a>
+                    <a class="nav-link" href="{{ path('app_front_home') }}"><i class="fa fa-home"></i></a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {% if current_menu is defined and current_menu == 'projets' %}active{% endif %}" href="{{ path('projet_index') }}">
+                        <i class="fas fa-code"></i> Projets</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Freelancer</a>
+
+                    <a class="nav-link" href="#"><i class="fas fa-users"></i>  Freelancer</a>
                 </li>
             </ul>
             {% if app.user %}
@@ -45,7 +59,13 @@
 
 {% block body %}{% endblock %}
 
-{% block javascripts %}{% endblock %}
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+
+        <!-- Renders app.js & a webpack runtime.js file
+            <script src="/build/runtime.js"></script>
+            <script src="/build/app.js"></script> -->
+    {% endblock %}
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
