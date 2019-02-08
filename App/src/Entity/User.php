@@ -62,7 +62,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=50)
      */
-    private $codePostaleUser;
+    private $codePostalUser;
 
     /**
      * @ORM\Column(type="string", length=50)
@@ -200,14 +200,14 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getCodePostaleUser(): ?string
+    public function getCodePostalUser(): ?string
     {
-        return $this->codePostaleUser;
+        return $this->codePostalUser;
     }
 
-    public function setCodePostaleUser(string $codePostaleUser): self
+    public function setCodePostalUser(string $codePostalUser): self
     {
-        $this->codePostaleUser = $codePostaleUser;
+        $this->codePostalUser = $codePostalUser;
 
         return $this;
     }
