@@ -19,6 +19,10 @@ security:
             security: false
         main:
             anonymous: true
+            pattern:    ^/
+            user_checker: App\Controller\Front\UserChecker # activation du UserChecker
+            http_basic: ~
+            provider: app_user_provider
 
             logout:
                 path: /logout
@@ -41,5 +45,5 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-         - { path: ^/user, roles: ROLE_USER }
+        # - { path: ^/user, roles: ROLE_USER }
         # - { path: ^/profile, roles: ROLE_USER }

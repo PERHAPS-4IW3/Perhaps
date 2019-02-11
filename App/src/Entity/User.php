@@ -5,13 +5,20 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(name="user_perhaps")
+ * @UniqueEntity(fields="email", message="Cet email est déjà enregistré en base.")
  */
 class User implements UserInterface
 {
+    const USERTYPE = [
+        0 => 'ROLE_USER',
+        1 => 'ROLE_FREELANCER'
+    ];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -20,10 +27,10 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true)
-     * @Assert\Email(message="The email is not a valid email")
+     * @ORM\Column(type="string", length=80, unique=true)
+     * @Assert\Email()
      * @Assert\NotBlank
-     * @Assert\NotNull
+     * @Assert\Length(max=80)
      */
     private $email;
 
@@ -41,38 +48,62 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Assert\NotBlank(groups={"registration"})
      */
     private $nomUser;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Assert\NotBlank(groups={"registration"})
      */
     private $prenomUser;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Assert\NotBlank(groups={"registration"})
      */
     private $telephoneUser;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(groups={"registration"})
      */
     private $adresseUser;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Assert\NotBlank(groups={"registration"})
      */
-    private $codePostaleUser;
+    private $codePostalUser;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Assert\NotBlank(groups={"registration"})
      */
     private $ville;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Assert\NotBlank(groups={"registration"})
      */
     private $pays;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isActive;
+
+    /**
+     * @ORM\Column(type="integer")
+     * @Assert\NotBlank(groups={"registration"})
+     */
+    private $typeUser;
+
+    public function __construct()
+    {
+        $this->isActive = true;
+        //$this->roles = ['ROLE_USER'];
+    }
 
     public function getId(): ?int
     {
@@ -106,18 +137,30 @@ class User implements UserInterface
      */
     public function getRoles(): array
     {
+        return $this->roles;
+        /*
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 
-        return array_unique($roles);
+        return array_unique($roles);*/
     }
 
     public function setRoles(array $roles): self
     {
-        $this->roles = $roles;
+        if($this->typeUser === 0){
+            $roles[] = 'ROLE_USER';
+        }
+        elseif($this->typeUser === 1 ){
+            $roles[] = 'ROLE_FREELANCER';
+        }
+        else{
+            $roles[] = 'ROLE_USER';
+        }
 
+        $this->roles = $roles;
         return $this;
+
     }
 
     /**
@@ -200,14 +243,14 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getCodePostaleUser(): ?string
+    public function getCodePostalUser(): ?string
     {
-        return $this->codePostaleUser;
+        return $this->codePostalUser;
     }
 
-    public function setCodePostaleUser(string $codePostaleUser): self
+    public function setCodePostalUser(string $codePostalUser): self
     {
-        $this->codePostaleUser = $codePostaleUser;
+        $this->codePostalUser = $codePostalUser;
 
         return $this;
     }
@@ -235,4 +278,34 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): self
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    public function getTypeUser(): ?int
+    {
+        return $this->typeUser;
+    }
+
+    public function setTypeUser(int $typeUser): self
+    {
+        $this->typeUser = $typeUser;
+
+        return $this;
+    }
+
+    public function getUserType(): string
+    {
+        return self::USERTYPE[$this->typeUser];
+    }
+
 }

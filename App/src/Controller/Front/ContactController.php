@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Front;
 
 use App\Form\ContactType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,6 +11,9 @@ class ContactController extends AbstractController
 {
     /**
      * @Route("/contact", name="contact")
+     * @param Request $request
+     * @param \Swift_Mailer $mailer
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function contact(Request $request, \Swift_Mailer $mailer)
     {
@@ -37,7 +40,7 @@ class ContactController extends AbstractController
             }
         }
 
-        return $this->render('contact/contact.html.twig', [
+        return $this->render('Front/Contact/contact.html.twig', [
             'our_form' => $form->createView()
         ]);
     }

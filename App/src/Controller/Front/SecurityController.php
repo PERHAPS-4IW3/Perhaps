@@ -47,13 +47,15 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('app_front_home');
         }
         $user = new User();
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserType::class, $user, [
+            'validation_groups' => array('User', 'registration')
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $password = $passwordEncoder->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
-            $user->setRoles(['ROLE_USER']);
+            //$user->setRoles(['ROLE_USER']);
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
