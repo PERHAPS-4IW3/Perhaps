@@ -99,6 +99,15 @@ class User implements UserInterface
      */
     private $typeUser;
 
+    /**
+     * @var string le token qui servira lors de l'oubli de mot de passe
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $resetToken;
+
+    /**
+     * User constructor.
+     */
     public function __construct()
     {
         $this->isActive = true;
@@ -307,5 +316,23 @@ class User implements UserInterface
     {
         return self::USERTYPE[$this->typeUser];
     }
+
+    /**
+     * @return string
+     */
+    public function getResetToken(): string
+    {
+        return $this->resetToken;
+    }
+
+    /**
+     * @param string $resetToken
+     */
+    public function setResetToken(string $resetToken): void
+    {
+        $this->resetToken = $resetToken;
+    }
+
+
 
 }

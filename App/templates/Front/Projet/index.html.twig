@@ -4,7 +4,30 @@
 
 {% block body %}
     <div class="container mt-4">
+
         <h1>Nos Projets</h1>
-        <p>Bienvenue sur notre site !</p>
+    </br>
+    </div>
+    <div class="container">
+
+        <div class="row flex">
+            {% for projet in projets %}
+                <div class="col-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="{{ path('projet_show', {id: projet.id, slug: projet.slug}) }}">{{ projet.nomProjet }}</a>
+                            </h5>
+                            <p class="card-text">
+                                {{ projet.descriptionProjet }}
+                            </p>
+                            <div class="text-primary">
+                                {{ projet.budget | number_format(0, '', ' ') }} €
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}

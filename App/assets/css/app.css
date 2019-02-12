@@ -1,3 +1,13 @@
 body {
     background-color: lightgray;
 }
+#page1cont {
+    margin-top: 20px;
+}
+#logo{
+    height: 60px;
+}
+.jumbotron{
+    background-color: transparent!important;
+    color: #DDDDDD;
+}
