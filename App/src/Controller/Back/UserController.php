@@ -71,4 +71,14 @@ class UserController extends AbstractController
 
         return $this->redirectToRoute('user_index');
     }
+
+    /**
+     * @Route("/freelancer", name="free_index", methods={"GET"})
+     */
+    public function indexFree(UserRepository $userRepository): Response
+    {
+        return $this->render('Front/Freelancer/showFree.html.twig', [
+            'users' => $userRepository->findAll(),
+        ]);
+    }
 }

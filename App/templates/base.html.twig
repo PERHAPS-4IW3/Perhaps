@@ -17,7 +17,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a href="{{ path('app_front_home') }}"><img class="navbar-brand"  src="images/logo.png" alt="Acceuil" id="logo"></a>
+        <a href="{{ path('app_front_home') }}"><img class="navbar-brand"  src="{{ asset('images/logo.png') }}" alt="Acceuil" id="logo"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -35,7 +35,7 @@
                         <i class="fas fa-code"></i> Projets</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fas fa-users"></i>  Freelancer</a>
+                    <a class="nav-link" href="{{ path('free_index') }}"><i class="fas fa-users"></i>  Freelancer</a>
                 </li>
             </ul>
             {% if app.user %}
@@ -68,11 +68,11 @@
 
 {% block body %}{% endblock %}
 
-    <footer class="section footer-classic context-dark bg-primary fixed-bottom" id="footer">
+    <footer class="section footer-classic context-dark bg-primary" id="footer">
         <div class="container">
             <div class="row row-30">
                 <div class="col-md-4 col-xl-5">
-                    <div class="pr-xl-4"><a class="brand" href="{{ path('app_front_home') }}"><img class="brand-logo-light" src="images/logo.png" alt="" width="140" height="37" srcset="images/agency/logo-retina-inverse-280x74.png 2x"></a>
+                    <div class="pr-xl-4"><a class="brand" href="{{ path('app_front_home') }}"><img class="brand-logo-light" src="{{ asset('images/logo.png') }}" alt="" width="140" height="37" srcset="images/agency/logo-retina-inverse-280x74.png 2x"></a>
                         <p>We are an award-winning creative agency, dedicated to the best result in web design, promotion, business consulting, and marketing.</p>
                         <!-- Rights-->
                         <p class="rights"><span>©  </span><span class="copyright-year">2019</span><span> </span><span>PERHAPS</span><span>. </span><span>All Rights Reserved.</span></p>
