@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Freelancers{% endblock %}
+
+{% block body %}
+
+        {% for user in users %}
+        <section id="team" class="pb-5">
+            <div class="container">
+                <h5 class="section-title h1">Nos Freelancers</h5>
+                <div class="row">
+                    <!-- les Freelancers -->
+                    <div class="col-xs-12 col-sm-6 col-md-4">
+                        <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                            <div class="mainflip">
+                                <div class="frontside">
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <p><img class=" img-fluid" src="{{ asset('images/user.svg') }}" alt="card image"></p>
+                                            <h4 class="card-title">{{ user.nomUser }} {{ user.prenomUser }}</h4>
+                                            <p class="card-text">Pour en savoir plus cliquer sur le bouton</p>
+                                            <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="backside">
+                                    <div class="card">
+                                        <div class="card-body text-center mt-4">
+                                            <h4 class="card-title">{{ user.nomUser }} {{ user.prenomUser }}</h4>
+                                            <p class="card-text">Je vis actuellement au : {{ user.ville }} mon pays est :{{ user.pays }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        {% else %}
+            <tr>
+                <td colspan="12">no records found</td>
+            </tr>
+        {% endfor %}
+
+
+
+{% endblock %}

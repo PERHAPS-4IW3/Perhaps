@@ -58,8 +58,8 @@
       <ObjectId>2200</ObjectId>
       <Comment>standard public schema</Comment>
       <Owner>api-platform</Owner>
-      <IntrospectionTimestamp>2019-02-12.22:38:41.406</IntrospectionTimestamp>
-      <IntrospectionStateNumber>663</IntrospectionStateNumber>
+      <IntrospectionTimestamp>2019-02-13.20:55:31.710</IntrospectionTimestamp>
+      <IntrospectionStateNumber>664</IntrospectionStateNumber>
       <Current>1</Current>
       <Visible>1</Visible>
     </schema>
@@ -218,7 +218,7 @@
     <table id="36" parent="11" name="user_perhaps">
       <ObjectId>40963</ObjectId>
       <Owner>api-platform</Owner>
-      <StateNumber>660</StateNumber>
+      <StateNumber>664</StateNumber>
     </table>
     <column id="37" parent="28" name="id">
       <Position>1</Position>
@@ -629,17 +629,24 @@
       <StateNumber>617</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <index id="99" parent="36" name="user_pkey">
+    <column id="99" parent="36" name="reset_token">
+      <Position>22</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <StateNumber>664</StateNumber>
+      <DefaultExpression>NULL::character varying</DefaultExpression>
+      <TypeId>1043</TypeId>
+    </column>
+    <index id="100" parent="36" name="user_pkey">
       <ObjectId>40969</ObjectId>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="100" parent="36" name="uniq_a3961b92e7927c74">
+    <index id="101" parent="36" name="uniq_a3961b92e7927c74">
       <ObjectId>73736</ObjectId>
       <ColNames>email</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="101" parent="36" name="user_pkey">
+    <key id="102" parent="36" name="user_pkey">
       <ObjectId>40970</ObjectId>
       <ColNames>id</ColNames>
       <UnderlyingIndexName>user_pkey</UnderlyingIndexName>
