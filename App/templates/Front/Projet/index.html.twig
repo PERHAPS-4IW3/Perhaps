@@ -12,8 +12,8 @@
 
         <div class="row flex">
             {% for projet in projets %}
-                <div class="col-3">
-                    <div class="card">
+                <div class="col-lg-4 d-flex align-items-stretch">
+                    <div class="card h-100">
                         <div class="card-body">
                             <h5 class="card-title">
                                 <a href="{{ path('projet_show', {id: projet.id, slug: projet.slug}) }}">{{ projet.nomProjet }}</a>
