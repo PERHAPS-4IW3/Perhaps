@@ -13,7 +13,9 @@ use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -68,4 +70,79 @@ class SecurityController extends AbstractController
         );
     }
 
+    /**
+     * @Route(name="forgottenPassword", path="/mot_de_passe_oublie")
+     * @param Request $request
+     * @param UserPasswordEncoderInterface $encoder
+     * @param \Swift_Mailer $mailer
+     * @param TokenGeneratorInterface $tokenGenerator
+     * @return Response
+     */
+    public function forgottenPassword(Request $request, UserPasswordEncoderInterface $encoder,
+        \Swift_Mailer $mailer, TokenGeneratorInterface $tokenGenerator): Response
+    {
+        if($request->isMethod('POST')){
+            $email = $request->request->get('email');
+            $em = $this->getDoctrine()->getManager();
+            $user = $em->getRepository(User::class)->findOneBy(['email' => $email]);
+
+
+            if($user === null){
+                $this->addFlash('danger', 'Email inconnu');
+                return $this->redirectToRoute('login');
+            }
+            $token = $tokenGenerator->generateToken();
+
+            try{
+                $user->setResetToken($token);
+                $em->flush();
+            } catch (\Exception $e) {
+                $this->addFlash('warning',$e->getMessage());
+            }
+
+            $url = $this->generateUrl('resetPassword', array('token' => $token), UrlGeneratorInterface::ABSOLUTE_URL);
+            $message = (new \Swift_Message('Mot de passe oublié'))
+                ->setFrom('noreply.perhaps@gmail.com')
+                ->setTo($user->getEmail())
+                ->setBody(
+                    "Voici le token pour réinitialiser votre mot de passe : " . $url,
+                    'text/html'
+                );
+
+            $mailer->send($message);
+            $this->addFlash('success', 'Un mail vous a été envoyé');
+            return $this->redirectToRoute('app_front_home');
+        }
+        return $this->render('Front/Security/recoverPassword.html.twig');
+    }
+
+    /**
+     * @Route(name="resetPassword", path="/reset_password/{token}")
+     * @param Request $request
+     * @param string $token
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     */
+    public function resetPassword(Request $request, string $token, UserPasswordEncoderInterface $passwordEncoder)
+    {
+        if($request->isMethod('POST')){
+            $em = $this->getDoctrine()->getManager();
+            $user = $em->getRepository(User::class)->findOneBy(array('resetToken' => $token));
+
+            if($user === null){
+                $this->addFlash('danger', 'Token inconnu');
+                return $this->redirectToRoute('app_front_home');
+            }
+
+            $user->setResetToken(null);
+            $user->setPassword($passwordEncoder->encodePassword($user, $request->request->get('password')));
+            $em->flush();
+
+            $this->addFlash('success', 'Mot de passe mis à jour');
+
+            return $this->redirectToRoute('app_front_home');
+        }else {
+            return $this->render('Front/Security/resetPassword.html.twig', ['token' => $token]);
+        }
+    }
 }
