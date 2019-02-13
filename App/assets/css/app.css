@@ -1,6 +1,17 @@
+* {-moz-box-sizing: border-box; box-sizing: border-box;}
+
+html {
+    height: 100%;
+}
+
 body {
     background-color: lightgray;
+    margin: 0;
+    padding-bottom: 17em;
+    min-height: 100%;
+    position: relative;
 }
+
 #page1cont {
     margin-top: 20px;
 }
@@ -62,7 +73,9 @@ ul, ol {
     transition: .22s ease;
 }
 #footer{
-    margin-top: 20px;
+   /*margin-top: 20px;*/
+    position: absolute;
+    bottom: 0;
 }
 #trophy{
     height: 50px;
