@@ -4,12 +4,13 @@
 
 {% block body %}
 
-        {% for user in users %}
+
         <section id="team" class="pb-5">
             <div class="container">
                 <h5 class="section-title h1">Nos Freelancers</h5>
-                <div class="row">
+                <div class="row flex">
                     <!-- les Freelancers -->
+                {% for user in users %}
                     <div class="col-xs-12 col-sm-6 col-md-4">
                         <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
                             <div class="mainflip">
@@ -34,17 +35,20 @@
                             </div>
                         </div>
                     </div>
+                {% else %}
+                    <tr>
+                        <td colspan="12">no records found</td>
+                    </tr>
+                {% endfor %}
                 </div>
+
             </div>
+
         </section>
 
 
 
-        {% else %}
-            <tr>
-                <td colspan="12">no records found</td>
-            </tr>
-        {% endfor %}
+
 
 
 

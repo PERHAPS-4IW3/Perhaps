@@ -32,7 +32,7 @@ class UserFixtures extends Fixture
         $faker = \Faker\Factory::create();
 
         $user = new User();
-        $user->setEmail('perhaps2@gmail.com');
+        $user->setEmail('perhaps5@gmail.com');
         $user->setPassword($this->encoder->encodePassword($user, 'demo'));
         $user->setRoles(['ROLE_USER']);
         $user->setNomUser($faker->lastName);

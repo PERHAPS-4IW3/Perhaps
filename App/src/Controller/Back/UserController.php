@@ -3,6 +3,8 @@
 namespace App\Controller\Back;
 
 use App\Entity\User;
+use App\Form\ChangePasswordType;
+use App\Form\PasswordType;
 use App\Form\User1Type;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -69,7 +71,7 @@ class UserController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('user_index');
+        return $this->redirectToRoute('app_front_home');
     }
 
     /**
@@ -79,6 +81,28 @@ class UserController extends AbstractController
     {
         return $this->render('Front/Freelancer/showFree.html.twig', [
             'users' => $userRepository->findAll(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/password", name="user_password", methods={"GET","POST"})
+     */
+    public function editPassword(Request $request, User $user): Response
+    {
+        $form = $this->createForm(ChangePasswordType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('user_show', [
+                'id' => $user->getId(),
+            ]);
+        }
+
+        return $this->render('Back/user/changePass.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
         ]);
     }
 }
