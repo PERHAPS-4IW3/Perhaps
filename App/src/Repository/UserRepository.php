@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -17,6 +18,40 @@ class UserRepository extends ServiceEntityRepository
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, User::class);
+    }
+
+    /**
+     * @return array
+     */
+    public function findFreelancers(User $search): array
+    {
+        $query = $this->findVisibleFreelancerQuery();
+
+        if($search->getNomUser() != "") {
+            $query = $query
+                ->andWhere('f.nomUser LIKE :nomUser')
+                ->andWhere('f.typeUser = 1')
+                ->setParameter('nomUser', '%'.$search->getNomUser().'%');
+            return $query->getQuery()->getResult();
+        }else {
+            return $query = $this->findLatest();
+        }
+    }
+    /**
+     * @return array
+     */
+    public function findLatest(): array
+    {
+        return $this->findVisibleFreelancerQuery()
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    private function findVisibleFreelancerQuery(): QueryBuilder
+    {
+        return $this->createQueryBuilder('f')
+            ->Where('f.typeUser = 1');
     }
 
     // /**

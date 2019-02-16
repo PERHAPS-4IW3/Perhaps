@@ -34,6 +34,23 @@ class ProjetRepository extends ServiceEntityRepository
     /**
      * @return array
      */
+    public function findProjects(Projet $search): array
+    {
+        $query = $this->createQueryBuilder('p');
+
+        if($search->getNomProjet() != "") {
+            $query = $query
+                ->Where('p.nomProjet LIKE :nomProjet')
+                ->setParameter('nomProjet', '%'.$search->getNomProjet().'%');
+            return $query->getQuery()->getResult();
+        }else {
+            return $this->findLatest();
+        }
+    }
+
+    /**
+     * @return array
+     */
     public function findLatest(): array
     {
         return $this->findVisibleQuery()
