@@ -103,6 +103,7 @@ class SecurityController extends AbstractController
                 $em->flush();
             } catch (\Exception $e) {
                 $this->addFlash('warning',$e->getMessage());
+                return $this->redirectToRoute('app_front_home');
             }
 
             $url = $this->generateUrl('resetPassword', array('token' => $token), UrlGeneratorInterface::ABSOLUTE_URL);
