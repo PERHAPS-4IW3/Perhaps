@@ -34,7 +34,6 @@ class SecurityController extends AbstractController
             'error' => $error,
             'lastUsername' => $lastUsername
         ]);
-
     }
 
     /**
@@ -45,6 +44,7 @@ class SecurityController extends AbstractController
      */
     public function registerAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
+
         if ($this->getUser() instanceof User) {
             return $this->redirectToRoute('app_front_home');
         }
@@ -55,6 +55,11 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if($request->query->get('role') == 'ROLE_USERl') {
+                $user->setTarifHoraireFreelancer(null);
+                $user->setNomSocieteFreelancer(null);
+                $user->setPresentationFreelancer(null);
+            }
             $password = $passwordEncoder->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
             //$user->setRoles(['ROLE_USER']);
