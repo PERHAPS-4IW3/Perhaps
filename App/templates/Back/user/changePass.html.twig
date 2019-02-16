@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification du mot de passe{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h1>Modification du mot de passe</h1>
+
+        {{ include('Back/user/_form.html.twig', {'button_label': 'Update'}) }}
+        <div class="">
+            <a href="{{ path('user_index') }}" class="btn btn-secondary">Revoir mes informations</a>
+
+        </div>
+    </div>
+{% endblock %}
