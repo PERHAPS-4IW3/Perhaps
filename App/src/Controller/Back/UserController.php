@@ -3,6 +3,7 @@
 namespace App\Controller\Back;
 
 use App\Entity\User;
+use App\Form\FreelancerSearchType;
 use App\Form\User1Type;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -75,10 +76,27 @@ class UserController extends AbstractController
     /**
      * @Route("/freelancer", name="free_index", methods={"GET"})
      */
-    public function indexFree(UserRepository $userRepository): Response
+    public function indexFree(UserRepository $userRepository, Request $request): Response
     {
-        return $this->render('Front/Freelancer/showFree.html.twig', [
-            'users' => $userRepository->findAll(),
+        $search = new User();
+        $form = $this->createForm(FreelancerSearchType::class, $search);
+        $form->handleRequest($request);
+
+        dump($search);
+        if($form->isSubmitted() && $form->isValid()){
+            $freelancers = $userRepository->findFreelancers($search);
+            dump($freelancers);
+            return $this->render('Front/freelancer/index.html.twig', [
+                'freelancers'   => $freelancers,
+                'form'          => $form->createView()
+            ]);
+        }
+
+        $freelancers = $userRepository->findLatest();
+        return $this->render('Front/freelancer/index.html.twig', [
+            'freelancers'       => $freelancers,
+            'form'              => $form->createView(),
+            'controller_name'   => 'freelancer',
         ]);
     }
 }

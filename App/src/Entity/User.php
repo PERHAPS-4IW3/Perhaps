@@ -24,11 +24,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=80, unique=true)
      * @Assert\Email()
-<<<<<<< HEAD
-     * @Assert\NotBlank
-=======
      * @Assert\NotBlank(groups={"registration"})
->>>>>>> feature/searchProjectFreelancer
      * @Assert\Length(max=80)
      */
     private $email;
@@ -36,7 +32,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $role;
+    private $roles;
 
     /**
      * @var string The hashed password
@@ -156,12 +152,12 @@ class User implements UserInterface
 
     public function getRole(): string
     {
-        return (string) $this->role;
+        return (string) $this->roles;
     }
 
-    public function setRole(string $role)
+    public function setRoles(string $roles)
     {
-        $this->role = $role;
+        $this->roles = $roles;
         return $this;
     }
     /**
@@ -169,7 +165,7 @@ class User implements UserInterface
      */
     public function getRoles(): array
     {
-       return array($this->role);
+       return array($this->roles);
         /*
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
