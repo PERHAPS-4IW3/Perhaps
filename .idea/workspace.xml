@@ -1,33 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1e461d8c-3f11-44ed-9991-c3df35988189" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/Perhaps.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/159693d6-ee62-4803-83fd-bca6700d4d3e.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/159693d6-ee62-4803-83fd-bca6700d4d3e/storage_v2/_src_/database/perhaps.WZuK1w.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/159693d6-ee62-4803-83fd-bca6700d4d3e/storage_v2/_src_/database/perhaps.WZuK1w/schema/public.abK9xQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/159693d6-ee62-4803-83fd-bca6700d4d3e/storage_v2/_src_/database/postgres.edMnLQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/159693d6-ee62-4803-83fd-bca6700d4d3e/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/src/Form/FreelancerSearchType.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/src/Form/ProjetSearchType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/src/Controller/Front/ContactController.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/src/Controller/Front/ContactController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/src/Controller/Front/FreelancerController.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/src/Controller/Front/FreelancerController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/src/Controller/Front/ProjetController.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/src/Controller/Front/ProjetController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/src/DataFixtures/UserFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/src/DataFixtures/UserFixtures.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/src/Entity/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/src/Form/FreelancerType.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/src/Form/FreelancerType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/src/Repository/ProjetRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/src/Repository/ProjetRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/src/Repository/UserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/src/Repository/UserRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/templates/Front/Projet/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/App/templates/Front/Projet/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/templates/Front/freelancer/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/App/templates/Front/freelancer/index.html.twig" afterDir="false" />
-    </list>
+    <list default="true" id="1e461d8c-3f11-44ed-9991-c3df35988189" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -423,18 +397,17 @@
       <option name="presentableId" value="Default" />
       <updated>1549631145745</updated>
       <workItem from="1549631162318" duration="13486000" />
-      <workItem from="1550254232131" duration="23953000" />
+      <workItem from="1550254232131" duration="24387000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37439000" />
+    <option name="totallyTimeSpent" value="37873000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18590604" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18590604" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Database Console" order="0" weight="0.32885906" />
@@ -448,7 +421,7 @@
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="9" weight="0.32885906" />
       <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49932885" visible="true" weight="0.32885906" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.49932885" visible="true" weight="0.32885906" />
       <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.50067115" side_tool="true" weight="0.32885906" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
