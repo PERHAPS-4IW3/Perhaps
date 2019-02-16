@@ -11,17 +11,33 @@
             {{ form_row(form.email) }}
             {{ form_row(form.password.first) }}
             {{ form_row(form.password.second) }}
-            {{ form_row(form.typeUser) }}
 
         <h1>Vos Informations de contact</h1>
 
-            {{ form_row(form.nomUser) }}
-            {{ form_row(form.prenomUser) }}
-            {{ form_row(form.telephoneUser) }}
-            {{ form_row(form.adresseUser) }}
-            {{ form_row(form.ville) }}
-            {{ form_row(form.codePostalUser) }}
-            {{ form_row(form.pays) }}
+        {{ form_row(form.role) }}
+
+        <div class="row">
+            <div class="col-md-6">{{ form_row(form.nomUser) }}</div>
+            <div class="col-md-6">{{ form_row(form.prenomUser) }}</div>
+        </div>
+
+        {{ form_row(form.adresseUser) }}
+
+        <div class="row">
+            <div class="col-md-6">{{ form_row(form.ville) }}</div>
+            <div class="col-md-6">{{ form_row(form.codePostalUser) }}</div>
+        </div>
+
+        {{ form_row(form.pays) }}
+
+        <div class="row">
+            <div class="col-md-6">{{ form_row(form.telephoneUser) }}</div>
+
+        </div>
+
+        {% if form.statut is defined %}
+            {{ form_row(form.statut) }}
+        {% endif %}
 
         <button type="submit" class="btn btn-primary">S'inscrire</button>
         {{ form_end(form) }}

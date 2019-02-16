@@ -7,6 +7,12 @@
     <div class="container mt-4">
         <h1>Connexion</h1>
 
+        {% for message in app.flashes('danger') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+
         {% if error %}
             <div class="alert alert-danger">
                 {{ error.messageKey | trans(error.messagedata, 'security')}}
@@ -17,7 +23,7 @@
 
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="text" id="email" name="_username" class="form-control" value="{{ lastUsername }}"/>
+                <input type="email" id="email" name="_username" class="form-control" value="{{ lastUsername }}"/>
             </div>
 
             <div class="form-group">
@@ -25,7 +31,12 @@
                 <input type="password" id="password" name="_password" class="form-control"/>
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
                 <br/>
-                <a href="#">Mot de passe oublié ?</a>
+                <div class="checkbox mb-3">
+                    <label>
+                        <input type="checkbox" name="_remember_me"> Se souvenir de moi
+                    </label>
+                </div>
+                <a href="{{ path('forgottenPassword') }}">Mot de passe oublié ?</a>
             </div>
 
             <button type="submit" class="btn btn-primary">Se connecter</button>
