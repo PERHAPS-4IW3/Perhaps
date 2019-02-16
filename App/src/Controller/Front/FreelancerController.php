@@ -2,23 +2,25 @@
 
 namespace App\Controller\Front;
 
-use App\Entity\Freelancer;
-use App\Repository\FreelancerRepository;
+use App\Entity\User;
+use App\Form\FreelancerSearchType;
+use App\Repository\UserRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class FreelancerController extends AbstractController
 {
     /**
      * @var ObjectManager
-     * @var FreelancerRepository
+     * @var UserRepository
      */
     private $em;
     private $repository;
 
-    public function __construct(FreelancerRepository $repository, ObjectManager $em)
+    public function __construct(UserRepository $repository, ObjectManager $em)
     {
         $this->repository = $repository;
         $this->em = $em;
@@ -26,10 +28,27 @@ class FreelancerController extends AbstractController
     /**
      * @Route("/freelancer", name="freelancer")
      */
-    public function index()
+    public function index(UserRepository $repository, Request $request) :Response
     {
+        $search = new User();
+        $form = $this->createForm(FreelancerSearchType::class, $search);
+        $form->handleRequest($request);
+
+        dump($search);
+        if($form->isSubmitted() && $form->isValid()){
+            $freelancers = $repository->findFreelancers($search);
+            dump($freelancers);
+            return $this->render('Front/freelancer/index.html.twig', [
+                'freelancers'   => $freelancers,
+                'form'          => $form->createView()
+            ]);
+        }
+
+        $freelancers = $repository->findLatest();
         return $this->render('Front/freelancer/index.html.twig', [
-            'controller_name' => 'freelancer',
+            'freelancers'       => $freelancers,
+            'form'              => $form->createView(),
+            'controller_name'   => 'freelancer',
         ]);
     }
 

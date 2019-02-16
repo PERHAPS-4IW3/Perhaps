@@ -29,7 +29,11 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=80, unique=true)
      * @Assert\Email()
+<<<<<<< HEAD
      * @Assert\NotBlank
+=======
+     * @Assert\NotBlank(groups={"registration"})
+>>>>>>> feature/searchProjectFreelancer
      * @Assert\Length(max=80)
      */
     private $email;
@@ -42,7 +46,7 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @Assert\NotBlank
+     * @Assert\NotBlank(groups={"registration"})
      */
     private $password;
 
@@ -99,6 +103,9 @@ class User implements UserInterface
      */
     private $typeUser;
 
+    /**
+     * User constructor.
+     */
     public function __construct()
     {
         $this->isActive = true;

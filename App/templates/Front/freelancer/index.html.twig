@@ -3,7 +3,20 @@
 {% block title %} Freelancers{% endblock %}
 
 {% block body %}
-
+    <div class="jumbotron">
+        <div class="container">
+            {{ form_start(form) }}
+            <div class="form-row">
+                <div class="col">
+                    {{ form_row(form.nomUser) }}
+                </div>
+                <div class="col">
+                    {{ form_row(form.submit) }}
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
     <div class="container">
 
 
@@ -12,23 +25,20 @@
     <div class="container">
         <h2>La liste des freelancers</h2>
         <div class="row flex">
-
+            {% for freelancer in freelancers %}
                 <div class="col-3">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">
-
+                                {{ freelancer.nomUser }}
                             </h5>
                             <p class="card-text">
-
+                                {{ freelancer.nomUser }} - {{ freelancer.prenomUser }}
                             </p>
-                            <div class="text-primary">
-
-                            </div>
                         </div>
                     </div>
                 </div>
-
+            {% endfor %}
         </div>
     </div>
 

@@ -22,7 +22,6 @@ class ContactController extends AbstractController
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             $contactFormData = $form->getData();
-            dump($contactFormData);
 
             $message = (new \Swift_Message($contactFormData['sujet']))
                 ->setFrom($contactFormData['mail'])
