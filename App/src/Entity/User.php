@@ -14,11 +14,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class User implements UserInterface
 {
-    const USERTYPE = [
-        0 => 'ROLE_USER',
-        1 => 'ROLE_FREELANCER'
-    ];
-
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -29,20 +24,24 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=80, unique=true)
      * @Assert\Email()
+<<<<<<< HEAD
      * @Assert\NotBlank
+=======
+     * @Assert\NotBlank(groups={"registration"})
+>>>>>>> feature/searchProjectFreelancer
      * @Assert\Length(max=80)
      */
     private $email;
 
     /**
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="string", length=255)
      */
-    private $roles = [];
+    private $role;
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @Assert\NotBlank
+     * @Assert\NotBlank(groups={"registration"})
      */
     private $password;
 
@@ -94,16 +93,30 @@ class User implements UserInterface
     private $isActive;
 
     /**
-     * @ORM\Column(type="integer")
-     * @Assert\NotBlank(groups={"registration"})
-     */
-    private $typeUser;
-
-    /**
      * @var string le token qui servira lors de l'oubli de mot de passe
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $resetToken;
+
+    /**
+     * @ORM\Column(type="string", length=150, nullable=true)
+     */
+    private $statut;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $tarifHoraireFreelancer;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $presentationFreelancer;
+
+    /**
+     * @ORM\Column(type="string", length=150, nullable=true)
+     */
+    private $nomSocieteFreelancer;
 
     /**
      * User constructor.
@@ -111,7 +124,7 @@ class User implements UserInterface
     public function __construct()
     {
         $this->isActive = true;
-        //$this->roles = ['ROLE_USER'];
+        $this->roles = [];
     }
 
     public function getId(): ?int
@@ -141,12 +154,22 @@ class User implements UserInterface
         return (string) $this->email;
     }
 
+    public function getRole(): string
+    {
+        return (string) $this->role;
+    }
+
+    public function setRole(string $role)
+    {
+        $this->role = $role;
+        return $this;
+    }
     /**
      * @see UserInterface
      */
     public function getRoles(): array
     {
-        return $this->roles;
+       return array($this->role);
         /*
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
@@ -155,22 +178,12 @@ class User implements UserInterface
         return array_unique($roles);*/
     }
 
-    public function setRoles(array $roles): self
+    /*public function setRoles(array $roles): self
     {
-        if($this->typeUser === 0){
-            $roles[] = 'ROLE_USER';
-        }
-        elseif($this->typeUser === 1 ){
-            $roles[] = 'ROLE_FREELANCER';
-        }
-        else{
-            $roles[] = 'ROLE_USER';
-        }
-
         $this->roles = $roles;
         return $this;
 
-    }
+    }*/
 
     /**
      * @see UserInterface
@@ -300,22 +313,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getTypeUser(): ?int
-    {
-        return $this->typeUser;
-    }
-
-    public function setTypeUser(int $typeUser): self
-    {
-        $this->typeUser = $typeUser;
-
-        return $this;
-    }
-
-    public function getUserType(): string
-    {
-        return self::USERTYPE[$this->typeUser];
-    }
 
     /**
      * @return string
@@ -328,11 +325,62 @@ class User implements UserInterface
     /**
      * @param string $resetToken
      */
-    public function setResetToken(string $resetToken): void
+    public function setResetToken(?string $resetToken): void
     {
         $this->resetToken = $resetToken;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getStatut(): ?string
+    {
+        return $this->statut;
+    }
+
+    /**
+     * @param mixed $statut
+     */
+    public function setStatut(?string $statut): void
+    {
+        $this->statut = $statut;
+    }
+
+    public function getTarifHoraireFreelancer(): ?int
+    {
+        return $this->tarifHoraireFreelancer;
+    }
+
+    public function setTarifHoraireFreelancer(int $tarifHoraireFreelancer): self
+    {
+        $this->tarifHoraireFreelancer = $tarifHoraireFreelancer;
+
+        return $this;
+    }
+
+    public function getPresentationFreelancer(): ?string
+    {
+        return $this->presentationFreelancer;
+    }
+
+    public function setPresentationFreelancer(string $presentationFreelancer): self
+    {
+        $this->presentationFreelancer = $presentationFreelancer;
+
+        return $this;
+    }
+
+    public function getNomSocieteFreelancer(): ?string
+    {
+        return $this->nomSocieteFreelancer;
+    }
+
+    public function setNomSocieteFreelancer(string $nomSocieteFreelancer): self
+    {
+        $this->nomSocieteFreelancer = $nomSocieteFreelancer;
+
+        return $this;
+    }
 
 
 }

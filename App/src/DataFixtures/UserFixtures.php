@@ -45,7 +45,23 @@ class UserFixtures extends Fixture
         $user->setTypeUser(0);
 
         $manager->persist($user);
-        $manager->flush();
 
+        for($i = 0; $i <10; $i++){
+            $userFreelancer = new User();
+            $userFreelancer->setEmail($faker->email);
+            $userFreelancer->setPassword($this->encoder->encodePassword($user, 'demo'));
+            $userFreelancer->setRoles(['ROLE_FREELANCER']);
+            $userFreelancer->setNomUser($faker->lastName);
+            $userFreelancer->setPrenomUser($faker->firstName);
+            $userFreelancer->setAdresseUser($faker->address);
+            $userFreelancer->setCodePostalUser($faker->postcode);
+            $userFreelancer->setVille($faker->city);
+            $userFreelancer->setPays($faker->country);
+            $userFreelancer->setTelephoneUser($faker->phoneNumber);
+            $userFreelancer->setTypeUser(1);
+            $manager->persist($userFreelancer);
+        }
+
+        $manager->flush();
     }
 }

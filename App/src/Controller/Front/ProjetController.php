@@ -9,9 +9,12 @@
 namespace App\Controller\Front;
 
 
+use App\Form\ProjetSearchType;
 use App\Repository\ProjetRepository;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Projet;
@@ -51,11 +54,24 @@ class ProjetController extends AbstractController
      *
      * @Route(name="projet_index", path="/projets")
      */
-    public function show_projets(ProjetRepository $repository): Response
+    public function show_projets(ProjetRepository $repository, Request $request): Response
     {
+        $search = new Projet();
+        $form = $this->createForm(ProjetSearchType::class, $search);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $projets = $repository->findProjects($search);
+            return $this->render('Front/Projet/index.html.twig', [
+                'projets'   => $projets,
+                'form'      => $form->createView()
+            ]);
+        }
+
         $projets = $repository->findLatest();
         return $this->render('Front/Projet/index.html.twig', [
-            'projets' => $projets
+            'projets'    => $projets,
+            'form'       => $form->createView()
         ]);
     }
     /**

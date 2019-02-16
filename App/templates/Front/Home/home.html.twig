@@ -59,6 +59,13 @@
 
     <div class="container" id="page1cont">
         <h2>Les derniers Projets</h2>
+        {% for label, messages in app.flashes(['success', 'danger', 'warning']) %}
+            {% for message in messages %}
+            <div class="alert alert-{{ label }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        {% endfor %}
         <div class="row flex">
             {% for projet in projets %}
                 <div class="col-lg-4 d-flex align-items-stretch" id="cardprj">
