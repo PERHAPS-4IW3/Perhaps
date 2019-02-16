@@ -72,8 +72,9 @@
         <div class="container">
             <div class="row row-30">
                 <div class="col-md-4 col-xl-5">
-                    <div class="pr-xl-4"><a class="brand" href="{{ path('app_front_home') }}"><img class="brand-logo-light" src="{{ asset('images/logo.png') }}" alt="" width="140" height="37" srcset="images/agency/logo-retina-inverse-280x74.png 2x"></a>
-                        <p>We are an award-winning creative agency, dedicated to the best result in web design, promotion, business consulting, and marketing.</p>
+                    <div class="pr-xl-4"><img class="brand-logo-light" src="{{ asset('images/logo.png') }}" alt="" width="180" height="120" srcset="images/agency/logo-retina-inverse-280x74.png 2x">
+                        <br>
+                        <!--<p>We are an award-winning creative agency, dedicated to the best result in web design, promotion, business consulting, and marketing.</p>-->
                         <!-- Rights-->
                         <p class="rights"><span>©  </span><span class="copyright-year">2019</span><span> </span><span>PERHAPS</span><span>. </span><span>All Rights Reserved.</span></p>
                     </div>
@@ -81,27 +82,21 @@
                 <div class="col-md-4">
                     <h3>Contacts</h3>
                     <dl class="contact-list">
-                        <dt>Address:</dt>
+                        <dt>Adresse</dt>
                         <dd>ESGI - 4IW3</dd>
                     </dl>
                     <dl class="contact-list">
-                        <dt>email:</dt>
+                        <dt>Email</dt>
                         <dd><a href="mailto:#">perhaps@gmail.com</a></dd>
-                    </dl>
-                    <dl class="contact-list">
-                        <dt>phones:</dt>
-                        <dd><a href="tel:#">+33</a>
-                        </dd>
                     </dl>
                 </div>
                 <div class="col-md-4 col-xl-3">
                     <h3>Links</h3>
                     <ul class="nav-list">
-                        <li><a href="#">Acceuil</a></li>
+                        <li><a href="{{ path('app_front_home') }}">Accueil</a></li>
                         <li><a href="{{ path('contact') }}">Contactez-nous</a></li>
-                        <li><a href="#">Projects</a></li>
+                        <li><a href="{{ path('projet_index') }}">Projets</a></li>
                         <li><a href="#{#{{ path('') }}#}">Qui sommes-nous?</a></li>
-                        <li><a href="#">Pricing</a></li>
                     </ul>
                 </div>
             </div>
@@ -124,7 +119,6 @@
             <script src="/build/runtime.js"></script>
             <script src="/build/app.js"></script> -->
     {% endblock %}
-
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>

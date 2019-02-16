@@ -18,11 +18,6 @@ class Freelancer
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=150)
-     */
-    private $statutFreelancer;
-
-    /**
      * @ORM\Column(type="integer")
      */
     private $tarifHoraireFreelancer;
@@ -40,18 +35,6 @@ class Freelancer
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getStatutFreelancer(): ?string
-    {
-        return $this->statutFreelancer;
-    }
-
-    public function setStatutFreelancer(string $statutFreelancer): self
-    {
-        $this->statutFreelancer = $statutFreelancer;
-
-        return $this;
     }
 
     public function getTarifHoraireFreelancer(): ?int

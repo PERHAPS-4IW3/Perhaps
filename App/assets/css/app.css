@@ -76,6 +76,8 @@ ul, ol {
    /*margin-top: 20px;*/
     position: absolute;
     bottom: 0;
+    right: 0;
+    left: 0;
 }
 #trophy{
     height: 50px;
