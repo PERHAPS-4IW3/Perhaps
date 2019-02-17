@@ -20,7 +20,7 @@ class CompetenceFixtures extends Fixture
 
         for($i = 0; $i <10; $i++){
             $competence = (new Competence())
-                ->setNomCompetence($faker->text);
+                ->setNomCompetence($faker->text(5));
             $manager->persist($competence);
 
         }
