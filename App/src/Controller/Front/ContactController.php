@@ -27,14 +27,14 @@ class ContactController extends AbstractController
                 ->setFrom($contactFormData['mail'])
                 ->setTo('noreply.perhaps@gmail.com')
                 ->setBody(
-                    "<html><body><h3>Prenom : ".$contactFormData['prenom'] ."<br /> Nom : "
-                    . $contactFormData['nom'] . "</h3><h4>"
-                    . $contactFormData['mail']. "</h4><p>vous a écrit un mail : </p><p>"
+                    "<html><body><h3>Prénom : ".$contactFormData['prenom'] ."<br /> Nom : "
+                    . $contactFormData['nom'] . "</h3><h4>Email : "
+                    . $contactFormData['mail']. "</h4><p>Contenu du mail : </p><p>"
                     . $contactFormData['message']."</p></body></html>",
                     'text/html'
                 );
             if($mailer->send($message)){
-                $this->addFlash('success', 'votre email a bien été envoyé');
+                $this->addFlash('success', 'Votre email a bien été envoyé');
                 return $this->redirectToRoute('contact');
             }
         }

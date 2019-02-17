@@ -38,23 +38,11 @@ class ProjetController extends AbstractController
 
     /**
      * @param ProjetRepository $repository
+     * @param Request $request
      * @return Response
-     * @Route(name="projet_front", path="/index", methods={"GET"})
+     * @Route(name="projet_index", path="/projets", methods={"GET"})
      */
-    public function index($repository): Response
-    {
-        $projets = $repository->findLatest();
-        return $this->render('Front/Projet/index.html.twig', [
-            'projets' => $projets
-        ]);
-    }
-    /**
-     * @param ProjetRepository $repository
-     * @return Response
-     *
-     * @Route(name="projet_index", path="/projets")
-     */
-    public function show_projets(ProjetRepository $repository, Request $request): Response
+    public function index(Request $request, ProjetRepository $repository): Response
     {
         $search = new Projet();
         $form = $this->createForm(ProjetSearchType::class, $search);
@@ -70,11 +58,14 @@ class ProjetController extends AbstractController
 
         $projets = $repository->findLatest();
         return $this->render('Front/Projet/index.html.twig', [
-            'projets'    => $projets,
-            'form'       => $form->createView()
+            'projets' => $projets,
+            'form'    => $form->createView()
         ]);
     }
+
     /**
+     * @param Projet $projet
+     * @param string $slug
      * @return Response
      * @Route(name="projet_show", path="/projets/{slug}-{id}", methods={"GET"}, requirements={"slug": "[a-z0-9\-]*"})
      */
