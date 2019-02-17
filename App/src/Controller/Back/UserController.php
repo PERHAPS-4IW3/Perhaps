@@ -27,7 +27,6 @@ class UserController extends AbstractController
         ]);
     }
 
-
     /**
      * @Route("/{id}/show", name="user_show", methods={"GET"})
      */

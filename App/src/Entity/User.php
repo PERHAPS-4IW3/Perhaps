@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Cocur\Slugify\Slugify;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -227,6 +228,12 @@ class User implements UserInterface
         $this->nomUser = $nomUser;
 
         return $this;
+    }
+
+    //Fonction Slug - Convertir un string en slug
+    public function getSlug(): string
+    {
+        return (new Slugify())->slugify($this->nomUser);
     }
 
     public function getPrenomUser(): ?string
