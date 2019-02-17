@@ -18,7 +18,7 @@ class ProjetSearchType extends AbstractType
                 'required' => true,
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'Nom du freelancer'
+                    'placeholder' => 'Nom du projet'
                 ]
             ])
             -> add('submit', SubmitType::class, [

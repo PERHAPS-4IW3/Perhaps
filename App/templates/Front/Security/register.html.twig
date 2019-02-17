@@ -12,7 +12,7 @@
             {{ form_row(form.password.first) }}
             {{ form_row(form.password.second) }}
 
-        <h1>Vos Informations de contact</h1>
+        <h1>Vos Informations Personnelles</h1>
 
         {{ form_row(form.role) }}
 
@@ -28,16 +28,21 @@
             <div class="col-md-6">{{ form_row(form.codePostalUser) }}</div>
         </div>
 
-        {{ form_row(form.pays) }}
-
         <div class="row">
+            <div class="col-md-6">{{ form_row(form.pays) }}</div>
             <div class="col-md-6">{{ form_row(form.telephoneUser) }}</div>
-
         </div>
 
-        {% if form.statut is defined %}
-            {{ form_row(form.statut) }}
-        {% endif %}
+        <div class="freelancerField">
+            <div class="row">
+                <div class="col-md-6">{{ form_row(form.nomSociete) }}</div>
+                <div class="col-md-6">{{ form_row(form.tarifHoraireFreelancer) }}</div>
+            </div>
+        </div>
+
+        <div class="freelancerField">
+            {{ form_row(form.presentationFreelancer) }}
+        </div>
 
         <button type="submit" class="btn btn-primary">S'inscrire</button>
         {{ form_end(form) }}

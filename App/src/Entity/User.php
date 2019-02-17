@@ -24,11 +24,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=80, unique=true)
      * @Assert\Email()
-<<<<<<< HEAD
-     * @Assert\NotBlank
-=======
-     * @Assert\NotBlank(groups={"registration"})
->>>>>>> feature/searchProjectFreelancer
+     * @Assert\NotBlank()
      * @Assert\Length(max=80)
      */
     private $email;
@@ -41,49 +37,50 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @Assert\NotBlank(groups={"registration"})
+     * @Assert\NotBlank()
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Assert\NotBlank(groups={"registration"})
+     * @Assert\NotBlank()
      */
     private $nomUser;
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Assert\NotBlank(groups={"registration"})
+     * @Assert\NotBlank()
      */
     private $prenomUser;
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Assert\NotBlank(groups={"registration"})
+     * @Assert\NotBlank()
      */
     private $telephoneUser;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(groups={"registration"})
+     * @Assert\NotBlank()
      */
     private $adresseUser;
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Assert\NotBlank(groups={"registration"})
+     * @Assert\NotBlank()
+     * @Assert\Regex("/^[0-9]{5}/")
      */
     private $codePostalUser;
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Assert\NotBlank(groups={"registration"})
+     * @Assert\NotBlank()
      */
     private $ville;
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Assert\NotBlank(groups={"registration"})
+     * @Assert\NotBlank()
      */
     private $pays;
 
@@ -99,12 +96,8 @@ class User implements UserInterface
     private $resetToken;
 
     /**
-     * @ORM\Column(type="string", length=150, nullable=true)
-     */
-    private $statut;
-
-    /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\Range(min=1, max=100)
      */
     private $tarifHoraireFreelancer;
 
@@ -116,7 +109,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=150, nullable=true)
      */
-    private $nomSocieteFreelancer;
+    private $nomSociete;
 
     /**
      * User constructor.
@@ -124,7 +117,7 @@ class User implements UserInterface
     public function __construct()
     {
         $this->isActive = true;
-        $this->roles = [];
+        //$this->roles = [];
     }
 
     public function getId(): ?int
@@ -370,14 +363,14 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getNomSocieteFreelancer(): ?string
+    public function getNomSociete(): ?string
     {
-        return $this->nomSocieteFreelancer;
+        return $this->nomSociete;
     }
 
-    public function setNomSocieteFreelancer(string $nomSocieteFreelancer): self
+    public function setNomSociete(string $nomSociete): self
     {
-        $this->nomSocieteFreelancer = $nomSocieteFreelancer;
+        $this->nomSociete = $nomSociete;
 
         return $this;
     }

@@ -34,7 +34,7 @@ class UserFixtures extends Fixture
         $user = new User();
         $user->setEmail('perhaps5@gmail.com');
         $user->setPassword($this->encoder->encodePassword($user, 'demo'));
-        $user->setRoles(['ROLE_USER']);
+        $user->setRole('ROLE_USER');
         $user->setNomUser($faker->lastName);
         $user->setPrenomUser($faker->firstName);
         $user->setAdresseUser($faker->address);
@@ -42,7 +42,6 @@ class UserFixtures extends Fixture
         $user->setVille($faker->city);
         $user->setPays($faker->country);
         $user->setTelephoneUser($faker->phoneNumber);
-        $user->setTypeUser(0);
 
         $manager->persist($user);
 
