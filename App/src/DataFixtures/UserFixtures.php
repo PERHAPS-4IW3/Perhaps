@@ -31,20 +31,24 @@ class UserFixtures extends Fixture
     {
         $faker = \Faker\Factory::create();
 
-        $user = new User();
-        $user->setEmail('perhaps2@gmail.com');
-        $user->setPassword($this->encoder->encodePassword($user, 'demo'));
-        $user->setRoles(['ROLE_USER']);
-        $user->setNomUser($faker->lastName);
-        $user->setPrenomUser($faker->firstName);
-        $user->setAdresseUser($faker->address);
-        $user->setCodePostalUser($faker->postcode);
-        $user->setVille($faker->city);
-        $user->setPays($faker->country);
-        $user->setTelephoneUser($faker->phoneNumber);
-        $user->setTypeUser(0);
+        for($i = 0; $i <20; $i++){
+            $user = new User();
+            $user->setEmail($faker->email);
+            $user->setPassword($this->encoder->encodePassword($user, 'demo'));
+            $user->setRoles(['ROLE_USER']);
+            $user->setNomUser($faker->lastName);
+            $user->setPrenomUser($faker->firstName);
+            $user->setAdresseUser($faker->address);
+            $user->setCodePostalUser($faker->postcode);
+            $user->setVille($faker->city);
+            $user->setPays($faker->country);
+            $user->setTelephoneUser($faker->phoneNumber);
+            $user->setTypeUser(0);
 
-        $manager->persist($user);
+            $manager->persist($user);
+        }
+
+
         $manager->flush();
 
     }

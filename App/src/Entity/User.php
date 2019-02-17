@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -106,11 +108,25 @@ class User implements UserInterface
     private $resetToken;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CompetencePosseder", mappedBy="user_Id", orphanRemoval=true)
+     */
+    private $listDesCompetences;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Participe", mappedBy="idUser", orphanRemoval=true)
+     */
+    private $listProjet;
+
+
+
+    /**
      * User constructor.
      */
     public function __construct()
     {
         $this->isActive = true;
+        $this->listDesCompetences = new ArrayCollection();
+        $this->listProjet = new ArrayCollection();
         //$this->roles = ['ROLE_USER'];
     }
 
@@ -333,6 +349,66 @@ class User implements UserInterface
         $this->resetToken = $resetToken;
     }
 
+    /**
+     * @return Collection|CompetencePosseder[]
+     */
+    public function getListDesCompetences(): Collection
+    {
+        return $this->listDesCompetences;
+    }
 
+    public function addListDesCompetence(CompetencePosseder $listDesCompetence): self
+    {
+        if (!$this->listDesCompetences->contains($listDesCompetence)) {
+            $this->listDesCompetences[] = $listDesCompetence;
+            $listDesCompetence->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeListDesCompetence(CompetencePosseder $listDesCompetence): self
+    {
+        if ($this->listDesCompetences->contains($listDesCompetence)) {
+            $this->listDesCompetences->removeElement($listDesCompetence);
+            // set the owning side to null (unless already changed)
+            if ($listDesCompetence->getUserId() === $this) {
+                $listDesCompetence->setUserId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Participe[]
+     */
+    public function getListProjet(): Collection
+    {
+        return $this->listProjet;
+    }
+
+    public function addListProjet(Participe $listProjet): self
+    {
+        if (!$this->listProjet->contains($listProjet)) {
+            $this->listProjet[] = $listProjet;
+            $listProjet->setIdUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeListProjet(Participe $listProjet): self
+    {
+        if ($this->listProjet->contains($listProjet)) {
+            $this->listProjet->removeElement($listProjet);
+            // set the owning side to null (unless already changed)
+            if ($listProjet->getIdUser() === $this) {
+                $listProjet->setIdUser(null);
+            }
+        }
+
+        return $this;
+    }
 
 }

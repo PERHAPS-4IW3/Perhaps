@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -63,9 +65,38 @@ class Projet
      */
     private $choixContact;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CompetenceProjet", mappedBy="idProjet", orphanRemoval=true)
+     */
+    private $listCompetence;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Facture", mappedBy="idProjet", cascade={"persist", "remove"})
+     */
+    private $facture;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Equipe", mappedBy="idProjet", orphanRemoval=true)
+     */
+    private $listDesEquipes;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\NoteEtCommentaire", mappedBy="idProjet", orphanRemoval=true)
+     */
+    private $listCommentaireEtNote;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Devis", mappedBy="projet", orphanRemoval=true)
+     */
+    private $listDevis;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
+        $this->listCompetence = new ArrayCollection();
+        $this->listDesEquipes = new ArrayCollection();
+        $this->listCommentaireEtNote = new ArrayCollection();
+        $this->listDevis = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -166,6 +197,147 @@ class Projet
     public function getChoixContactType(): string
     {
         return self::CONTACT[$this->choixContact];
+    }
+
+    /**
+     * @return Collection|CompetenceProjet[]
+     */
+    public function getListCompetence(): Collection
+    {
+        return $this->listCompetence;
+    }
+
+    public function addListCompetence(CompetenceProjet $listCompetence): self
+    {
+        if (!$this->listCompetence->contains($listCompetence)) {
+            $this->listCompetence[] = $listCompetence;
+            $listCompetence->setIdProjet($this);
+        }
+
+        return $this;
+    }
+
+    public function removeListCompetence(CompetenceProjet $listCompetence): self
+    {
+        if ($this->listCompetence->contains($listCompetence)) {
+            $this->listCompetence->removeElement($listCompetence);
+            // set the owning side to null (unless already changed)
+            if ($listCompetence->getIdProjet() === $this) {
+                $listCompetence->setIdProjet(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getFacture(): ?Facture
+    {
+        return $this->facture;
+    }
+
+    public function setFacture(Facture $facture): self
+    {
+        $this->facture = $facture;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $facture->getIdProjet()) {
+            $facture->setIdProjet($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Equipe[]
+     */
+    public function getListDesEquipes(): Collection
+    {
+        return $this->listDesEquipes;
+    }
+
+    public function addListDesEquipe(Equipe $listDesEquipe): self
+    {
+        if (!$this->listDesEquipes->contains($listDesEquipe)) {
+            $this->listDesEquipes[] = $listDesEquipe;
+            $listDesEquipe->setIdProjet($this);
+        }
+
+        return $this;
+    }
+
+    public function removeListDesEquipe(Equipe $listDesEquipe): self
+    {
+        if ($this->listDesEquipes->contains($listDesEquipe)) {
+            $this->listDesEquipes->removeElement($listDesEquipe);
+            // set the owning side to null (unless already changed)
+            if ($listDesEquipe->getIdProjet() === $this) {
+                $listDesEquipe->setIdProjet(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|NoteEtCommentaire[]
+     */
+    public function getListCommentaireEtNote(): Collection
+    {
+        return $this->listCommentaireEtNote;
+    }
+
+    public function addListCommentaireEtNote(NoteEtCommentaire $listCommentaireEtNote): self
+    {
+        if (!$this->listCommentaireEtNote->contains($listCommentaireEtNote)) {
+            $this->listCommentaireEtNote[] = $listCommentaireEtNote;
+            $listCommentaireEtNote->setIdProjet($this);
+        }
+
+        return $this;
+    }
+
+    public function removeListCommentaireEtNote(NoteEtCommentaire $listCommentaireEtNote): self
+    {
+        if ($this->listCommentaireEtNote->contains($listCommentaireEtNote)) {
+            $this->listCommentaireEtNote->removeElement($listCommentaireEtNote);
+            // set the owning side to null (unless already changed)
+            if ($listCommentaireEtNote->getIdProjet() === $this) {
+                $listCommentaireEtNote->setIdProjet(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Devis[]
+     */
+    public function getListDevis(): Collection
+    {
+        return $this->listDevis;
+    }
+
+    public function addListDevi(Devis $listDevi): self
+    {
+        if (!$this->listDevis->contains($listDevi)) {
+            $this->listDevis[] = $listDevi;
+            $listDevi->setProjet($this);
+        }
+
+        return $this;
+    }
+
+    public function removeListDevi(Devis $listDevi): self
+    {
+        if ($this->listDevis->contains($listDevi)) {
+            $this->listDevis->removeElement($listDevi);
+            // set the owning side to null (unless already changed)
+            if ($listDevi->getProjet() === $this) {
+                $listDevi->setProjet(null);
+            }
+        }
+
+        return $this;
     }
 
 }
