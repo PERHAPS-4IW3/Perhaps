@@ -19,6 +19,8 @@ class UserController extends AbstractController
 {
     /**
      * @Route("/", name="user_index", methods={"GET"})
+     * @param UserRepository $userRepository
+     * @return Response
      */
     public function index(UserRepository $userRepository): Response
     {
@@ -73,15 +75,6 @@ class UserController extends AbstractController
         return $this->redirectToRoute('app_front_home');
     }
 
-    /**
-     * @Route("/freelancer", name="free_index", methods={"GET"})
-     */
-    public function indexFree(UserRepository $userRepository): Response
-    {
-        return $this->render('Front/Freelancer/showFree.html.twig', [
-            'users' => $userRepository->findAll(),
-        ]);
-    }
 
     /**
      * @Route("/{id}/password", name="user_password", methods={"GET","POST"})

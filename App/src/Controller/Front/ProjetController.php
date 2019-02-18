@@ -41,24 +41,14 @@ class ProjetController extends AbstractController
 
     /**
      * @param ProjetRepository $repository
+     * @param Request $request
      * @return Response
-     * @Route(name="projet_front", path="/index", methods={"GET"})
+     * @Route(name="projet_index", path="/projets", methods={"GET"})
      */
-    public function index($repository): Response
+
+    public function index(Request $request, ProjetRepository $repository, PaginatorInterface $paginator): Response
     {
-        $projets = $repository->findLatest();
-        return $this->render('Front/Projet/index.html.twig', [
-            'projets' => $projets
-        ]);
-    }
-    /**
-     * @param ProjetRepository $repository
-     * @return Response
-     *
-     * @Route(name="projet_index", path="/projets")
-     */
-    public function show_projets(PaginatorInterface $paginator, Request $request): Response
-    {   $search = new Projet();
+        $search = new Projet();
         $form = $this->createForm(ProjetSearchType::class, $search);
         $form->handleRequest($request);
 
@@ -82,11 +72,14 @@ class ProjetController extends AbstractController
             3/*limit per page*/
         );
         return $this->render('Front/Projet/index.html.twig', [
-            'projets'    => $projets,
-            'form'       => $form->createView()
+            'projets' => $projets,
+            'form'    => $form->createView()
         ]);
     }
+
     /**
+     * @param Projet $projet
+     * @param string $slug
      * @return Response
      * @Route(name="projet_show", path="/projets/{slug}-{id}", methods={"GET"}, requirements={"slug": "[a-z0-9\-]*"})
      */

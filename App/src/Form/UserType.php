@@ -11,6 +11,8 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -36,8 +38,9 @@ class UserType extends AbstractType
                 'multiple'                  => false,
                 'expanded'                  => false,
                 'choices'                   => [
-                    'Freelancer'    => 'ROLE_FREELANCER',
-                    'Porteur de Projet' => 'ROLE_USER'
+                    ' '                 => null,
+                    'Porteur de Projet' => 'ROLE_USER',
+                    'Freelancer'        => 'ROLE_FREELANCER'
                 ]
             ])
             ->add('nomUser', TextType::class, ['label' => 'Nom'])
@@ -47,13 +50,13 @@ class UserType extends AbstractType
             ->add('codePostalUser', TextType::class, ['label' => 'Code Postal'])
             ->add('ville', TextType::class, ['label' => 'Ville'])
             ->add('pays', TextType::class, ['label' => 'Pays'])
-            //->add('statut', TextType::class, ['label' => 'Statut'])
-            /*->add('typeUser', ChoiceType::class, [
-                'choices' => $this->getUserType()
-            ])*/
+            ->add('nomSociete', TextType::class, ['label' => 'Nom de la société'])
+            ->add('tarifHoraireFreelancer', MoneyType::class, ['label' => 'Tarif Horaire Freelancer'])
+            ->add('presentationFreelancer', TextareaType::class, ['label' => 'Présentation'])
         ;
 
-        $builder->get('role')->addEventListener(
+
+        /*$builder->get('role')->addEventListener(
             FormEvents::POST_SUBMIT,
             function(FormEvent $event)
             {
@@ -67,7 +70,7 @@ class UserType extends AbstractType
                 }
             }
 
-        );
+        );*/
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -77,14 +80,5 @@ class UserType extends AbstractType
         ));
     }
 
-    /*private function getUserType()
-    {
-        $type = User::USERTYPE;
-        $output = [];
-        foreach ($type as $k => $v){
-            $output[$v] = $k;
-        }
-        return $output;
-    }*/
 
 }
