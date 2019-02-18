@@ -223,3 +223,7 @@ section .section-title {
 .carousel-item{
     height: 410px;
 }
+
+.freelancerField {
+    /*display: none;*/
+}

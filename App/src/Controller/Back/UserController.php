@@ -20,6 +20,8 @@ class UserController extends AbstractController
 {
     /**
      * @Route("/", name="user_index", methods={"GET"})
+     * @param UserRepository $userRepository
+     * @return Response
      */
     public function index(UserRepository $userRepository): Response
     {
@@ -27,7 +29,6 @@ class UserController extends AbstractController
             'users' => $userRepository->findAll(),
         ]);
     }
-
 
     /**
      * @Route("/{id}/show", name="user_show", methods={"GET"})
@@ -101,6 +102,7 @@ class UserController extends AbstractController
             'controller_name'   => 'freelancer',
         ]);
     }
+
 
     /**
      * @Route("/{id}/password", name="user_password", methods={"GET","POST"})

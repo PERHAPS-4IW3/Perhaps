@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Cocur\Slugify\Slugify;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -24,7 +25,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=80, unique=true)
      * @Assert\Email()
-     * @Assert\NotBlank(groups={"registration"})
+     * @Assert\NotBlank()
      * @Assert\Length(max=80)
      */
     private $email;
@@ -32,54 +33,55 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $roles;
+    private $role;
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @Assert\NotBlank(groups={"registration"})
+     * @Assert\NotBlank()
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Assert\NotBlank(groups={"registration"})
+     * @Assert\NotBlank()
      */
     private $nomUser;
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Assert\NotBlank(groups={"registration"})
+     * @Assert\NotBlank()
      */
     private $prenomUser;
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Assert\NotBlank(groups={"registration"})
+     * @Assert\NotBlank()
      */
     private $telephoneUser;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(groups={"registration"})
+     * @Assert\NotBlank()
      */
     private $adresseUser;
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Assert\NotBlank(groups={"registration"})
+     * @Assert\NotBlank()
+     * @Assert\Regex("/^[0-9]{5}/")
      */
     private $codePostalUser;
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Assert\NotBlank(groups={"registration"})
+     * @Assert\NotBlank()
      */
     private $ville;
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Assert\NotBlank(groups={"registration"})
+     * @Assert\NotBlank()
      */
     private $pays;
 
@@ -95,12 +97,8 @@ class User implements UserInterface
     private $resetToken;
 
     /**
-     * @ORM\Column(type="string", length=150, nullable=true)
-     */
-    private $statut;
-
-    /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\Range(min=1, max=100)
      */
     private $tarifHoraireFreelancer;
 
@@ -112,7 +110,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=150, nullable=true)
      */
-    private $nomSocieteFreelancer;
+    private $nomSociete;
 
     /**
      * User constructor.
@@ -120,7 +118,7 @@ class User implements UserInterface
     public function __construct()
     {
         $this->isActive = true;
-        $this->roles = [];
+        //$this->roles = [];
     }
 
     public function getId(): ?int
@@ -152,12 +150,12 @@ class User implements UserInterface
 
     public function getRole(): string
     {
-        return (string) $this->roles;
+        return (string) $this->role;
     }
 
-    public function setRoles(string $roles)
+    public function setRole(string $role)
     {
-        $this->roles = $roles;
+        $this->role = $role;
         return $this;
     }
     /**
@@ -165,7 +163,7 @@ class User implements UserInterface
      */
     public function getRoles(): array
     {
-       return array($this->roles);
+       return array($this->role);
         /*
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
@@ -223,6 +221,12 @@ class User implements UserInterface
         $this->nomUser = $nomUser;
 
         return $this;
+    }
+
+    //Fonction Slug - Convertir un string en slug
+    public function getSlug(): string
+    {
+        return (new Slugify())->slugify($this->nomUser);
     }
 
     public function getPrenomUser(): ?string
@@ -326,22 +330,6 @@ class User implements UserInterface
         $this->resetToken = $resetToken;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getStatut(): ?string
-    {
-        return $this->statut;
-    }
-
-    /**
-     * @param mixed $statut
-     */
-    public function setStatut(?string $statut): void
-    {
-        $this->statut = $statut;
-    }
-
     public function getTarifHoraireFreelancer(): ?int
     {
         return $this->tarifHoraireFreelancer;
@@ -366,14 +354,14 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getNomSocieteFreelancer(): ?string
+    public function getNomSociete(): ?string
     {
-        return $this->nomSocieteFreelancer;
+        return $this->nomSociete;
     }
 
-    public function setNomSocieteFreelancer(string $nomSocieteFreelancer): self
+    public function setNomSociete(string $nomSociete): self
     {
-        $this->nomSocieteFreelancer = $nomSocieteFreelancer;
+        $this->nomSociete = $nomSociete;
 
         return $this;
     }
