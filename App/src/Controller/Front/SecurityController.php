@@ -34,7 +34,6 @@ class SecurityController extends AbstractController
             'error' => $error,
             'lastUsername' => $lastUsername
         ]);
-
     }
 
     /**
@@ -45,19 +44,24 @@ class SecurityController extends AbstractController
      */
     public function registerAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
+
         if ($this->getUser() instanceof User) {
             return $this->redirectToRoute('app_front_home');
         }
         $user = new User();
-        $form = $this->createForm(UserType::class, $user, [
-            'validation_groups' => array('User', 'registration')
-        ]);
+        $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
+        dump($form);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if($request->query->get('role') == 'ROLE_USER') {
+                $user->setTarifHoraireFreelancer(null);
+                $user->setPresentationFreelancer(null);
+                $user->setNomSociete(null);
+            }
+
             $password = $passwordEncoder->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
-            //$user->setRoles(['ROLE_USER']);
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();

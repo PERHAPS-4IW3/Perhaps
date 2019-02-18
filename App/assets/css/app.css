@@ -18,9 +18,9 @@ body {
 #logo{
     height: 60px;
 }
-.jumbotron{
+#jamb{
     background-color: transparent!important;
-    color: #DDDDDD;
+    color: #FFFFFF;
 
 }
 .context-dark, .bg-gray-dark, .bg-primary {
@@ -76,6 +76,8 @@ ul, ol {
    /*margin-top: 20px;*/
     position: absolute;
     bottom: 0;
+    left:0;
+    right:0;
 }
 #trophy{
     height: 50px;
@@ -214,4 +216,14 @@ section .section-title {
     width: 120px;
     height: 120px;
     border-radius: 50%;
+}
+#cardprj{
+    margin-bottom: 15px !important;
+}
+.carousel-item{
+    height: 410px;
+}
+
+.freelancerField {
+    /*display: none;*/
 }

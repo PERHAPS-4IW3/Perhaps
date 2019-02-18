@@ -10,16 +10,15 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class FreelancerType extends AbstractType
 {
-public function buildForm(FormBuilderInterface $builder, array $options)
-{
-$builder
-->add('nomProjet')
-->add('descriptionProjet')
-->add('budget')
-->add('choixContact', ChoiceType::class, [
-'choices' => $this->getChoices()
-])
-->add('dateDebut')
-;
-}
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+            ->add('nomProjet')
+            ->add('descriptionProjet')
+            ->add('budget')
+            ->add('choixContact', ChoiceType::class, [
+                'choices' => $this->getChoices()
+            ])
+            ->add('dateDebut');
+    }
 }

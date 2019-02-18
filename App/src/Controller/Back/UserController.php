@@ -3,6 +3,8 @@
 namespace App\Controller\Back;
 
 use App\Entity\User;
+use App\Form\ChangePasswordType;
+use App\Form\PasswordType;
 use App\Form\User1Type;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,6 +19,8 @@ class UserController extends AbstractController
 {
     /**
      * @Route("/", name="user_index", methods={"GET"})
+     * @param UserRepository $userRepository
+     * @return Response
      */
     public function index(UserRepository $userRepository): Response
     {
@@ -24,7 +28,6 @@ class UserController extends AbstractController
             'users' => $userRepository->findAll(),
         ]);
     }
-
 
     /**
      * @Route("/{id}/show", name="user_show", methods={"GET"})
@@ -69,16 +72,29 @@ class UserController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('user_index');
+        return $this->redirectToRoute('app_front_home');
     }
 
+
     /**
-     * @Route("/freelancer", name="free_index", methods={"GET"})
+     * @Route("/{id}/password", name="user_password", methods={"GET","POST"})
      */
-    public function indexFree(UserRepository $userRepository): Response
+    public function editPassword(Request $request, User $user): Response
     {
-        return $this->render('Front/Freelancer/showFree.html.twig', [
-            'users' => $userRepository->findAll(),
+        $form = $this->createForm(ChangePasswordType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('user_show', [
+                'id' => $user->getId(),
+            ]);
+        }
+
+        return $this->render('Back/user/changePass.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
         ]);
     }
 }

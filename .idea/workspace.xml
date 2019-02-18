@@ -153,41 +153,56 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="css" value="1" />
-          <entry key="env" value="3" />
-          <entry key="gitignore" value="3" />
-          <entry key="js" value="4" />
-          <entry key="json" value="1" />
-          <entry key="lock" value="1" />
-          <entry key="php" value="1" />
-          <entry key="test" value="2" />
-          <entry key="twig" value="1" />
+          <entry key="env" value="1" />
+          <entry key="freelancer" value="1" />
+          <entry key="gitignore" value="1" />
+          <entry key="json" value="3" />
+          <entry key="lock" value="2" />
+          <entry key="php" value="54" />
+          <entry key="projet" value="4" />
+          <entry key="sql" value="11" />
+          <entry key="twig" value="5" />
+          <entry key="user_perhaps" value="7" />
+          <entry key="yaml" value="8" />
           <entry key="yml" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key=".env file" value="5" />
+          <entry key=".env file" value="1" />
           <entry key="CSS" value="1" />
-          <entry key="JSON" value="2" />
-          <entry key="JavaScript" value="4" />
-          <entry key="PHP" value="1" />
-          <entry key="PLAIN_TEXT" value="3" />
-          <entry key="Twig" value="1" />
-          <entry key="YAML" value="3" />
+          <entry key="Database Element" value="12" />
+          <entry key="JSON" value="5" />
+          <entry key="PHP" value="54" />
+          <entry key="PLAIN_TEXT" value="1" />
+          <entry key="Scratch" value="11" />
+          <entry key="Twig" value="5" />
+          <entry key="YAML" value="11" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
+          <entry key="css" value="42" />
+          <entry key="env" value="25" />
+          <entry key="lock" value="16" />
+          <entry key="php" value="3017" />
+          <entry key="sql" value="240" />
+          <entry key="twig" value="459" />
+          <entry key="yaml" value="31" />
           <entry key="gitignore" value="1" />
-          <entry key="twig" value="5" />
           <entry key="yml" value="14" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
+          <entry key=".env file" value="25" />
+          <entry key="CSS" value="42" />
+          <entry key="JSON" value="16" />
+          <entry key="PHP" value="3017" />
+          <entry key="Scratch" value="240" />
+          <entry key="Twig" value="459" />
+          <entry key="YAML" value="31" />
           <entry key="PLAIN_TEXT" value="1" />
-          <entry key="Twig" value="5" />
-          <entry key="YAML" value="14" />
         </counts>
       </usages-collector>
     </session>
@@ -468,6 +483,30 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/App/src/Form/ContactType.php" />
+        <option value="$PROJECT_DIR$/App/config/routes/annotations.yaml" />
+        <option value="$PROJECT_DIR$/App/templates/contact.html.twig" />
+        <option value="$PROJECT_DIR$/App/templates/base.html.twig" />
+        <option value="$PROJECT_DIR$/App/assets/css/app.css" />
+        <option value="$PROJECT_DIR$/App/.env" />
+        <option value="$PROJECT_DIR$/App/src/Form/UserType.php" />
+        <option value="$PROJECT_DIR$/App/src/Form/ProjetType.php" />
+        <option value="$PROJECT_DIR$/App/config/bundles.php" />
+        <option value="$PROJECT_DIR$/App/composer.json" />
+        <option value="$PROJECT_DIR$/App/composer.lock" />
+        <option value="$PROJECT_DIR$/App/templates/Front/Projet/index.html.twig" />
+        <option value="$PROJECT_DIR$/App/src/Controller/ContactController.php" />
+        <option value="$PROJECT_DIR$/App/src/Controller/Front/ProjetController.php" />
+        <option value="$PROJECT_DIR$/App/src/Form/FreelancerType.php" />
+        <option value="$PROJECT_DIR$/App/src/Form/ProjetSearchType.php" />
+        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/159693d6-ee62-4803-83fd-bca6700d4d3e/console.sql" />
+        <option value="$PROJECT_DIR$/App/src/Controller/Front/FreelancerController.php" />
+        <option value="$PROJECT_DIR$/App/src/Form/FreelancerSearchType.php" />
+        <option value="$PROJECT_DIR$/App/templates/Front/freelancer/index.html.twig" />
+        <option value="$PROJECT_DIR$/App/src/Repository/ProjetRepository.php" />
+        <option value="$PROJECT_DIR$/App/src/Repository/UserRepository.php" />
+        <option value="$PROJECT_DIR$/App/src/Entity/User.php" />
+        <option value="$PROJECT_DIR$/App/src/DataFixtures/UserFixtures.php" />
         <option value="$PROJECT_DIR$/App/assets/js/app.js" />
         <option value="$PROJECT_DIR$/App/webpack.config.js" />
         <option value="$PROJECT_DIR$/App/src/Controller/HomeController.php" />
@@ -781,7 +820,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -1011,6 +1049,68 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/App/src/Kernel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="32" column="35" selection-start-line="32" selection-start-column="35" selection-end-line="32" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/App/src/Controller/Front/HomeController.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/App/src/Controller/Back/ProjetController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-289" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/App/config/routes.yaml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/App/src/Form/ContactType.php" />
+    <entry file="file://$PROJECT_DIR$/App/config/routes/dev/web_profiler.yaml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/App/config/routes/dev/twig.yaml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/App/config/routes/annotations.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="17" lean-forward="true" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/App/templates/contact.html.twig" />
+    <entry file="file://$PROJECT_DIR$/App/templates/base.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="884">
+          <caret line="52" column="7" selection-start-line="52" selection-start-column="7" selection-end-line="52" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/App/assets/css/app.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/App/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="11" column="5" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/App/src/DataFixtures/AppFixtures.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/App/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="254" />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/App/src/Entity/Categorie.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="493">
@@ -1067,6 +1167,67 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="476">
           <caret line="28" selection-start-line="28" selection-end-line="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/App/docker-compose.yml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="das://159693d6-ee62-4803-83fd-bca6700d4d3e/database/perhaps/schema/public/table/freelancer">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/App/src/Form/ProjetType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="26" column="5" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
+          <folding>
+            <element signature="e#28#50#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/App/src/Form/UserType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="30" column="5" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/App/config/packages/knp_paginator.yml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/App/composer.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="35" selection-start-line="8" selection-start-column="35" selection-end-line="8" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/App/composer.lock">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="1452" column="14" selection-start-line="1452" selection-start-column="14" selection-end-line="1452" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/App/config/bundles.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="100" selection-start-line="17" selection-start-column="100" selection-end-line="17" selection-end-column="100" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/App/src/Controller/ContactController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="20" column="48" selection-start-line="20" selection-start-column="48" selection-end-line="20" selection-end-column="48" />
+          <folding>
+            <element signature="e#34#59#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

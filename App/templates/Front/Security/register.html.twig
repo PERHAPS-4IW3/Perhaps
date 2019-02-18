@@ -11,17 +11,38 @@
             {{ form_row(form.email) }}
             {{ form_row(form.password.first) }}
             {{ form_row(form.password.second) }}
-            {{ form_row(form.typeUser) }}
 
-        <h1>Vos Informations de contact</h1>
+        <h1>Vos Informations Personnelles</h1>
 
-            {{ form_row(form.nomUser) }}
-            {{ form_row(form.prenomUser) }}
-            {{ form_row(form.telephoneUser) }}
-            {{ form_row(form.adresseUser) }}
-            {{ form_row(form.ville) }}
-            {{ form_row(form.codePostalUser) }}
-            {{ form_row(form.pays) }}
+        {{ form_row(form.role) }}
+
+        <div class="row">
+            <div class="col-md-6">{{ form_row(form.nomUser) }}</div>
+            <div class="col-md-6">{{ form_row(form.prenomUser) }}</div>
+        </div>
+
+        {{ form_row(form.adresseUser) }}
+
+        <div class="row">
+            <div class="col-md-6">{{ form_row(form.ville) }}</div>
+            <div class="col-md-6">{{ form_row(form.codePostalUser) }}</div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">{{ form_row(form.pays) }}</div>
+            <div class="col-md-6">{{ form_row(form.telephoneUser) }}</div>
+        </div>
+
+        <div class="freelancerField">
+            <div class="row">
+                <div class="col-md-6">{{ form_row(form.nomSociete) }}</div>
+                <div class="col-md-6">{{ form_row(form.tarifHoraireFreelancer) }}</div>
+            </div>
+        </div>
+
+        <div class="freelancerField">
+            {{ form_row(form.presentationFreelancer) }}
+        </div>
 
         <button type="submit" class="btn btn-primary">S'inscrire</button>
         {{ form_end(form) }}
