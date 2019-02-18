@@ -330,22 +330,6 @@ class User implements UserInterface
         $this->resetToken = $resetToken;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getStatut(): ?string
-    {
-        return $this->statut;
-    }
-
-    /**
-     * @param mixed $statut
-     */
-    public function setStatut(?string $statut): void
-    {
-        $this->statut = $statut;
-    }
-
     public function getTarifHoraireFreelancer(): ?int
     {
         return $this->tarifHoraireFreelancer;
@@ -381,6 +365,5 @@ class User implements UserInterface
 
         return $this;
     }
-
 
 }

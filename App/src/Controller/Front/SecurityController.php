@@ -19,6 +19,7 @@ use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 class SecurityController extends AbstractController
 {
     /**
@@ -65,6 +66,8 @@ class SecurityController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
+
+            $this->addFlash('success', 'Vous êtes bien inscrit !');
             return $this->redirectToRoute('login');
         }
         return $this->render(
