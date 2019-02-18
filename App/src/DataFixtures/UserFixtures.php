@@ -49,7 +49,7 @@ class UserFixtures extends Fixture
             $userFreelancer = new User();
             $userFreelancer->setEmail($faker->email);
             $userFreelancer->setPassword($this->encoder->encodePassword($user, 'demo'));
-            $userFreelancer->setRoles(['ROLE_FREELANCER']);
+            $userFreelancer->setRoles('ROLE_FREELANCER');
             $userFreelancer->setNomUser($faker->lastName);
             $userFreelancer->setPrenomUser($faker->firstName);
             $userFreelancer->setAdresseUser($faker->address);
@@ -57,7 +57,6 @@ class UserFixtures extends Fixture
             $userFreelancer->setVille($faker->city);
             $userFreelancer->setPays($faker->country);
             $userFreelancer->setTelephoneUser($faker->phoneNumber);
-            $userFreelancer->setTypeUser(1);
             $manager->persist($userFreelancer);
         }
 
