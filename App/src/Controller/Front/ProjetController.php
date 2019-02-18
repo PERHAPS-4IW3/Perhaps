@@ -10,6 +10,9 @@ namespace App\Controller\Front;
 
 
 use App\Form\ProjetSearchType;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\Asset\Package;
+use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 use App\Repository\ProjetRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -42,21 +45,32 @@ class ProjetController extends AbstractController
      * @return Response
      * @Route(name="projet_index", path="/projets", methods={"GET"})
      */
-    public function index(Request $request, ProjetRepository $repository): Response
+
+    public function index(Request $request, ProjetRepository $repository, PaginatorInterface $paginator): Response
     {
         $search = new Projet();
         $form = $this->createForm(ProjetSearchType::class, $search);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-            $projets = $repository->findProjects($search);
+
+            $projets = $paginator->paginate(
+                $this->repository->findProjects($search),
+                $request->query->getInt('page', 1),
+                3/*limit per page*/
+            );
+
             return $this->render('Front/Projet/index.html.twig', [
                 'projets'   => $projets,
                 'form'      => $form->createView()
             ]);
         }
 
-        $projets = $repository->findLatest();
+        $projets = $paginator->paginate(
+            $this->repository->findAllVisibleQuery(),
+            $request->query->getInt('page', 1),
+            3/*limit per page*/
+        );
         return $this->render('Front/Projet/index.html.twig', [
             'projets' => $projets,
             'form'    => $form->createView()

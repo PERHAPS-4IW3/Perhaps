@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Projet;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -30,6 +31,17 @@ class ProjetRepository extends ServiceEntityRepository
             ->getResult()
             ;
     }
+
+    /**
+     * @return Query
+     */
+
+    public function findAllVisibleQuery(): Query
+    {
+        return $this->findVisibleQuery()
+            ->getQuery();
+    }
+
 
     /**
      * @return array
