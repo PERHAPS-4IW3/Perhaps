@@ -346,6 +346,7 @@ class User implements UserInterface
         $this->resetToken = $resetToken;
     }
 
+
     /**
      * @return Collection|CompetencePosseder[]
      */
@@ -436,6 +437,7 @@ class User implements UserInterface
         $this->nomSociete = $nomSociete;
         return $this;
     }
+
 
     public function removeListProjet(Participe $listProjet): self
     {

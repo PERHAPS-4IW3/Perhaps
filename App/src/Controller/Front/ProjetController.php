@@ -40,8 +40,9 @@ class ProjetController extends AbstractController
     }
 
     /**
-     * @param ProjetRepository $repository
      * @param Request $request
+     * @param ProjetRepository $repository
+     * @param PaginatorInterface $paginator
      * @return Response
      * @Route(name="projet_index", path="/projets", methods={"GET"})
      */

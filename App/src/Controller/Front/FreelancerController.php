@@ -47,10 +47,8 @@ class FreelancerController extends AbstractController
         $form = $this->createForm(FreelancerSearchType::class, $search);
         $form->handleRequest($request);
 
-        dump($search);
         if($form->isSubmitted() && $form->isValid()){
             $freelancers = $repository->findFreelancers($search);
-            dump($freelancers);
             return $this->render('Front/freelancer/index.html.twig', [
                 'freelancers'   => $freelancers,
                 'form'          => $form->createView()

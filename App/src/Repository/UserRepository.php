@@ -42,7 +42,6 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
         if($search->getNomUser() != "") {
             $query = $query
                 ->andWhere('f.nomUser LIKE :nomUser')
-                ->andWhere('f.typeUser = 1')
                 ->setParameter('nomUser', '%'.$search->getNomUser().'%');
             return $query->getQuery()->getResult();
         }else {
@@ -63,7 +62,7 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
     private function findVisibleFreelancerQuery(): QueryBuilder
     {
         return $this->createQueryBuilder('f')
-            ->Where('f.typeUser = 1');
+            ->Where("f.roles = 'ROLE_FREELANCER'");
     }
 
     // /**
