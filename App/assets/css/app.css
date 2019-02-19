@@ -221,5 +221,10 @@ section .section-title {
     margin-bottom: 15px !important;
 }
 .carousel-item{
-    height: 410px;
+
+    height:70vh;
+}
+.d-block{
+    height:100%;
+    width: 100%;
 }

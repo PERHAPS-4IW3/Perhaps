@@ -30,11 +30,11 @@ class UserFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $faker = \Faker\Factory::create();
-
+        for($i = 0; $i <10; $i++){
         $user = new User();
-        $user->setEmail('perhaps5@gmail.com');
+        $user->setEmail($faker->email);
         $user->setPassword($this->encoder->encodePassword($user, 'demo'));
-        $user->setRoles(['ROLE_USER']);
+        $user->setRole('ROLE_USER');
         $user->setNomUser($faker->lastName);
         $user->setPrenomUser($faker->firstName);
         $user->setAdresseUser($faker->address);
@@ -42,11 +42,10 @@ class UserFixtures extends Fixture
         $user->setVille($faker->city);
         $user->setPays($faker->country);
         $user->setTelephoneUser($faker->phoneNumber);
-        $user->setTypeUser(0);
 
         $manager->persist($user);
 
-        for($i = 0; $i <10; $i++){
+       /* for($i = 0; $i <10; $i++){
             $userFreelancer = new User();
             $userFreelancer->setEmail($faker->email);
             $userFreelancer->setPassword($this->encoder->encodePassword($user, 'demo'));
@@ -60,8 +59,8 @@ class UserFixtures extends Fixture
             $userFreelancer->setTelephoneUser($faker->phoneNumber);
             $userFreelancer->setTypeUser(1);
             $manager->persist($userFreelancer);
-        }
+        }*/
 
         $manager->flush();
-    }
+    }}
 }
