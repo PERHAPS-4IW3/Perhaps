@@ -86,7 +86,7 @@ class User implements UserInterface
     private $pays;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default" : true})
      */
     private $isActive;
 
@@ -312,7 +312,6 @@ class User implements UserInterface
 
         return $this;
     }
-
 
     /**
      * @return string
