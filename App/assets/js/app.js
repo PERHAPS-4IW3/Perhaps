@@ -20,3 +20,22 @@ require('jquery');
 $(document).ready(function () {
     $('.dropdown-toggle').dropdown();
 });
+
+//Dès lors qu'on modifie le 'selected list'
+//Si la valeur est Freelancer alors on affiche les champs le concernant et on les rend obligatoire
+$(document).ready(function(){
+    $('#user_role').change(function() {
+        if ($('option:selected', $(this)).html() === 'Freelancer') {
+            $('.freelancerField').css("display", "block");
+            $('#user_nomSociete').attr('required', true);
+            $('#user_tarifHoraireFreelancer').attr('required', true);
+            $('#user_presentationFreelancer').attr('required', true);
+        }else{
+            console.log("Je suis un Porteur de projet");
+            $('.freelancerField').css("display", "none");
+            $('#user_nomSociete').attr('required', false);
+            $('#user_tarifHoraireFreelancer').attr('required', false);
+            $('#user_presentationFreelancer').attr('required', false);
+        }
+    });
+});

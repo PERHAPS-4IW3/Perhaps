@@ -3,6 +3,7 @@
 namespace App\Controller\Back;
 
 use App\Entity\User;
+use App\Form\FreelancerSearchType;
 use App\Form\ChangePasswordType;
 use App\Form\PasswordType;
 use App\Form\User1Type;
@@ -24,6 +25,8 @@ class UserController extends AbstractController
 {
     /**
      * @Route("/", name="user_index", methods={"GET"})
+     * @param UserRepository $userRepository
+     * @return Response
      */
     public function index(UserRepository $userRepository): Response
     {
@@ -31,7 +34,6 @@ class UserController extends AbstractController
             'users' => $userRepository->findAll(),
         ]);
     }
-
 
     /**
      * @Route("/{id}/show", name="user_show", methods={"GET"})
@@ -89,12 +91,30 @@ class UserController extends AbstractController
     /**
      * @Route("/freelancer", name="free_index", methods={"GET"})
      */
-    public function indexFree(UserRepository $userRepository): Response
+    public function indexFree(UserRepository $userRepository, Request $request): Response
     {
-        return $this->render('Front/Freelancer/showFree.html.twig', [
-            'users' => $userRepository->findAll(),
+        $search = new User();
+        $form = $this->createForm(FreelancerSearchType::class, $search);
+        $form->handleRequest($request);
+
+        dump($search);
+        if($form->isSubmitted() && $form->isValid()){
+            $freelancers = $userRepository->findFreelancers($search);
+            dump($freelancers);
+            return $this->render('Front/freelancer/index.html.twig', [
+                'freelancers'   => $freelancers,
+                'form'          => $form->createView()
+            ]);
+        }
+
+        $freelancers = $userRepository->findLatest();
+        return $this->render('Front/freelancer/index.html.twig', [
+            'freelancers'       => $freelancers,
+            'form'              => $form->createView(),
+            'controller_name'   => 'freelancer',
         ]);
     }
+
 
     /**
      * @Route("/{id}/password", name="user_password", methods={"GET","POST"})

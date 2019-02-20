@@ -19,6 +19,7 @@ use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 class SecurityController extends AbstractController
 {
     /**
@@ -49,23 +50,24 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('app_front_home');
         }
         $user = new User();
-        $form = $this->createForm(UserType::class, $user, [
-            'validation_groups' => array('User', 'registration')
-        ]);
+        $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
+        dump($form);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if($request->query->get('role') == 'ROLE_USERl') {
+            if($request->query->get('role') == 'ROLE_USER') {
                 $user->setTarifHoraireFreelancer(null);
-                $user->setNomSocieteFreelancer(null);
                 $user->setPresentationFreelancer(null);
+                $user->setNomSociete(null);
             }
+
             $password = $passwordEncoder->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
-            //$user->setRoles(['ROLE_USER']);
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
+
+            $this->addFlash('success', 'Vous êtes bien inscrit !');
             return $this->redirectToRoute('login');
         }
         return $this->render(

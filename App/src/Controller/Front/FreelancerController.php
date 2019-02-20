@@ -25,19 +25,30 @@ class FreelancerController extends AbstractController
         $this->repository = $repository;
         $this->em = $em;
     }
+
+    /**
+     * @Route("/freelancer", name="free_index", methods={"GET"})
+     * @param UserRepository $userRepository
+     * @return Response
+     */
+    public function index(UserRepository $userRepository): Response
+    {
+        return $this->render('Front/Freelancer/showFree.html.twig', [
+            'users' => $userRepository->findAll(),
+        ]);
+    }
+
     /**
      * @Route("/freelancer", name="freelancer")
      */
-    public function index(UserRepository $repository, Request $request) :Response
+   /* public function index(UserRepository $repository, Request $request) :Response
     {
         $search = new User();
         $form = $this->createForm(FreelancerSearchType::class, $search);
         $form->handleRequest($request);
 
-        dump($search);
         if($form->isSubmitted() && $form->isValid()){
             $freelancers = $repository->findFreelancers($search);
-            dump($freelancers);
             return $this->render('Front/freelancer/index.html.twig', [
                 'freelancers'   => $freelancers,
                 'form'          => $form->createView()
@@ -50,7 +61,7 @@ class FreelancerController extends AbstractController
             'form'              => $form->createView(),
             'controller_name'   => 'freelancer',
         ]);
-    }
+    }*/
 
     /**
      * @param FreelancerRepository $repository

@@ -221,10 +221,14 @@ section .section-title {
     margin-bottom: 15px !important;
 }
 .carousel-item{
-
     height:70vh;
 }
+
 .d-block{
     height:100%;
     width: 100%;
+}
+
+.freelancerField {
+    /*display: none;*/
 }
