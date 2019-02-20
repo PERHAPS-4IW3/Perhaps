@@ -17,7 +17,7 @@ class ProjetFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        /*$faker = \Faker\Factory::create();
+        $faker = \Faker\Factory::create();
 
         for($i = 0; $i <10; $i++){
             $projet = (new Projet())
@@ -29,6 +29,6 @@ class ProjetFixtures extends Fixture
                 $manager->persist($projet);
 
         }
-        $manager->flush();*/
+        $manager->flush();
     }
 }

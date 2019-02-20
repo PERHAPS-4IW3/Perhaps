@@ -11,7 +11,12 @@ use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
 
 /**
  * @Route("/user")
@@ -41,7 +46,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="user_edit", methods={"GET","POST"})
+     * @Route("/{id}", name="user_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, User $user): Response
     {
@@ -63,16 +68,23 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/delete", name="user_delete", methods={"DELETE"})
+     * @Route("/{id}", name="user_delete", methods={"DELETE"})
+     * @param Request $request
+     * @param User $user
+     * @param SessionInterface $session
+     * @param TokenStorageInterface $tokenStorage
+     * @return Response
      */
-    public function delete(Request $request, User $user): Response
+    public function delete(Request $request, User $user, SessionInterface $session, TokenStorageInterface $tokenStorage)
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($user);
             $entityManager->flush();
+            $tokenStorage->setToken(null);
+            $session->invalidate();
+            /*return new Response('suppression');*/
         }
-
         return $this->redirectToRoute('app_front_home');
     }
 
@@ -106,22 +118,29 @@ class UserController extends AbstractController
 
     /**
      * @Route("/{id}/password", name="user_password", methods={"GET","POST"})
+     * @param Request $request
+     * @param User $user
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @return Response
      */
-    public function editPassword(Request $request, User $user): Response
+    public function editPassword(Request $request, User $user, UserPasswordEncoderInterface $passwordEncoder): Response
     {
+
         $form = $this->createForm(ChangePasswordType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $em=$this->getDoctrine()->getManager();
+            $password = $passwordEncoder->encodePassword($user, $user->getPassword());
+            $user->setPassword($password);
+            $em->persist($user);
+            $em->flush();
+            $this->addFlash('notice', 'Votre mot de passe à bien été changé !');
 
-            return $this->redirectToRoute('user_show', [
-                'id' => $user->getId(),
-            ]);
+            return $this->redirectToRoute('login');
         }
 
         return $this->render('Back/user/changePass.html.twig', [
-            'user' => $user,
             'form' => $form->createView(),
         ]);
     }

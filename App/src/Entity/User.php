@@ -210,6 +210,33 @@ class User implements UserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
+    /** @see \Serializable::serialize() */
+    public function serialize() {
+        return serialize(array(
+            $this->id,
+            $this->email,
+            $this->role,
+            $this->password,
+            $this->isActive,
+            // see section on salt below
+            // $this->salt,
+        ));
+    }
+
+    /** @see \Serializable::unserialize()
+     * @param $serialized
+     */
+    public function unserialize($serialized) {
+        list (
+            $this->id,
+            $this->email,
+            $this->role,
+            $this->password,
+            $this->isActive,
+            // see section on salt below
+            // $this->salt
+            ) = unserialize($serialized);
+    }
 
     public function getNomUser(): ?string
     {
