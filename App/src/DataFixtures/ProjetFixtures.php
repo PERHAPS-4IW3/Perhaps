@@ -25,7 +25,9 @@ class ProjetFixtures extends Fixture
                 ->setDescriptionProjet($faker->paragraph)
                 ->setBudget($faker->numberBetween(100, 100000))
                 ->setChoixContact($faker->numberBetween(0, 1))
-                ->setDateDebut($faker->dateTime);
+                ->setDateDebut($faker->dateTime)
+                ->setCreatedAt($faker->dateTime)
+                ->setIsVisible($faker->boolean);
                 $manager->persist($projet);
 
         }
