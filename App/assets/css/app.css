@@ -72,6 +72,7 @@ ul, ol {
     visibility: hidden;
     transition: .22s ease;
 }
+
 #footer{
    /*margin-top: 20px;*/
     position: absolute;
@@ -79,17 +80,15 @@ ul, ol {
     left:0;
     right:0;
 }
+
 #trophy{
     height: 50px;
 }
+
 #h3{
     margin-top: auto;
+    padding-left: 20px;
 }
-#home-div{
-    margin-top: 10px;
-}
-
-
 
 #team {
     background: #eee !important;

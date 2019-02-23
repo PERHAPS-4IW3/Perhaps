@@ -73,7 +73,7 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
     private function findVisibleFreelancerQuery(): QueryBuilder
     {
         return $this->createQueryBuilder('f')
-            ->Where("f.roles = 'ROLE_FREELANCER'");
+            ->Where("f.role = 'ROLE_FREELANCER'");
     }
 
     private function findVisibleQuery(): QueryBuilder

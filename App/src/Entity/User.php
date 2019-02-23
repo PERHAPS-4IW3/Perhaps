@@ -109,12 +109,22 @@ class User implements UserInterface, \Serializable
     private $isActive;
 
     /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $passwordRequestedAt;
+
+    /**
      * @var string le token qui servira lors de l'oubli de mot de passe
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $resetToken;
 
     /**
+     * @var string le token qui servira lors de la confirmation du mail
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $confirmationToken;
+
      * @ORM\OneToMany(targetEntity="App\Entity\CompetencePosseder", mappedBy="user_Id", orphanRemoval=true)
      */
     private $listDesCompetences;
@@ -156,13 +166,11 @@ class User implements UserInterface, \Serializable
      */
     public function __construct()
     {
-        $this->isActive = true;
-
+        $this->isActive = false;
         $this->listDesCompetences = new ArrayCollection();
         $this->listProjet = new ArrayCollection();
         $this->projetGerer = new ArrayCollection();
         //$this->roles = ['ROLE_USER'];
-        //$this->roles = [];
     }
 
     public function getId(): ?int
@@ -357,6 +365,17 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
+    //contrôler la validité du token
+    public function getPasswordRequestedAt()
+    {
+        return $this->passwordRequestedAt;
+    }
+
+    public function setPasswordRequestedAt($passwordRequestedAt): void
+    {
+        $this->passwordRequestedAt = $passwordRequestedAt;
+    }
+
     /**
      * @return string
      */
@@ -365,14 +384,19 @@ class User implements UserInterface, \Serializable
         return $this->resetToken;
     }
 
-    /**
-     * @param string $resetToken
-     */
     public function setResetToken(?string $resetToken): void
     {
         $this->resetToken = $resetToken;
     }
 
+    public function getConfirmationToken(): string
+    {
+        return $this->confirmationToken;
+    }
+
+    public function setConfirmationToken(?string $confirmationToken): void
+    {
+        $this->confirmationToken = $confirmationToken;
 
     /**
      * @return Collection|CompetencePosseder[]
@@ -480,7 +504,6 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-<<<<<<< HEAD
      * @return Collection|Projet[]
      */
     public function getProjetGerer(): Collection

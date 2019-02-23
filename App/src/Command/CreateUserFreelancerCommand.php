@@ -1,11 +1,10 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: walid
- * Date: 06/02/2019
- * Time: 18:03
+ * User: Tounsi
+ * Date: 21/02/2019
+ * Time: 23:49
  */
-
 
 namespace App\Command;
 
@@ -21,7 +20,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class CreateUserCommand extends Command
+class CreateUserFreelancerCommand extends Command
 {
     private $em;
 
@@ -41,9 +40,9 @@ class CreateUserCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('perhaps:create-user')
-            ->setDescription('Create a new user.')
-            ->setHelp('This command allow you to create an user.')
+            ->setName('perhaps:create-user-freelancer')
+            ->setDescription('Create a new freelancer.')
+            ->setHelp('This command allow you to create a freelancer user.')
             ->setDefinition(array(
                 new InputArgument('email', InputArgument::REQUIRED, 'The email'),
                 new InputArgument('prenomUser', InputArgument::REQUIRED, 'Your firstname'),
@@ -53,6 +52,9 @@ class CreateUserCommand extends Command
                 new InputArgument('codePostalUser', InputArgument::REQUIRED, 'Your Zip code'),
                 new InputArgument('ville', InputArgument::REQUIRED, 'Your city'),
                 new InputArgument('pays', InputArgument::REQUIRED, 'Your country'),
+                new InputArgument('tarifHoraireFreelancer', InputArgument::REQUIRED, 'Your hourly rate'),
+                new InputArgument('presentationFreelancer', InputArgument::REQUIRED, 'Your description'),
+                new InputArgument('nomSociete', InputArgument::REQUIRED, 'Your company'),
                 new InputArgument('password', InputArgument::REQUIRED, 'Your password'),
             ))
         ;
@@ -69,6 +71,9 @@ class CreateUserCommand extends Command
         $zip = $input->getArgument('codePostalUser');
         $city = $input->getArgument('ville');
         $country = $input->getArgument('pays');
+        $hourlyRate = $input->getArgument('tarifHoraireFreelancer');
+        $description = $input->getArgument('presentationFreelancer');
+        $company = $input->getArgument('nomSociete');
         $password = $input->getArgument('password');
 
         $password = $this->passwordEncoder->encodePassword($user, $password);
@@ -81,8 +86,11 @@ class CreateUserCommand extends Command
         $user->setCodePostalUser($zip);
         $user->setVille($city);
         $user->setPays($country);
+        $user->setTarifHoraireFreelancer($hourlyRate);
+        $user->setPresentationFreelancer($description);
+        $user->setNomSociete($company);
         $user->setPassword($password);
-        $user->setRole('ROLE_USER');
+        $user->setRole('ROLE_FREELANCER');
 
         $errors = $this->validator->validate($user);
 
@@ -140,6 +148,21 @@ class CreateUserCommand extends Command
         if (!$input->getArgument('pays')) {
             $question = new Question('Please enter a country : ');
             $questions['pays'] = $question;
+        }
+
+        if (!$input->getArgument('tarifHoraireFreelancer')) {
+            $question = new Question('Please enter a hourly rate : ');
+            $questions['tarifHoraireFreelancer'] = $question;
+        }
+
+        if (!$input->getArgument('presentationFreelancer')) {
+            $question = new Question('Please enter a short description : ');
+            $questions['presentationFreelancer'] = $question;
+        }
+
+        if (!$input->getArgument('nomSociete')) {
+            $question = new Question('Please enter your company name : ');
+            $questions['nomSociete'] = $question;
         }
 
         if (!$input->getArgument('password')) {

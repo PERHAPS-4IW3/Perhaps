@@ -9,12 +9,16 @@
 namespace App\Controller\Front;
 
 use App\Entity\User as AppUser;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Exception\AccountExpiredException;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 
-class UserChecker implements UserCheckerInterface
+
+class UserChecker extends AbstractController implements UserCheckerInterface
 {
     public function checkPreAuth(UserInterface $user)
     {
@@ -25,6 +29,7 @@ class UserChecker implements UserCheckerInterface
 
     /**
      * @param UserInterface $user
+     * @return Response|void
      * @throws \Exception
      */
     public function checkPostAuth(UserInterface $user)
@@ -37,6 +42,7 @@ class UserChecker implements UserCheckerInterface
         if (!$user->getIsActive()) {
             throw new \Exception("Ce membre n'est pas actif");
         }
+
     }
 
 }
