@@ -6,16 +6,20 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(name="user_perhaps")
  * @UniqueEntity(fields="email", message="Cet email est déjà enregistré en base.")
+ * @Vich\Uploadable
  */
-class User implements UserInterface
+class User implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id()
@@ -23,6 +27,18 @@ class User implements UserInterface
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @ORM\Column(type="string", length=255 , nullable=true)
+     * @var string|null
+     */
+    private $imageName;
+
+    /**
+     * @Vich\UploadableField(mapping="user_images", fileNameProperty="imageName")
+     * @var File|null
+     */
+    private $imageFile;
 
     /**
      * @ORM\Column(type="string", length=80, unique=true)
@@ -93,12 +109,22 @@ class User implements UserInterface
     private $isActive;
 
     /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $passwordRequestedAt;
+
+    /**
      * @var string le token qui servira lors de l'oubli de mot de passe
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $resetToken;
 
     /**
+     * @var string le token qui servira lors de la confirmation du mail
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $confirmationToken;
+
      * @ORM\OneToMany(targetEntity="App\Entity\CompetencePosseder", mappedBy="user_Id", orphanRemoval=true)
      */
     private $listDesCompetences;
@@ -125,16 +151,26 @@ class User implements UserInterface
     private $nomSociete;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Projet", mappedBy="creePar", orphanRemoval=true)
+     */
+    private $projetGerer;
+
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updated_at;
+
+    /**
      * User constructor.
      */
     public function __construct()
     {
-        $this->isActive = true;
-
+        $this->isActive = false;
         $this->listDesCompetences = new ArrayCollection();
         $this->listProjet = new ArrayCollection();
+        $this->projetGerer = new ArrayCollection();
         //$this->roles = ['ROLE_USER'];
-        //$this->roles = [];
     }
 
     public function getId(): ?int
@@ -188,12 +224,12 @@ class User implements UserInterface
         return array_unique($roles);*/
     }
 
-    /*public function setRoles(array $roles): self
+    public function setRoles(array $roles): self
     {
-        $this->roles = $roles;
+        $this->role = $roles;
         return $this;
 
-    }*/
+    }
 
     /**
      * @see UserInterface
@@ -225,33 +261,6 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
-    }
-    /** @see \Serializable::serialize() */
-    public function serialize() {
-        return serialize(array(
-            $this->id,
-            $this->email,
-            $this->role,
-            $this->password,
-            $this->isActive,
-            // see section on salt below
-            // $this->salt,
-        ));
-    }
-
-    /** @see \Serializable::unserialize()
-     * @param $serialized
-     */
-    public function unserialize($serialized) {
-        list (
-            $this->id,
-            $this->email,
-            $this->role,
-            $this->password,
-            $this->isActive,
-            // see section on salt below
-            // $this->salt
-            ) = unserialize($serialized);
     }
 
     public function getNomUser(): ?string
@@ -356,6 +365,17 @@ class User implements UserInterface
         return $this;
     }
 
+    //contrôler la validité du token
+    public function getPasswordRequestedAt()
+    {
+        return $this->passwordRequestedAt;
+    }
+
+    public function setPasswordRequestedAt($passwordRequestedAt): void
+    {
+        $this->passwordRequestedAt = $passwordRequestedAt;
+    }
+
     /**
      * @return string
      */
@@ -364,14 +384,19 @@ class User implements UserInterface
         return $this->resetToken;
     }
 
-    /**
-     * @param string $resetToken
-     */
     public function setResetToken(?string $resetToken): void
     {
         $this->resetToken = $resetToken;
     }
 
+    public function getConfirmationToken(): string
+    {
+        return $this->confirmationToken;
+    }
+
+    public function setConfirmationToken(?string $confirmationToken): void
+    {
+        $this->confirmationToken = $confirmationToken;
 
     /**
      * @return Collection|CompetencePosseder[]
@@ -477,5 +502,112 @@ class User implements UserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection|Projet[]
+     */
+    public function getProjetGerer(): Collection
+    {
+        return $this->projetGerer;
+    }
+
+    public function addProjetGerer(Projet $projetGerer): self
+    {
+        if (!$this->projetGerer->contains($projetGerer)) {
+            $this->projetGerer[] = $projetGerer;
+            $projetGerer->setCreePar($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjetGerer(Projet $projetGerer): self
+    {
+        if ($this->projetGerer->contains($projetGerer)) {
+            $this->projetGerer->removeElement($projetGerer);
+            // set the owning side to null (unless already changed)
+            if ($projetGerer->getCreePar() === $this) {
+                $projetGerer->setCreePar(null);
+            }
+        }
+
+        return $this;
+    }
+    /*
+     * @return null|string
+     */
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
+
+    /**
+     * @param null|string $imageName
+     * @return User
+     */
+    public function setImageName(?string $imageName): User
+    {
+        $this->imageName = $imageName;
+        return $this;
+    }
+
+    /**
+     * @return null|File
+     */
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param null|File $imageFile
+     * @return User
+     */
+    public function setImageFile(?File $imageFile= null): User
+    {
+        $this->imageFile = $imageFile;
+        if(null !== $imageFile && $this->imageFile instanceof UploadedFile){
+            $this->updated_at = new \DateTime('now');
+        }
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
+    }
+    /** @see \Serializable::serialize() */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->imageName,
+            $this->email,
+            $this->password,
+
+
+        ));
+    }
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->imageName,
+            $this->email,
+            $this->password,
+
+
+            ) = unserialize($serialized);
+    }
+
+
 
 }

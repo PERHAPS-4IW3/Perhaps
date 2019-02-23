@@ -28,7 +28,7 @@ class NoteFixture extends Fixture implements DependentFixtureInterface
         $faker = \Faker\Factory::create();
         $projets = $manager->getRepository(Projet::class)->findAll();
         $participe = $manager->getRepository(Participe::class)->findAll();
-        for($i = 0; $i <3; $i++){
+        for($i = 0; $i <2; $i++){
             $facture = (new NoteEtCommentaire())
                 ->setCommentaire($faker->text)
                 ->setNote($faker->randomNumber())

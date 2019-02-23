@@ -58,7 +58,7 @@ class ProjetController extends AbstractController
             $projets = $paginator->paginate(
                 $this->repository->findProjects($search),
                 $request->query->getInt('page', 1),
-                3/*limit per page*/
+                9/*limit per page*/
             );
 
             return $this->render('Front/Projet/index.html.twig', [
@@ -70,7 +70,7 @@ class ProjetController extends AbstractController
         $projets = $paginator->paginate(
             $this->repository->findAllVisibleQuery(),
             $request->query->getInt('page', 1),
-            3/*limit per page*/
+            9/*limit per page*/
         );
         return $this->render('Front/Projet/index.html.twig', [
             'projets' => $projets,

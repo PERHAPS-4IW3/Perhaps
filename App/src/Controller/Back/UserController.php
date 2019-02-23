@@ -46,7 +46,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="user_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="user_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, User $user): Response
     {
@@ -68,7 +68,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="user_delete", methods={"DELETE"})
+     * @Route("/{id}/delete", name="user_delete", methods={"DELETE"})
      * @param Request $request
      * @param User $user
      * @param SessionInterface $session
@@ -87,34 +87,6 @@ class UserController extends AbstractController
         }
         return $this->redirectToRoute('app_front_home');
     }
-
-    /**
-     * @Route("/freelancer", name="free_index", methods={"GET"})
-     */
-    public function indexFree(UserRepository $userRepository, Request $request): Response
-    {
-        $search = new User();
-        $form = $this->createForm(FreelancerSearchType::class, $search);
-        $form->handleRequest($request);
-
-        dump($search);
-        if($form->isSubmitted() && $form->isValid()){
-            $freelancers = $userRepository->findFreelancers($search);
-            dump($freelancers);
-            return $this->render('Front/freelancer/index.html.twig', [
-                'freelancers'   => $freelancers,
-                'form'          => $form->createView()
-            ]);
-        }
-
-        $freelancers = $userRepository->findLatest();
-        return $this->render('Front/freelancer/index.html.twig', [
-            'freelancers'       => $freelancers,
-            'form'              => $form->createView(),
-            'controller_name'   => 'freelancer',
-        ]);
-    }
-
 
     /**
      * @Route("/{id}/password", name="user_password", methods={"GET","POST"})
