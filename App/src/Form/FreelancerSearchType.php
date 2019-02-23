@@ -17,7 +17,7 @@ class FreelancerSearchType extends AbstractType
     {
         $builder
             ->add('nomUser', TextType::class, [
-                'required' => true,
+                'required' => false,
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Nom du freelancer'
