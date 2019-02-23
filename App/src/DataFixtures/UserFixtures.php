@@ -31,8 +31,9 @@ class UserFixtures extends Fixture
     {
         $faker = \Faker\Factory::create();
 
+        for($i = 0; $i <10; $i++){
         $user = new User();
-        $user->setEmail('perhaps5@gmail.com');
+        $user->setEmail($faker->email);
         $user->setPassword($this->encoder->encodePassword($user, 'demo'));
         $user->setRole('ROLE_USER');
         $user->setNomUser($faker->lastName);
@@ -43,9 +44,24 @@ class UserFixtures extends Fixture
         $user->setPays($faker->country);
         $user->setTelephoneUser($faker->phoneNumber);
 
-        $manager->persist($user);
+        for($i = 0; $i <20; $i++){
+            $user = new User();
+            $user->setEmail($faker->email);
+            $user->setPassword($this->encoder->encodePassword($user, 'demo'));
+            $user->setRoles(['ROLE_USER']);
+            $user->setNomUser($faker->lastName);
+            $user->setPrenomUser($faker->firstName);
+            $user->setAdresseUser($faker->address);
+            $user->setCodePostalUser($faker->postcode);
+            $user->setVille($faker->city);
+            $user->setPays($faker->country);
+            $user->setTelephoneUser($faker->phoneNumber);
+            $user->setTypeUser(0);
 
-        for($i = 0; $i <10; $i++){
+            $manager->persist($user);
+        }
+
+       /* for($i = 0; $i <10; $i++){
             $userFreelancer = new User();
             $userFreelancer->setEmail($faker->email);
             $userFreelancer->setPassword($this->encoder->encodePassword($user, 'demo'));
@@ -58,8 +74,8 @@ class UserFixtures extends Fixture
             $userFreelancer->setPays($faker->country);
             $userFreelancer->setTelephoneUser($faker->phoneNumber);
             $manager->persist($userFreelancer);
-        }
+        }*/
 
         $manager->flush();
-    }
+    }}
 }

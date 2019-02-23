@@ -47,6 +47,19 @@ class Facture
 
     private $autresCharges;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Projet", inversedBy="facture", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $idProjet;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Devis", inversedBy="facture", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $devis;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -124,4 +137,30 @@ class Facture
 
         return $this;
     }
+
+    public function getIdProjet(): ?Projet
+    {
+        return $this->idProjet;
+    }
+
+    public function setIdProjet(Projet $idProjet): self
+    {
+        $this->idProjet = $idProjet;
+
+        return $this;
+    }
+
+    public function getDevis(): ?Devis
+    {
+        return $this->devis;
+    }
+
+    public function setDevis(Devis $devis): self
+    {
+        $this->devis = $devis;
+
+        return $this;
+    }
+
+
 }

@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -86,7 +88,7 @@ class User implements UserInterface
     private $pays;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default" : true})
      */
     private $isActive;
 
@@ -95,6 +97,16 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $resetToken;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CompetencePosseder", mappedBy="user_Id", orphanRemoval=true)
+     */
+    private $listDesCompetences;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Participe", mappedBy="idUser", orphanRemoval=true)
+     */
+    private $listProjet;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -118,6 +130,10 @@ class User implements UserInterface
     public function __construct()
     {
         $this->isActive = true;
+
+        $this->listDesCompetences = new ArrayCollection();
+        $this->listProjet = new ArrayCollection();
+        //$this->roles = ['ROLE_USER'];
         //$this->roles = [];
     }
 
@@ -209,6 +225,33 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+    /** @see \Serializable::serialize() */
+    public function serialize() {
+        return serialize(array(
+            $this->id,
+            $this->email,
+            $this->role,
+            $this->password,
+            $this->isActive,
+            // see section on salt below
+            // $this->salt,
+        ));
+    }
+
+    /** @see \Serializable::unserialize()
+     * @param $serialized
+     */
+    public function unserialize($serialized) {
+        list (
+            $this->id,
+            $this->email,
+            $this->role,
+            $this->password,
+            $this->isActive,
+            // see section on salt below
+            // $this->salt
+            ) = unserialize($serialized);
     }
 
     public function getNomUser(): ?string
@@ -313,7 +356,6 @@ class User implements UserInterface
         return $this;
     }
 
-
     /**
      * @return string
      */
@@ -330,6 +372,38 @@ class User implements UserInterface
         $this->resetToken = $resetToken;
     }
 
+
+    /**
+     * @return Collection|CompetencePosseder[]
+     */
+    public function getListDesCompetences(): Collection
+    {
+        return $this->listDesCompetences;
+    }
+
+    public function addListDesCompetence(CompetencePosseder $listDesCompetence): self
+    {
+        if (!$this->listDesCompetences->contains($listDesCompetence)) {
+            $this->listDesCompetences[] = $listDesCompetence;
+            $listDesCompetence->setUserId($this);
+        }
+    }
+    /**
+     * @return mixed
+     */
+    public function getStatut(): ?string
+    {
+        return $this->statut;
+    }
+
+    /**
+     * @param mixed $statut
+     */
+    public function setStatut(?string $statut): void
+    {
+        $this->statut = $statut;
+    }
+
     public function getTarifHoraireFreelancer(): ?int
     {
         return $this->tarifHoraireFreelancer;
@@ -338,8 +412,19 @@ class User implements UserInterface
     public function setTarifHoraireFreelancer(int $tarifHoraireFreelancer): self
     {
         $this->tarifHoraireFreelancer = $tarifHoraireFreelancer;
-
         return $this;
+    }
+
+
+    public function removeListDesCompetence(CompetencePosseder $listDesCompetence): self
+    {
+        if ($this->listDesCompetences->contains($listDesCompetence)) {
+            $this->listDesCompetences->removeElement($listDesCompetence);
+            // set the owning side to null (unless already changed)
+            if ($listDesCompetence->getUserId() === $this) {
+                $listDesCompetence->setUserId(null);
+            }
+        }
     }
 
     public function getPresentationFreelancer(): ?string
@@ -350,10 +435,24 @@ class User implements UserInterface
     public function setPresentationFreelancer(string $presentationFreelancer): self
     {
         $this->presentationFreelancer = $presentationFreelancer;
-
         return $this;
     }
 
+    /**
+     * @return Collection|Participe[]
+     */
+    public function getListProjet(): Collection
+    {
+        return $this->listProjet;
+    }
+
+    public function addListProjet(Participe $listProjet): self
+    {
+        if (!$this->listProjet->contains($listProjet)) {
+            $this->listProjet[] = $listProjet;
+            $listProjet->setIdUser($this);
+        }
+    }
     public function getNomSociete(): ?string
     {
         return $this->nomSociete;
@@ -362,9 +461,21 @@ class User implements UserInterface
     public function setNomSociete(string $nomSociete): self
     {
         $this->nomSociete = $nomSociete;
-
         return $this;
     }
 
+
+    public function removeListProjet(Participe $listProjet): self
+    {
+        if ($this->listProjet->contains($listProjet)) {
+            $this->listProjet->removeElement($listProjet);
+            // set the owning side to null (unless already changed)
+            if ($listProjet->getIdUser() === $this) {
+                $listProjet->setIdUser(null);
+            }
+        }
+
+        return $this;
+    }
 
 }

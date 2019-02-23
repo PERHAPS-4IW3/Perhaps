@@ -4,6 +4,9 @@ namespace App\Controller\Front;
 
 use App\Entity\User;
 use App\Form\FreelancerSearchType;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\Asset\Package;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use App\Repository\UserRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -28,8 +31,10 @@ class FreelancerController extends AbstractController
     }
 
     /**
+     * @param Request $request
      * @Route("/freelancer", name="free_index", methods={"GET"})
      * @param UserRepository $userRepository
+     * @param PaginatorInterface $paginator
      * @return Response
      */
     public function index(Request $request, UserRepository $userRepository, PaginatorInterface $paginator): Response
@@ -45,13 +50,12 @@ class FreelancerController extends AbstractController
                 'form'          => $form->createView()
             ]);
         }
-
+      
         $users = $paginator->paginate(
             $this-> repository->findAllVisibleQuery(),
             $request->query->getInt('page', 1),
             3/*limit per page*/
         );
-
         return $this->render('Front/Freelancer/showFree.html.twig', [
             'users' => $users,
             'form'  => $form->createView(),

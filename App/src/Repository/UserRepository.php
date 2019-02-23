@@ -81,6 +81,12 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
             ->Where('p.isActive = true');
     }
 
+    private function findVisibleQuery(): QueryBuilder
+    {
+        return $this->createQueryBuilder('p')
+            ->Where('p.isActive = true');
+    }
+
     // /**
     //  * @return User[] Returns an array of User objects
     //  */
