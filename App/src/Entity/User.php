@@ -4,16 +4,20 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(name="user_perhaps")
  * @UniqueEntity(fields="email", message="Cet email est déjà enregistré en base.")
+ * @Vich\Uploadable
  */
-class User implements UserInterface
+class User implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id()
@@ -21,6 +25,18 @@ class User implements UserInterface
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @ORM\Column(type="string", length=255 , nullable=true)
+     * @var string|null
+     */
+    private $imageName;
+
+    /**
+     * @Vich\UploadableField(mapping="user_images", fileNameProperty="imageName")
+     * @var File|null
+     */
+    private $imageFile;
 
     /**
      * @ORM\Column(type="string", length=80, unique=true)
@@ -111,6 +127,11 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=150, nullable=true)
      */
     private $nomSociete;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updated_at;
 
     /**
      * User constructor.
@@ -209,33 +230,6 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
-    }
-    /** @see \Serializable::serialize() */
-    public function serialize() {
-        return serialize(array(
-            $this->id,
-            $this->email,
-            $this->role,
-            $this->password,
-            $this->isActive,
-            // see section on salt below
-            // $this->salt,
-        ));
-    }
-
-    /** @see \Serializable::unserialize()
-     * @param $serialized
-     */
-    public function unserialize($serialized) {
-        list (
-            $this->id,
-            $this->email,
-            $this->role,
-            $this->password,
-            $this->isActive,
-            // see section on salt below
-            // $this->salt
-            ) = unserialize($serialized);
     }
 
     public function getNomUser(): ?string
@@ -391,5 +385,82 @@ class User implements UserInterface
 
         return $this;
     }
+
+    /**
+     * @return null|string
+     */
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
+
+    /**
+     * @param null|string $imageName
+     * @return User
+     */
+    public function setImageName(?string $imageName): User
+    {
+        $this->imageName = $imageName;
+        return $this;
+    }
+
+    /**
+     * @return null|File
+     */
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param null|File $imageFile
+     * @return User
+     */
+    public function setImageFile(?File $imageFile= null): User
+    {
+        $this->imageFile = $imageFile;
+        if(null !== $imageFile && $this->imageFile instanceof UploadedFile){
+            $this->updated_at = new \DateTime('now');
+        }
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
+    }
+    /** @see \Serializable::serialize() */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->imageName,
+            $this->email,
+            $this->password,
+
+
+        ));
+    }
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->imageName,
+            $this->email,
+            $this->password,
+
+
+            ) = unserialize($serialized);
+    }
+
+
 
 }

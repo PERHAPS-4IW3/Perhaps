@@ -17,7 +17,12 @@
                                 <div class="frontside">
                                     <div class="card">
                                         <div class="card-body text-center">
-                                            <p><img class=" img-fluid" src="{{ asset('images/user.svg') }}" alt="card image"></p>
+
+                                            {% if vich_uploader_asset(user, 'imageFile') is null %}
+                                                <img class=" img-fluid" src="{{ asset('images/user.svg') }}" alt="card image">
+                                            {% else %}
+                                                <img src="{{ vich_uploader_asset(user, 'imageFile') | imagine_filter('thumb') }}" alt="card image">
+                                            {% endif %}
 
                                             <h4 class="card-title">
                                                 <a href="{{ path('user_show', {id: user.id, slug: user.slug}) }}">

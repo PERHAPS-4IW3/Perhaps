@@ -42,6 +42,7 @@ class UserFixtures extends Fixture
         $user->setVille($faker->city);
         $user->setPays($faker->country);
         $user->setTelephoneUser($faker->phoneNumber);
+        $user->getUpdatedAt();
 
         $manager->persist($user);
 
