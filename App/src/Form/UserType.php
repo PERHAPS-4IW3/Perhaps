@@ -38,9 +38,8 @@ class UserType extends AbstractType
                 'multiple'                  => false,
                 'expanded'                  => false,
                 'choices'                   => [
-                    ' '                 => null,
-                    'Porteur de Projet' => 'ROLE_USER',
-                    'Freelancer'        => 'ROLE_FREELANCER'
+                    'Freelancer'        => 'ROLE_FREELANCER',
+                    'Porteur de Projet' => 'ROLE_USER'
                 ]
             ])
             ->add('nomUser', TextType::class, ['label' => 'Nom'])

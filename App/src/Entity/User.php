@@ -91,10 +91,21 @@ class User implements UserInterface
     private $isActive;
 
     /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $passwordRequestedAt;
+
+    /**
      * @var string le token qui servira lors de l'oubli de mot de passe
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $resetToken;
+
+    /**
+     * @var string le token qui servira lors de la confirmation du mail
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $confirmationToken;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -117,7 +128,7 @@ class User implements UserInterface
      */
     public function __construct()
     {
-        $this->isActive = true;
+        $this->isActive = false;
         //$this->roles = [];
     }
 
@@ -313,21 +324,35 @@ class User implements UserInterface
         return $this;
     }
 
+    //contrôler la validité du token
+    public function getPasswordRequestedAt()
+    {
+        return $this->passwordRequestedAt;
+    }
 
-    /**
-     * @return string
-     */
+    public function setPasswordRequestedAt($passwordRequestedAt): void
+    {
+        $this->passwordRequestedAt = $passwordRequestedAt;
+    }
+
     public function getResetToken(): string
     {
         return $this->resetToken;
     }
 
-    /**
-     * @param string $resetToken
-     */
     public function setResetToken(?string $resetToken): void
     {
         $this->resetToken = $resetToken;
+    }
+
+    public function getConfirmationToken(): string
+    {
+        return $this->confirmationToken;
+    }
+
+    public function setConfirmationToken(?string $confirmationToken): void
+    {
+        $this->confirmationToken = $confirmationToken;
     }
 
     public function getTarifHoraireFreelancer(): ?int

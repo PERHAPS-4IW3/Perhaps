@@ -6,16 +6,17 @@ use App\Form\ContactType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Services\Mailer;
 
 class ContactController extends AbstractController
 {
     /**
      * @Route("/contact", name="contact")
      * @param Request $request
-     * @param \Swift_Mailer $mailer
+     * @param Mailer $mailer
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function contact(Request $request, \Swift_Mailer $mailer)
+    public function contact(Request $request, Mailer $mailer)
     {
         $form = $this->createForm(ContactType::class);
 
@@ -23,21 +24,15 @@ class ContactController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $contactFormData = $form->getData();
 
-            $message = (new \Swift_Message($contactFormData['sujet']))
-                ->setFrom($contactFormData['mail'])
-                ->setTo('noreply.perhaps@gmail.com')
-                ->setBody(
-                    "<html><body><h3>Prénom : ".$contactFormData['prenom'] ."<br /> Nom : "
-                    . $contactFormData['nom'] . "</h3><h4>Email : "
-                    . $contactFormData['mail']. "</h4><p>Contenu du mail : </p><p>"
-                    . $contactFormData['message']."</p></body></html>",
-                    'text/html'
-                );
-            if($mailer->send($message)){
-                $this->addFlash('success', 'Votre email a bien été envoyé');
+            // on utilise le service Mailer
+            $bodyMail = $mailer->createBodyMail('Front/Contact/mailContact.html.twig', [
+                'form' => $contactFormData
+            ]);
+            $mailer->sendMessage($contactFormData['mail'], 'muhammad.tounsi@hotmail.fr', $contactFormData['sujet'], $bodyMail);
+            $this->addFlash('success', "Votre email a bien été envoyé");
+
                 return $this->redirectToRoute('contact');
             }
-        }
 
         return $this->render('Front/Contact/contact.html.twig', [
             'our_form' => $form->createView()

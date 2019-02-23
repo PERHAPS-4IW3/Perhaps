@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Validation email - Perhaps</title>
+</head>
+<body>
+<p>
+    Bonjour {{ user.prenomUser }} {{ user.nomUser }}, <br>
+    Cliquez sur ce lien pour valider votre email.
+
+    {# pour que le lien fonctionne, il est indispensable que le lien soit absolu. #}
+    <a href="{{absolute_url(path('confirmAction', {'id': user.id, 'token': user.confirmationToken}))}}">Valider votre email</a>
+</p>
+</body>
+</html>

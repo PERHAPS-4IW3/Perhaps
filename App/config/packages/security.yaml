@@ -1,6 +1,9 @@
 security:
     role_hierarchy:
+        # un membre avec le ROLE_ADMIN aura également le ROLE_USER et le ROLE_FREELANCER
         ROLE_ADMIN:  [ROLE_USER, ROLE_FREELANCER]
+        # Le ROLE_SUPER_ADMIN avec le ROLE_ALLOWED_TO_SWITCH qui permet de s'authentifier en se faisant passer pour n'importe quel membre.
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
     encoders:
         App\Entity\User:
@@ -23,6 +26,8 @@ security:
             user_checker: App\Controller\Front\UserChecker # activation du UserChecker
             http_basic: ~
             provider: app_user_provider
+            switch_user: ~
+            # permet de profiter du ROLE_ALLOWED_TO_SWITCH du super admin
 
             logout:
                 path: /logout
@@ -49,6 +54,7 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/user, roles: ROLE_USER }
         # - { path: ^/user, roles: ROLE_USER }
         # - { path: ^/profile, roles: ROLE_USER }
