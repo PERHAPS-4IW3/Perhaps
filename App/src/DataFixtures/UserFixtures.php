@@ -43,23 +43,7 @@ class UserFixtures extends Fixture
         $user->setVille($faker->city);
         $user->setPays($faker->country);
         $user->setTelephoneUser($faker->phoneNumber);
-
-        for($i = 0; $i <20; $i++){
-            $user = new User();
-            $user->setEmail($faker->email);
-            $user->setPassword($this->encoder->encodePassword($user, 'demo'));
-            $user->setRoles(['ROLE_USER']);
-            $user->setNomUser($faker->lastName);
-            $user->setPrenomUser($faker->firstName);
-            $user->setAdresseUser($faker->address);
-            $user->setCodePostalUser($faker->postcode);
-            $user->setVille($faker->city);
-            $user->setPays($faker->country);
-            $user->setTelephoneUser($faker->phoneNumber);
-            $user->setTypeUser(0);
-
-            $manager->persist($user);
-        }
+        $manager->persist($user);
 
        /* for($i = 0; $i <10; $i++){
             $userFreelancer = new User();

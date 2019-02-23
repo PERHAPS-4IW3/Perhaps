@@ -29,7 +29,7 @@ class FactureFixtures extends Fixture implements DependentFixtureInterface
         $faker = \Faker\Factory::create();
         $projets = $manager->getRepository(Projet::class)->findAll();
         $devis = $manager->getRepository(Devis::class)->findAll();
-        for($i = 0; $i <2; $i++){
+
             $facture = (new Facture())
                 ->setIdProjet( $projets[array_rand($projets)])
                 ->setAutresCharges($faker->randomFloat())
@@ -41,7 +41,7 @@ class FactureFixtures extends Fixture implements DependentFixtureInterface
                 ->setTauxH($faker->randomDigitNotNull);
             $manager->persist($facture);
 
-        }
+
         $manager->flush();
     }
 

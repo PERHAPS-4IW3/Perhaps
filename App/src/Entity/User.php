@@ -125,6 +125,13 @@ class User implements UserInterface
     private $nomSociete;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Projet", mappedBy="creePar", orphanRemoval=true)
+     */
+    private $projetGerer;
+
+
+
+    /**
      * User constructor.
      */
     public function __construct()
@@ -133,6 +140,7 @@ class User implements UserInterface
 
         $this->listDesCompetences = new ArrayCollection();
         $this->listProjet = new ArrayCollection();
+        $this->projetGerer = new ArrayCollection();
         //$this->roles = ['ROLE_USER'];
         //$this->roles = [];
     }
@@ -188,12 +196,12 @@ class User implements UserInterface
         return array_unique($roles);*/
     }
 
-    /*public function setRoles(array $roles): self
+    public function setRoles(array $roles): self
     {
-        $this->roles = $roles;
+        $this->role = $roles;
         return $this;
 
-    }*/
+    }
 
     /**
      * @see UserInterface
@@ -477,5 +485,38 @@ class User implements UserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection|Projet[]
+     */
+    public function getProjetGerer(): Collection
+    {
+        return $this->projetGerer;
+    }
+
+    public function addProjetGerer(Projet $projetGerer): self
+    {
+        if (!$this->projetGerer->contains($projetGerer)) {
+            $this->projetGerer[] = $projetGerer;
+            $projetGerer->setCreePar($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjetGerer(Projet $projetGerer): self
+    {
+        if ($this->projetGerer->contains($projetGerer)) {
+            $this->projetGerer->removeElement($projetGerer);
+            // set the owning side to null (unless already changed)
+            if ($projetGerer->getCreePar() === $this) {
+                $projetGerer->setCreePar(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 
 }

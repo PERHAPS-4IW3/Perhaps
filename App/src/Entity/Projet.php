@@ -90,6 +90,14 @@ class Projet
      */
     private $listDevis;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="projetGerer")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $creePar;
+
+
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -339,5 +347,18 @@ class Projet
 
         return $this;
     }
+
+    public function getCreePar(): ?User
+    {
+        return $this->creePar;
+    }
+
+    public function setCreePar(?User $creePar): self
+    {
+        $this->creePar = $creePar;
+
+        return $this;
+    }
+
 
 }
