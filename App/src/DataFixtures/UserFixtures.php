@@ -43,6 +43,7 @@ class UserFixtures extends Fixture
         $user->setVille($faker->city);
         $user->setPays($faker->country);
         $user->setTelephoneUser($faker->phoneNumber);
+        $user->getUpdatedAt();
 
         for($i = 0; $i <20; $i++){
             $user = new User();
