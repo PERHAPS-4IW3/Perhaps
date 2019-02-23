@@ -220,9 +220,27 @@ section .section-title {
     margin-bottom: 15px !important;
 }
 .carousel-item{
-    height: 410px;
+    height:70vh;
+}
+
+.d-block{
+    height:100%;
+    width: 100%;
 }
 
 .freelancerField {
     /*display: none;*/
+}
+
+#profilimage{
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+}
+
+#nomprofil{
+    margin-left: 80px;
+    margin-bottom: 30px;
+    margin-top: -30px;
+
 }

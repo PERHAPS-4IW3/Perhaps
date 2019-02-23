@@ -1,49 +1,86 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User index{% endblock %}
-
+{% block title %}User{% endblock %}
 
 
 {% block body %}
 
 
     {% if app.user %}
+
+
         <div class="container">
-        <h1>Vos informations personnelles</h1>
-        <form>
-            <div class="form-row">
-                <div class="form-group col-md-4">
-                <label for="inputFirstName">PRENOM</label>
-                <input type="text" class="form-control" id="inputPrenom" placeholder={{ app.user.prenomUser }} readonly>
+            <h1>Vos informations personnelles</h1>
+            <div class="row">
+                <div class="jumbotron">
+                    <h3 class="panel-title" id="nomprofil">{{ app.user.prenomUser }} {{ app.user.nomUser }} </h3>
+                    {% if vich_uploader_asset(app.user, 'imageFile') is null %}
+                        <img id ="profilimage" src="{{ asset('images/user.svg') }}" alt="card image">
+                    {% else %}
+                        <img id ="profilimage" src="{{ vich_uploader_asset(app.user, 'imageFile')| imagine_filter('thumb') }}" alt>
+                    {% endif %}
                 </div>
-                <div class="form-group col-md-4">
-            <label for="inputName">NOM</label>
-            <input type="text" class="form-control" id="inputNom" placeholder={{ app.user.nomUser }} readonly>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
+
+
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+
+                                <div class=" col-md-9 col-lg-9 ">
+                                    <table class="table">
+                                        <tbody>
+                                        <tr>
+                                            <td>Prénom</td>
+                                            <td>{{ app.user.prenomUser }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Nom</td>
+                                            <td>{{ app.user.nomUser }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Adresse</td>
+                                            <td>{{ app.user.adresseUser }}</td>
+                                        </tr>
+
+                                        <tr>
+                                        <tr>
+                                            <td>Ville/Code postal</td>
+                                            <td>{{ app.user.ville }} {{ app.user.codePostalUser }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Pays</td>
+                                            <td>{{ app.user.pays }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Email</td>
+                                            <td><a href="mailto:{{ app.user.email }}">{{ app.user.email }}</a></td>
+                                        </tr>
+                                        <tr>
+                                        <td>Phone Number</td>
+                                        <td>{{ app.user.telephoneUser }}</td>
+
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                    <div class="btn-group">
+                                    <a href="{{ path('user_edit', {id: app.user.id}) }}" class="btn btn-primary">Modifier mes informations</a>
+                                    <a href="{{ path('user_password' , {id: app.user.id})}}" class="btn btn-secondary">Changer mon mot de passe</a>
+                                    <a href="{{ path('user_edit', {id: app.user.id}) }}" class="btn btn-danger">Supprimer</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
-                <div class="form-group col-md-8">
-                    <label for="inputAddress">ADRESSE</label>
-                    <input type="text" class="form-control" id="inputAddress" placeholder={{ app.user.adresseUser }} readonly>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-            <label for="inputCity">VILLE</label>
-            <input type="text" class="form-control" id="inputCity" placeholder={{ app.user.ville }} readonly>
-                    </div>
-                    <div class="form-group col-md-4">
-            <label for="inputState">PAYS</label>
-            <input type="text" class="form-control" id="inputState" placeholder={{ app.user.pays }} readonly>
-                    </div>
-                    <div class="form-group col-md-2">
-                        <label for="inputZip">CODEPOSTALE</label>
-                        <input type="text" class="form-control" id="inputZip" placeholder={{ app.user.codePostalUser }} readonly>
-                    </div>
-                </div>
-
-            <a href="{{ path('user_edit', {id: app.user.id}) }}" class="btn btn-primary">Modifier mes informations</a>
-            <a href="{{ path('user_delete', {id: app.user.id, '_token': csrf_token('user_delete')}) }}" class="btn btn-danger" onclick="return confirm('Etes-vous sûr ?')">Supprimer</a>
-        </form>
         </div>
+
     {% else %}
         no records found
     {% endif %}

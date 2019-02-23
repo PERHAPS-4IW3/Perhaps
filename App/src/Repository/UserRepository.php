@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Query;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 
@@ -59,10 +60,26 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
             ;
     }
 
+    /**
+     * @return Query
+     */
+
+    public function findAllVisibleQuery(): Query
+    {
+        return $this->findVisibleQuery()
+            ->getQuery();
+    }
+
     private function findVisibleFreelancerQuery(): QueryBuilder
     {
         return $this->createQueryBuilder('f')
             ->Where("f.role = 'ROLE_FREELANCER'");
+    }
+
+    private function findVisibleQuery(): QueryBuilder
+    {
+        return $this->createQueryBuilder('p')
+            ->Where('p.isActive = true');
     }
 
     // /**

@@ -66,7 +66,7 @@ class ProjetRepository extends ServiceEntityRepository
     public function findLatest(): array
     {
         return $this->findVisibleQuery()
-            ->orderBy('p.createdAt', 'ASC')
+            ->orderBy('p.createdAt', 'DESC')
             ->setMaxResults(8)
             ->getQuery()
             ->getResult()

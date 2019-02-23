@@ -36,6 +36,17 @@ class Devis
      */
     private $dateDevis;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Projet", inversedBy="listDevis")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $projet;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Facture", mappedBy="devis", cascade={"persist", "remove"})
+     */
+    private $facture;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -85,6 +96,35 @@ class Devis
     public function setDateDevis(\DateTimeInterface $dateDevis): self
     {
         $this->dateDevis = $dateDevis;
+
+        return $this;
+    }
+
+    public function getProjet(): ?Projet
+    {
+        return $this->projet;
+    }
+
+    public function setProjet(?Projet $projet): self
+    {
+        $this->projet = $projet;
+
+        return $this;
+    }
+
+    public function getFacture(): ?Facture
+    {
+        return $this->facture;
+    }
+
+    public function setFacture(Facture $facture): self
+    {
+        $this->facture = $facture;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $facture->getDevis()) {
+            $facture->setDevis($this);
+        }
 
         return $this;
     }
