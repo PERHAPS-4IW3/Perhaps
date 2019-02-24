@@ -16,7 +16,7 @@ class CompetenceFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        $faker = \Faker\Factory::create();
+        /*$faker = \Faker\Factory::create();
 
         for($i = 0; $i <10; $i++){
             $competence = (new Competence())
@@ -24,6 +24,6 @@ class CompetenceFixtures extends Fixture
             $manager->persist($competence);
 
         }
-        $manager->flush();
+        $manager->flush();*/
     }
 }

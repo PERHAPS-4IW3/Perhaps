@@ -38,7 +38,6 @@ class FreelancerController extends AbstractController
      * @return Response
      */
    public function index(Request $request, UserRepository $userRepository, PaginatorInterface $paginator): Response
-
     {
         $search = new User();
         $form = $this->createForm(FreelancerSearchType::class, $search);
@@ -63,44 +62,6 @@ class FreelancerController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/freelancer", name="free_index", methods={"GET"})
-     * @param UserRepository $userRepository
-     * @param Request $request
-     * @return Response
-     */
-    public function indexFree(UserRepository $userRepository, Request $request): Response
-    {
-        $search = new User();
-        $form = $this->createForm(FreelancerSearchType::class, $search);
-        $form->handleRequest($request);
-        $paginator = new Paginator();
-        if($form->isSubmitted() && $form->isValid()){
-            $users = $paginator->paginate(
-                $freelancers = $userRepository->findFreelancers($search),
-                $request->query->getInt('page', 1),
-                6/*limit per page*/
-            );
-
-            return $this->render('Front/Freelancer/index.html.twig', [
-                'freelancers' => $users,
-                'form'  => $form->createView()
-            ]);
-        }
-
-        $users = $paginator->paginate(
-            $this-> repository->findAllVisibleQuery(),
-            $request->query->getInt('page', 1),
-            6/*limit per page*/
-        );
-
-        return $this->render('Front/freelancer/index.html.twig', [
-            'freelancers'       => $users,
-            'form'              => $form->createView(),
-            'controller_name'   => 'freelancer',
-        ]);
-
-    }
 
     /**
      * @param User $user
