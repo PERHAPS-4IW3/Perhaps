@@ -125,8 +125,6 @@ class User implements UserInterface, \Serializable
      */
     private $confirmationToken;
 
-
-
     /**
      * @ORM\Column(type="integer", nullable=true)
      * @Assert\Range(min=1, max=100)
@@ -356,12 +354,12 @@ class User implements UserInterface, \Serializable
     }
 
     //contrôler la validité du token
-    public function getPasswordRequestedAt()
+    public function getPasswordRequestedAt(): string
     {
         return $this->passwordRequestedAt;
     }
 
-    public function setPasswordRequestedAt($passwordRequestedAt): void
+    public function setPasswordRequestedAt(?string $passwordRequestedAt): void
     {
         $this->passwordRequestedAt = $passwordRequestedAt;
     }
@@ -387,22 +385,7 @@ class User implements UserInterface, \Serializable
     public function setConfirmationToken(?string $confirmationToken): void
     {
         $this->confirmationToken = $confirmationToken;
-    }
 
-    /**
-     * @return mixed
-     */
-    public function getStatut(): ?string
-    {
-        return $this->statut;
-    }
-
-    /**
-     * @param mixed $statut
-     */
-    public function setStatut(?string $statut): void
-    {
-        $this->statut = $statut;
     }
 
     public function getTarifHoraireFreelancer(): ?int
@@ -708,5 +691,4 @@ class User implements UserInterface, \Serializable
 
         return $this;
     }
-
 }

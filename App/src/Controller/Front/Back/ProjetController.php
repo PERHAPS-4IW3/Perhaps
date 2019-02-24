@@ -57,11 +57,11 @@ class ProjetController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\
      * @Route(name="user_projet_index", path="/user/projets", methods={"GET"})
      */
-    public function index(User $user)
+    public function index()
     {
         $projets = $this->repository->findAll();
         return $this->render('Back/Projet/index.html.twig', [
-            'user'=> $user,
+            'projets'=> $projets,
         ]);
     }
 

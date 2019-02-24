@@ -17,31 +17,63 @@
             {{ form_end(form) }}
         </div>
     </div>
-    <div class="container">
 
-
+    <div class="container mt-4">
+        <h1>Les Freelancers</h1>
     </div>
 
-    <div class="container">
-        <h2>La liste des freelancers</h2>
-        <div class="row flex">
-            {% for freelancer in freelancers %}
-                <div class="col-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                {{ freelancer.nomUser }}
-                            </h5>
-                            <p class="card-text">
-                                {{ freelancer.nomUser }} - {{ freelancer.prenomUser }}
-                            </p>
+    <section id="team" class="pb-5">
+        <div class="container">
+            <div class="row flex">
+                <!-- les Freelancers -->
+                {% for freelancer in freelancers %}
+                    <div class="col-xs-12 col-sm-6 col-md-4">
+                        <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                            <div class="mainflip">
+                                <div class="frontside">
+                                    <div class="card">
+                                        <div class="card-body text-center">
+
+                                            {% if vich_uploader_asset(freelancer, 'imageFile') is null %}
+                                                <img class=" img-fluid" src="{{ asset('images/user.svg') }}" alt="card image">
+                                            {% else %}
+                                                <img src="{{ vich_uploader_asset(freelancer, 'imageFile') | imagine_filter('thumb') }}" alt="card image">
+                                            {% endif %}
+
+                                            <h4 class="card-title">
+                                                <a href="{{ path('user_show', {id: freelancer.id, slug: freelancer.slug}) }}">
+                                                    {{ freelancer.nomUser }} {{ freelancer.prenomUser }}</a>
+                                            </h4>
+
+                                            <p class="card-text">Pour en savoir plus cliquer sur le bouton</p>
+                                            <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="backside">
+                                    <div class="card">
+                                        <div class="card-body text-center mt-4">
+                                            <h4 class="card-title">
+                                                <a href="{{ path('user_show', {id: freelancer.id, slug: freelancer.slug}) }}">
+                                                    {{ freelancer.nomUser }} {{ freelancer.prenomUser }}
+                                                </a>
+                                            </h4>
+                                            <p class="card-text">Je vis actuellement au : {{ freelancer.ville }} mon pays est :{{ freelancer.pays }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="12">no records found</td>
+                    </tr>
+                {% endfor %}
+            </div>
+            <div class="navigation">
+                {{ knp_pagination_render(freelancers) }}
+            </div>
         </div>
-    </div>
-
-
-
+    </section>
 {% endblock %}

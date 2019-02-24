@@ -24,9 +24,6 @@ class Equipe
      */
     private $idProjet;
 
-
-
-
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="participe")
      */
@@ -37,6 +34,7 @@ class Equipe
      * @ORM\JoinColumn(nullable=false)
      */
     private $chefDeProjet;
+
 
     public function __construct()
     {
@@ -53,13 +51,10 @@ class Equipe
         return $this->idProjet;
     }
 
-    public function setIdProjet(?Projet $idProjet): self
+    public function getIdChefProjet(): ?User
     {
-        $this->idProjet = $idProjet;
-
-        return $this;
+        return $this->idChefProjet;
     }
-
 
     public function addListParticipant(Participe $listParticipant): self
     {
@@ -77,6 +72,7 @@ class Equipe
         }
 
         return $this;
+
     }
 
     /**

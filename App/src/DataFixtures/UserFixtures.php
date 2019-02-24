@@ -31,6 +31,7 @@ class UserFixtures extends Fixture
     {
         $faker = \Faker\Factory::create();
 
+
         for($i = 0; $i <10; $i++){
             $user = new User();
             $user->setEmail($faker->email);
@@ -46,6 +47,9 @@ class UserFixtures extends Fixture
             $user->getUpdatedAt();
             $manager->persist($user);
 
+        }
+
+
             $userFreelancer = new User();
             $userFreelancer->setEmail($faker->email);
             $userFreelancer->setPassword($this->encoder->encodePassword($user, 'demo'));
@@ -59,7 +63,7 @@ class UserFixtures extends Fixture
             $userFreelancer->setTelephoneUser($faker->phoneNumber);
             $manager->persist($userFreelancer);
 
-        }
         $manager->flush();
+
     }
 }
