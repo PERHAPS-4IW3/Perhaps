@@ -10,16 +10,19 @@ namespace App\DataFixtures;
 
 
 use App\Entity\Projet;
+use App\Entity\TypeProjet;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\Entity\User;
 
-class ProjetFixtures extends Fixture
+class ProjetFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
         $faker = \Faker\Factory::create();
         $users = $manager->getRepository(User::class)->findAll();
+        $typeP = $manager->getRepository(TypeProjet::class)->findAll();
         for($i = 0; $i <10; $i++){
             $projet = (new Projet())
                 ->setNomProjet('Projet Informatique '.$i)
@@ -38,6 +41,8 @@ class ProjetFixtures extends Fixture
 
     public function getDependencies()
     {
-        return array( UserFixtures::class,);
+        return array(   UserFixtures::class,
+                        TypeProjetFixtures::class,
+                    );
     }
 }

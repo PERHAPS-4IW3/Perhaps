@@ -3,9 +3,13 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\NoteEtCommentaireRepository")
+ * @UniqueEntity(fields={"idProje","developpeur"},
+ *      errorPath =  "developpeur",
+ *      message="Le developpeur a déjà été noter pour ce projet")
  */
 class NoteEtCommentaire
 {
@@ -33,10 +37,10 @@ class NoteEtCommentaire
     private $idProjet;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Participe", inversedBy="commentaire", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\user", inversedBy="noteEtCommentaire")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $idParticipant;
+    private $developpeur;
 
 
     public function getId(): ?int
@@ -80,16 +84,17 @@ class NoteEtCommentaire
         return $this;
     }
 
-    public function getIdParticipant(): ?Participe
+    public function getDeveloppeur(): ?user
     {
-        return $this->idParticipant;
+        return $this->developpeur;
     }
 
-    public function setIdParticipant(Participe $idParticipant): self
+    public function setDeveloppeur(?user $developpeur): self
     {
-        $this->idParticipant = $idParticipant;
+        $this->developpeur = $developpeur;
 
         return $this;
     }
+
 
 }

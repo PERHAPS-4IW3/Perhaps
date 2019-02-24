@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProjetRepository")
+ * @ORM\Table(name="projet")
  */
 class Projet
 {
@@ -66,11 +67,6 @@ class Projet
     private $choixContact;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\CompetenceProjet", mappedBy="idProjet", orphanRemoval=true)
-     */
-    private $listCompetence;
-
-    /**
      * @ORM\OneToOne(targetEntity="App\Entity\Facture", mappedBy="idProjet", cascade={"persist", "remove"})
      */
     private $facture;
@@ -96,15 +92,26 @@ class Projet
      */
     private $creePar;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Competence")
+     */
+    private $listCompetence;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\TypeProjet")
+     */
+    private $typeProjet;
+
 
 
     public function __construct()
     {
         $this->createdAt = new \DateTime();
-        $this->listCompetence = new ArrayCollection();
         $this->listDesEquipes = new ArrayCollection();
         $this->listCommentaireEtNote = new ArrayCollection();
         $this->listDevis = new ArrayCollection();
+        $this->listCompetence = new ArrayCollection();
+        $this->typeProjet = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -207,36 +214,7 @@ class Projet
         return self::CONTACT[$this->choixContact];
     }
 
-    /**
-     * @return Collection|CompetenceProjet[]
-     */
-    public function getListCompetence(): Collection
-    {
-        return $this->listCompetence;
-    }
 
-    public function addListCompetence(CompetenceProjet $listCompetence): self
-    {
-        if (!$this->listCompetence->contains($listCompetence)) {
-            $this->listCompetence[] = $listCompetence;
-            $listCompetence->setIdProjet($this);
-        }
-
-        return $this;
-    }
-
-    public function removeListCompetence(CompetenceProjet $listCompetence): self
-    {
-        if ($this->listCompetence->contains($listCompetence)) {
-            $this->listCompetence->removeElement($listCompetence);
-            // set the owning side to null (unless already changed)
-            if ($listCompetence->getIdProjet() === $this) {
-                $listCompetence->setIdProjet(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function getFacture(): ?Facture
     {
@@ -356,6 +334,58 @@ class Projet
     public function setCreePar(?User $creePar): self
     {
         $this->creePar = $creePar;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Competence[]
+     */
+    public function getListCompetence(): Collection
+    {
+        return $this->listCompetence;
+    }
+
+    public function addListCompetence(Competence $listCompetence): self
+    {
+        if (!$this->listCompetence->contains($listCompetence)) {
+            $this->listCompetence[] = $listCompetence;
+        }
+
+        return $this;
+    }
+
+    public function removeListCompetence(Competence $listCompetence): self
+    {
+        if ($this->listCompetence->contains($listCompetence)) {
+            $this->listCompetence->removeElement($listCompetence);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|TypeProjet[]
+     */
+    public function getTypeProjet(): Collection
+    {
+        return $this->typeProjet;
+    }
+
+    public function addTypeProjet(TypeProjet $typeProjet): self
+    {
+        if (!$this->typeProjet->contains($typeProjet)) {
+            $this->typeProjet[] = $typeProjet;
+        }
+
+        return $this;
+    }
+
+    public function removeTypeProjet(TypeProjet $typeProjet): self
+    {
+        if ($this->typeProjet->contains($typeProjet)) {
+            $this->typeProjet->removeElement($typeProjet);
+        }
 
         return $this;
     }

@@ -3,10 +3,14 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TypeProjetRepository")
+ * @UniqueEntity(fields="nomType", message="Le type de projet existe déjà")
+ * @ORM\Table(name="type_projet")
  */
+
 class TypeProjet
 {
     /**

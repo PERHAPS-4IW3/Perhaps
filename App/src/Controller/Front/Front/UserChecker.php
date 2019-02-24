@@ -6,7 +6,7 @@
  * Time: 19:23
  */
 
-namespace App\Controller\Front;
+namespace App\Controller\Front\Front;
 
 use App\Entity\User as AppUser;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
