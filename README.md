@@ -1,4 +1,7 @@
 # Perhaps
+
+[![Build Status](https://travis-ci.com/PERHAPS-4IW3/Perhaps.svg?branch=master)](https://travis-ci.com/PERHAPS-4IW3/Perhaps)
+
 Projet Annuel 4IW3
 
 This projet is a annuel project for 2018/2019 ( ESGI )
