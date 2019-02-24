@@ -26,7 +26,7 @@ class CompetencePossederFixture extends Fixture implements DependentFixtureInter
      */
     public function load(ObjectManager $manager)
     {
-        $faker = \Faker\Factory::create();
+        /*$faker = \Faker\Factory::create();
         $Users = $manager->getRepository(User::class)->findAll();
         $Competences = $manager->getRepository(Competence::class)->findAll();
 
@@ -38,7 +38,7 @@ class CompetencePossederFixture extends Fixture implements DependentFixtureInter
             $manager->persist($CompetencePosseder);
 
         }
-        $manager->flush();
+        $manager->flush();*/
     }
 
 

@@ -38,22 +38,28 @@ class CompetenceProjet
         return $this->idProjet;
     }
 
-    public function setIdProjet(?Projet $idProjet): self
-    {
-        $this->idProjet = $idProjet;
-
-        return $this;
-    }
 
     public function getIdCompetence(): ?Competence
     {
         return $this->idCompetence;
     }
 
-    public function setIdCompetence(?Competence $idCompetence): self
+    /**
+     * @param mixed $idProjet
+     */
+    public function setIdProjet($idProjet): void
+    {
+        $this->idProjet = $idProjet;
+    }
+
+    /**
+     * @param mixed $idCompetence
+     */
+    public function setIdCompetence($idCompetence): void
     {
         $this->idCompetence = $idCompetence;
-
-        return $this;
     }
+
+
+
 }

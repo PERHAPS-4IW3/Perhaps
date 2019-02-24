@@ -64,22 +64,19 @@ class CompetencePosseder
         return $this->user_Id;
     }
 
-    public function setUserId(?User $user_Id): self
-    {
-        $this->user_Id = $user_Id;
-
-        return $this;
-    }
-
     public function getCompetenceId(): ?Competence
     {
         return $this->competence_Id;
     }
 
-    public function setCompetenceId(?Competence $competence_Id): self
+    public function setUserId($user_Id): void
+    {
+        $this->user_Id = $user_Id;
+    }
+
+    public function setCompetenceId($competence_Id): void
     {
         $this->competence_Id = $competence_Id;
-
-        return $this;
     }
+
 }

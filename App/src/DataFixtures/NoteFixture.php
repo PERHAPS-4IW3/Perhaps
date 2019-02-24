@@ -25,7 +25,7 @@ class NoteFixture extends Fixture implements DependentFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        $faker = \Faker\Factory::create();
+       /* $faker = \Faker\Factory::create();
         $projets = $manager->getRepository(Projet::class)->findAll();
         $participe = $manager->getRepository(Participe::class)->findAll();
         for($i = 0; $i <2; $i++){
@@ -37,7 +37,7 @@ class NoteFixture extends Fixture implements DependentFixtureInterface
             $manager->persist($facture);
 
         }
-        $manager->flush();
+        $manager->flush();*/
     }
     /**
      * This method must return an array of fixtures classes

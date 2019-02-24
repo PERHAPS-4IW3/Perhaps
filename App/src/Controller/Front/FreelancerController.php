@@ -37,47 +37,38 @@ class FreelancerController extends AbstractController
      * @param PaginatorInterface $paginator
      * @return Response
      */
-   /* public function index(Request $request, UserRepository $userRepository, PaginatorInterface $paginator): Response
+   public function index(Request $request, UserRepository $userRepository, PaginatorInterface $paginator): Response
 
-    {
-        $users = $paginator->paginate(
-            $this-> repository->findAllVisibleQuery(),
-            $request->query->getInt('page', 1),
-            3/*limit per page*/
-       /* );
-        return $this->render('Front/Freelancer/showFree.html.twig', [
-            'users' => $users,
-        ]);
-    }*/
-
-    /**
-     * @Route("/freelancer", name="free_index", methods={"GET"})
-     * @param UserRepository $userRepository
-     * @param Request $request
-     * @return Response
-     */
-    public function indexFree(UserRepository $userRepository, Request $request): Response
     {
         $search = new User();
         $form = $this->createForm(FreelancerSearchType::class, $search);
         $form->handleRequest($request);
 
-        dump($search);
         if($form->isSubmitted() && $form->isValid()){
-            $freelancers = $userRepository->findFreelancers($search);
-            //dump($freelancers);
-            return $this->render('Front/freelancer/ShowFree.html.twig', [
-                'users'   => $freelancers,
-                'form'          => $form->createView()
+            $users = $paginator->paginate(
+                $freelancers = $userRepository->findFreelancers($search),
+                $request->query->getInt('page', 1),
+                6/*limit per page*/
+            );
+
+            return $this->render('Front/Freelancer/index.html.twig', [
+                'freelancers' => $users,
+                'form'  => $form->createView()
             ]);
         }
 
-        $freelancers = $userRepository->findLatest();
-        return $this->render('Front/freelancer/ShowFree.html.twig', [
-            'users'       => $freelancers,
+        $users = $paginator->paginate(
+            $this-> repository->findAllVisibleQuery(),
+            $request->query->getInt('page', 1),
+            6/*limit per page*/
+        );
+
+        return $this->render('Front/freelancer/index.html.twig', [
+            'freelancers'       => $users,
             'form'              => $form->createView(),
             'controller_name'   => 'freelancer',
         ]);
+
     }
 
     /**

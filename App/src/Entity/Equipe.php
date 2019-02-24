@@ -50,24 +50,28 @@ class Equipe
         return $this->idProjet;
     }
 
-    public function setIdProjet(?Projet $idProjet): self
-    {
-        $this->idProjet = $idProjet;
-
-        return $this;
-    }
-
     public function getIdChefProjet(): ?User
     {
         return $this->idChefProjet;
     }
 
-    public function setIdChefProjet(User $idChefProjet): self
+    /**
+     * @param mixed $idProjet
+     */
+    public function setIdProjet($idProjet): void
+    {
+        $this->idProjet = $idProjet;
+    }
+
+    /**
+     * @param mixed $idChefProjet
+     */
+    public function setIdChefProjet($idChefProjet): void
     {
         $this->idChefProjet = $idChefProjet;
-
-        return $this;
     }
+
+
 
     /**
      * @return Collection|Participe[]

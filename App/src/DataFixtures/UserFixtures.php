@@ -29,22 +29,23 @@ class UserFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        $faker = \Faker\Factory::create();
+        /*$faker = \Faker\Factory::create();
 
-        for($i = 0; $i <10; $i++){
-        $user = new User();
-        $user->setEmail($faker->email);
-        $user->setPassword($this->encoder->encodePassword($user, 'demo'));
-        $user->setRole('ROLE_USER');
-        $user->setNomUser($faker->lastName);
-        $user->setPrenomUser($faker->firstName);
-        $user->setAdresseUser($faker->address);
-        $user->setCodePostalUser($faker->postcode);
-        $user->setVille($faker->city);
-        $user->setPays($faker->country);
-        $user->setTelephoneUser($faker->phoneNumber);
-        $user->getUpdatedAt();
-        $manager->persist($user);
+        for($i = 0; $i <10; $i++) {
+            $user = new User();
+            $user->setEmail($faker->email);
+            $user->setPassword($this->encoder->encodePassword($user, 'demo'));
+            $user->setRole('ROLE_USER');
+            $user->setNomUser($faker->lastName);
+            $user->setPrenomUser($faker->firstName);
+            $user->setAdresseUser($faker->address);
+            $user->setCodePostalUser($faker->postcode);
+            $user->setVille($faker->city);
+            $user->setPays($faker->country);
+            $user->setTelephoneUser($faker->phoneNumber);
+            $user->getUpdatedAt();
+            $manager->persist($user);
+        }*/
 
        /* for($i = 0; $i <10; $i++){
             $userFreelancer = new User();
@@ -61,6 +62,7 @@ class UserFixtures extends Fixture
             $manager->persist($userFreelancer);
         }*/
 
-        $manager->flush();
-    }}
+        /*$manager->flush();*/
+
+    }
 }
