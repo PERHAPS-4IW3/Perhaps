@@ -126,6 +126,12 @@ class User implements UserInterface, \Serializable
     private $confirmationToken;
 
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CompetencePosseder", mappedBy="user_Id", orphanRemoval=true)
+     */
+    private $listDesCompetences;
+
+
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -356,12 +362,12 @@ class User implements UserInterface, \Serializable
     }
 
     //contrôler la validité du token
-    public function getPasswordRequestedAt()
+    public function getPasswordRequestedAt(): string
     {
         return $this->passwordRequestedAt;
     }
 
-    public function setPasswordRequestedAt($passwordRequestedAt): void
+    public function setPasswordRequestedAt(?string $passwordRequestedAt): void
     {
         $this->passwordRequestedAt = $passwordRequestedAt;
     }
@@ -387,6 +393,23 @@ class User implements UserInterface, \Serializable
     public function setConfirmationToken(?string $confirmationToken): void
     {
         $this->confirmationToken = $confirmationToken;
+    }
+
+    /**
+     * @return Collection|CompetencePosseder[]
+     */
+    public function getListDesCompetences(): Collection
+    {
+        return $this->listDesCompetences;
+    }
+
+    public function addListDesCompetence(CompetencePosseder $listDesCompetence): self
+    {
+        if (!$this->listDesCompetences->contains($listDesCompetence)) {
+            $this->listDesCompetences[] = $listDesCompetence;
+            $listDesCompetence->setUserId($this);
+        }
+
     }
 
     /**

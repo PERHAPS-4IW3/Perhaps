@@ -77,11 +77,13 @@ class NoteEtCommentaire
         return $this->idProjet;
     }
 
-    public function setIdProjet(?Projet $idProjet): self
+
+    /**
+     * @param mixed $idProjet
+     */
+    public function setIdProjet($idProjet): void
     {
         $this->idProjet = $idProjet;
-
-        return $this;
     }
 
     public function getDeveloppeur(): ?user
@@ -95,6 +97,5 @@ class NoteEtCommentaire
 
         return $this;
     }
-
 
 }

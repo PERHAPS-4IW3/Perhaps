@@ -30,7 +30,6 @@ class UserFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $faker = \Faker\Factory::create();
-
         for($i = 0; $i <10; $i++){
             $user = new User();
             $user->setEmail($faker->email);
@@ -43,6 +42,7 @@ class UserFixtures extends Fixture
             $user->setVille($faker->city);
             $user->setPays($faker->country);
             $user->setTelephoneUser($faker->phoneNumber);
+            $user->setIsActive(true);
             $user->getUpdatedAt();
             $manager->persist($user);
 
@@ -56,9 +56,9 @@ class UserFixtures extends Fixture
             $userFreelancer->setCodePostalUser($faker->postcode);
             $userFreelancer->setVille($faker->city);
             $userFreelancer->setPays($faker->country);
+            $user->setIsActive(true);
             $userFreelancer->setTelephoneUser($faker->phoneNumber);
             $manager->persist($userFreelancer);
-
         }
         $manager->flush();
     }
