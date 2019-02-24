@@ -39,9 +39,9 @@ class UserChecker extends AbstractController implements UserCheckerInterface
         }
 
         // user account is expired, the user may be notified
-        if (!$user->getIsActive()) {
+        /*if (!$user->getIsActive()) {
             throw new \Exception("Ce membre n'est pas actif");
-        }
+        }*/
 
     }
 

@@ -51,24 +51,27 @@ class Participe
         return $this->idUser;
     }
 
-    public function setIdUser(?User $idUser): self
-    {
-        $this->idUser = $idUser;
-
-        return $this;
-    }
-
     public function getIdEquipe(): ?Equipe
     {
         return $this->idEquipe;
     }
 
-    public function setIdEquipe(?Equipe $idEquipe): self
+    /**
+     * @param mixed $idUser
+     */
+    public function setIdUser($idUser): void
+    {
+        $this->idUser = $idUser;
+    }
+
+    /**
+     * @param mixed $idEquipe
+     */
+    public function setIdEquipe($idEquipe): void
     {
         $this->idEquipe = $idEquipe;
-
-        return $this;
     }
+
 
     public function getCommentaire(): ?NoteEtCommentaire
     {

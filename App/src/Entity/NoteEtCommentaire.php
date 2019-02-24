@@ -73,23 +73,27 @@ class NoteEtCommentaire
         return $this->idProjet;
     }
 
-    public function setIdProjet(?Projet $idProjet): self
-    {
-        $this->idProjet = $idProjet;
-
-        return $this;
-    }
-
     public function getIdParticipant(): ?Participe
     {
         return $this->idParticipant;
     }
 
-    public function setIdParticipant(Participe $idParticipant): self
+    /**
+     * @param mixed $idProjet
+     */
+    public function setIdProjet($idProjet): void
+    {
+        $this->idProjet = $idProjet;
+    }
+
+    /**
+     * @param mixed $idParticipant
+     */
+    public function setIdParticipant($idParticipant): void
     {
         $this->idParticipant = $idParticipant;
-
-        return $this;
     }
+
+
 
 }

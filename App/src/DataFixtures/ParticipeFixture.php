@@ -20,7 +20,7 @@ class ParticipeFixture extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        $equipe = $manager->getRepository(Equipe::class)->findAll();
+       /* $equipe = $manager->getRepository(Equipe::class)->findAll();
         $users = $manager->getRepository(User::class)->findAll();
 
         for($i = 0; $i <10; $i++){
@@ -30,7 +30,7 @@ class ParticipeFixture extends Fixture implements DependentFixtureInterface
             $manager->persist($participe);
 
         }
-        $manager->flush();
+        $manager->flush();*/
     }
 
     /**
