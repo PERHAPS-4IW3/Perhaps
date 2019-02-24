@@ -9,6 +9,7 @@
 namespace App\Form;
 
 use App\Entity\User;
+use Doctrine\DBAL\Types\ArrayType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
@@ -21,6 +22,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class UserType extends AbstractType
 {
@@ -28,18 +30,21 @@ class UserType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, ['label' => 'Email'])
+
             ->add('password', RepeatedType::class, array(
                 'type' => PasswordType::class,
                 'first_options'  => array('label' => 'Mot de passe'),
                 'second_options' => array('label' => 'Confirmer le mot de passe'),
             ))
-            ->add('role', ChoiceType::class, [
+            ->add('roles', CollectionType::class, [
                 'label'                     => 'Je suis un : ',
-                'multiple'                  => false,
-                'expanded'                  => false,
-                'choices'                   => [
-                    'Freelancer'        => 'ROLE_FREELANCER',
-                    'Porteur de Projet' => 'ROLE_USER'
+                'required'     => false,
+                'entry_type'   => ChoiceType::class,
+                'entry_options'  => [
+                    'choices'             => [
+                        'Freelancer'        => 'ROLE_FREELANCER',
+                        'Porteur de Projet' => 'ROLE_USER'
+                    ]
                 ]
             ])
             ->add('nomUser', TextType::class, ['label' => 'Nom'])

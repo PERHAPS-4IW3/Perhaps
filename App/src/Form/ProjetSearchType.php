@@ -23,10 +23,10 @@ class ProjetSearchType extends AbstractType
                     'placeholder' => 'Nom du projet'
                 ]
             ])
-            ->add('tags', EntityType::class, [
-                'label'        => 'Tag',
+            ->add('listCompetence', EntityType::class, [
+                'label'        => 'Competence',
                 'class'        => Competence::class,
-                'choice_label' => 'name',
+                'choice_label' => 'nomCompetence',
                 'multiple'     => true,
                 'required'     => false,
             ])
