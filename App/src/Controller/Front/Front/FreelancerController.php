@@ -38,7 +38,6 @@ class FreelancerController extends AbstractController
      * @return Response
      */
    public function index(Request $request, UserRepository $userRepository, PaginatorInterface $paginator): Response
-
     {
         $search = new User();
         $form = $this->createForm(FreelancerSearchType::class, $search);

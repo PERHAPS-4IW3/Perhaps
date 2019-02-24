@@ -399,8 +399,6 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-
-
     public function getPresentationFreelancer(): ?string
     {
         return $this->presentationFreelancer;

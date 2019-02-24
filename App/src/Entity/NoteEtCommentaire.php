@@ -89,5 +89,4 @@ class NoteEtCommentaire
         return $this;
     }
 
-
 }
