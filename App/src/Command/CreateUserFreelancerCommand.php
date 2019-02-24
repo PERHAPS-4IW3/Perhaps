@@ -90,7 +90,7 @@ class CreateUserFreelancerCommand extends Command
         $user->setPresentationFreelancer($description);
         $user->setNomSociete($company);
         $user->setPassword($password);
-        $user->setRole('ROLE_FREELANCER');
+        $user->setRoles(array('ROLE_FREELANCER'));
 
         $errors = $this->validator->validate($user);
 

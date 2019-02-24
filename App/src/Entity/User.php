@@ -49,9 +49,9 @@ class User implements UserInterface, \Serializable
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="json")
      */
-    private $role;
+    private $roles = [];
 
     /**
      * @var string The hashed password
@@ -125,15 +125,13 @@ class User implements UserInterface, \Serializable
      */
     private $confirmationToken;
 
+
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\CompetencePosseder", mappedBy="user_Id", orphanRemoval=true)
      */
     private $listDesCompetences;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Participe", mappedBy="idUser", orphanRemoval=true)
-     */
-    private $listProjet;
+
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -163,15 +161,42 @@ class User implements UserInterface, \Serializable
     private $updated_at;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Competence")
+     */
+    private $listCompetence;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Equipe", inversedBy="listParticipants")
+     */
+    private $participe;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\NoteEtCommentaire", mappedBy="developpeur", orphanRemoval=true)
+     */
+    private $noteEtCommentaire;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Devis", mappedBy="etabliPar", orphanRemoval=true)
+     */
+    private $listDesDevis;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Equipe", mappedBy="chefDeProjet")
+     */
+    private $equipeGerer;
+
+    /**
      * User constructor.
      */
     public function __construct()
     {
         $this->isActive = false;
-        $this->listDesCompetences = new ArrayCollection();
-        $this->listProjet = new ArrayCollection();
         $this->projetGerer = new ArrayCollection();
-        //$this->roles = ['ROLE_USER'];
+        $this->listCompetence = new ArrayCollection();
+        $this->participe = new ArrayCollection();
+        $this->noteEtCommentaire = new ArrayCollection();
+        $this->listDesDevis = new ArrayCollection();
+        $this->equipeGerer = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -201,36 +226,6 @@ class User implements UserInterface, \Serializable
         return (string) $this->email;
     }
 
-    public function getRole(): string
-    {
-        return (string) $this->role;
-    }
-
-    public function setRole(string $role)
-    {
-        $this->role = $role;
-        return $this;
-    }
-    /**
-     * @see UserInterface
-     */
-    public function getRoles(): array
-    {
-       return array($this->role);
-        /*
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);*/
-    }
-
-    public function setRoles(array $roles): self
-    {
-        $this->role = $roles;
-        return $this;
-
-    }
 
     /**
      * @see UserInterface
@@ -414,6 +409,23 @@ class User implements UserInterface, \Serializable
             $this->listDesCompetences[] = $listDesCompetence;
             $listDesCompetence->setUserId($this);
         }
+
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatut(): ?string
+    {
+        return $this->statut;
+    }
+
+    /**
+     * @param mixed $statut
+     */
+    public function setStatut(?string $statut): void
+    {
+        $this->statut = $statut;
     }
 
     public function getTarifHoraireFreelancer(): ?int
@@ -428,16 +440,6 @@ class User implements UserInterface, \Serializable
     }
 
 
-    public function removeListDesCompetence(CompetencePosseder $listDesCompetence): self
-    {
-        if ($this->listDesCompetences->contains($listDesCompetence)) {
-            $this->listDesCompetences->removeElement($listDesCompetence);
-            // set the owning side to null (unless already changed)
-            if ($listDesCompetence->getUserId() === $this) {
-                $listDesCompetence->setUserId(null);
-            }
-        }
-    }
 
     public function getPresentationFreelancer(): ?string
     {
@@ -450,21 +452,7 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-    /**
-     * @return Collection|Participe[]
-     */
-    public function getListProjet(): Collection
-    {
-        return $this->listProjet;
-    }
 
-    public function addListProjet(Participe $listProjet): self
-    {
-        if (!$this->listProjet->contains($listProjet)) {
-            $this->listProjet[] = $listProjet;
-            $listProjet->setIdUser($this);
-        }
-    }
     public function getNomSociete(): ?string
     {
         return $this->nomSociete;
@@ -475,21 +463,6 @@ class User implements UserInterface, \Serializable
         $this->nomSociete = $nomSociete;
         return $this;
     }
-
-
-    public function removeListProjet(Participe $listProjet): self
-    {
-        if ($this->listProjet->contains($listProjet)) {
-            $this->listProjet->removeElement($listProjet);
-            // set the owning side to null (unless already changed)
-            if ($listProjet->getIdUser() === $this) {
-                $listProjet->setIdUser(null);
-            }
-        }
-
-        return $this;
-    }
-
     /**
      * @return Collection|Projet[]
      */
@@ -594,4 +567,169 @@ class User implements UserInterface, \Serializable
 
             ) = unserialize($serialized);
     }
+
+    /**
+     * @return Collection|Competence[]
+     */
+    public function getListCompetence(): Collection
+    {
+        return $this->listCompetence;
+    }
+
+    public function addListCompetence(Competence $listCompetence): self
+    {
+        if (!$this->listCompetence->contains($listCompetence)) {
+            $this->listCompetence[] = $listCompetence;
+        }
+
+        return $this;
+    }
+
+    public function removeListCompetence(Competence $listCompetence): self
+    {
+        if ($this->listCompetence->contains($listCompetence)) {
+            $this->listCompetence->removeElement($listCompetence);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Equipe[]
+     */
+    public function getParticipe(): Collection
+    {
+        return $this->participe;
+    }
+
+    public function addParticipe(Equipe $participe): self
+    {
+        if (!$this->participe->contains($participe)) {
+            $this->participe[] = $participe;
+        }
+
+        return $this;
+    }
+
+    public function removeParticipe(Equipe $participe): self
+    {
+        if ($this->participe->contains($participe)) {
+            $this->participe->removeElement($participe);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|NoteEtCommentaire[]
+     */
+    public function getNoteEtCommentaire(): Collection
+    {
+        return $this->noteEtCommentaire;
+    }
+
+    public function addNoteEtCommentaire(NoteEtCommentaire $noteEtCommentaire): self
+    {
+        if (!$this->noteEtCommentaire->contains($noteEtCommentaire)) {
+            $this->noteEtCommentaire[] = $noteEtCommentaire;
+            $noteEtCommentaire->setDeveloppeur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNoteEtCommentaire(NoteEtCommentaire $noteEtCommentaire): self
+    {
+        if ($this->noteEtCommentaire->contains($noteEtCommentaire)) {
+            $this->noteEtCommentaire->removeElement($noteEtCommentaire);
+            // set the owning side to null (unless already changed)
+            if ($noteEtCommentaire->getDeveloppeur() === $this) {
+                $noteEtCommentaire->setDeveloppeur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Devis[]
+     */
+    public function getListDesDevis(): Collection
+    {
+        return $this->listDesDevis;
+    }
+
+    public function addListDesDevi(Devis $listDesDevi): self
+    {
+        if (!$this->listDesDevis->contains($listDesDevi)) {
+            $this->listDesDevis[] = $listDesDevi;
+            $listDesDevi->setEtabliPar($this);
+        }
+
+        return $this;
+    }
+
+    public function removeListDesDevi(Devis $listDesDevi): self
+    {
+        if ($this->listDesDevis->contains($listDesDevi)) {
+            $this->listDesDevis->removeElement($listDesDevi);
+            // set the owning side to null (unless already changed)
+            if ($listDesDevi->getEtabliPar() === $this) {
+                $listDesDevi->setEtabliPar(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Equipe[]
+     */
+    public function getEquipeGerer(): Collection
+    {
+        return $this->equipeGerer;
+    }
+
+    public function addEquipeGerer(Equipe $equipeGerer): self
+    {
+        if (!$this->equipeGerer->contains($equipeGerer)) {
+            $this->equipeGerer[] = $equipeGerer;
+            $equipeGerer->setChefDeProjet($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEquipeGerer(Equipe $equipeGerer): self
+    {
+        if ($this->equipeGerer->contains($equipeGerer)) {
+            $this->equipeGerer->removeElement($equipeGerer);
+            // set the owning side to null (unless already changed)
+            if ($equipeGerer->getChefDeProjet() === $this) {
+                $equipeGerer->setChefDeProjet(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

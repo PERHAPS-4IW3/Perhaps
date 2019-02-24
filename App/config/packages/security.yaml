@@ -23,7 +23,7 @@ security:
         main:
             anonymous: true
             pattern:    ^/
-            user_checker: App\Controller\Front\UserChecker # activation du UserChecker
+            user_checker: App\Controller\Front\Front\UserChecker # activation du UserChecker
             http_basic: ~
             provider: app_user_provider
             switch_user: ~
@@ -55,6 +55,7 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/user, roles: ROLE_USER }
+    # - { path: ^/User, roles: ROLE_USER }
+    # - { path: ^/back, roles: FREELANCER }
         # - { path: ^/user, roles: ROLE_USER }
         # - { path: ^/profile, roles: ROLE_USER }

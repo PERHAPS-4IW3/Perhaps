@@ -3,10 +3,13 @@
 namespace App\Form;
 
 use App\Entity\Projet;
+use App\Entity\Competence;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class ProjetType extends AbstractType
 {
@@ -18,6 +21,13 @@ class ProjetType extends AbstractType
             ->add('budget')
             ->add('choixContact', ChoiceType::class, [
                 'choices' => $this->getChoices()
+            ])
+            ->add('listCompetence', EntityType::class, [
+                'label'        => 'Competence',
+                'class'        => Competence::class,
+                'choice_label' => 'nomCompetence',
+                'multiple'     => true,
+                'required'     => false,
             ])
             ->add('dateDebut')
         ;

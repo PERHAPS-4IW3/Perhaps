@@ -6,7 +6,7 @@
  * Time: 21:31
  */
 
-namespace App\Controller\Front;
+namespace App\Controller\Front\Front;
 
 use App\Form\UserType;
 use App\Entity\User;

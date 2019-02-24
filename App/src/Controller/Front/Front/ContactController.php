@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Controller\Front;
+namespace App\Controller\Front\Front;
 
 use App\Form\ContactType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Services\Mailer;
+
 
 class ContactController extends AbstractController
 {

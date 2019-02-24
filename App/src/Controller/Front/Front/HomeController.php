@@ -6,7 +6,7 @@
  * Time: 12:36
  */
 
-namespace App\Controller\Front;
+namespace App\Controller\Front\Front;
 
 use App\Repository\ProjetRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,7 +25,7 @@ class HomeController extends AbstractController
     public function home(ProjetRepository $repository): Response
     {
         $projets = $repository->findLatest();
-        return $this->render('Front/Home/home.html.twig', [
+        return $this->render('Front/Front/Home/home.html.twig', [
             'projets' => $projets
         ]);
     }

@@ -3,9 +3,13 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DevisRepository")
+ * @UniqueEntity(fields={"projet","etabliPar"},
+ *      errorPath =  "etabliPar",
+ *      message="Vous avez déjà établi un devi pour ce projet")
  */
 class Devis
 {
@@ -46,6 +50,12 @@ class Devis
      * @ORM\OneToOne(targetEntity="App\Entity\Facture", mappedBy="devis", cascade={"persist", "remove"})
      */
     private $facture;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="listDesDevis")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $etabliPar;
 
     public function getId(): ?int
     {
@@ -125,6 +135,18 @@ class Devis
         if ($this !== $facture->getDevis()) {
             $facture->setDevis($this);
         }
+
+        return $this;
+    }
+
+    public function getEtabliPar(): ?User
+    {
+        return $this->etabliPar;
+    }
+
+    public function setEtabliPar(?User $etabliPar): self
+    {
+        $this->etabliPar = $etabliPar;
 
         return $this;
     }

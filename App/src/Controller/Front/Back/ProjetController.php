@@ -6,10 +6,11 @@
  * Time: 00:15
  */
 
-namespace App\Controller\Back;
+namespace App\Controller\Front\Back;
 
 
 use App\Entity\Projet;
+use App\Entity\User;
 use App\Form\ProjetType;
 use App\Repository\ProjetRepository;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -18,6 +19,15 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+
+
+/**
+ * Class ProjetController
+ *
+ * @category  Class
+ * @package   App\Controller\Front\Back
+ * @Route("/Projet", name="")
+ */
 
 class ProjetController extends AbstractController
 {
@@ -44,12 +54,11 @@ class ProjetController extends AbstractController
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\
      * @Route(name="user_projet_index", path="/user/projets", methods={"GET"})
      */
     public function index()
     {
-        //récupérer tous les projets même si ils sont supprimés
         $projets = $this->repository->findAll();
         return $this->render('Back/Projet/index.html.twig', [
             'projets'=> $projets,

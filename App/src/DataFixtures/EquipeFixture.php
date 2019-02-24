@@ -25,18 +25,18 @@ class EquipeFixture extends Fixture implements DependentFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        /*$faker = \Faker\Factory::create();
+        $faker = \Faker\Factory::create();
         $projet = $manager->getRepository(Projet::class)->findAll();
         $competences = $manager->getRepository(User::class)->findAll();
 
         for($i = 0; $i <2; $i++){
             $competenceProjet = (new Equipe())
                 ->setIdProjet($projet[array_rand($projet)])
-                ->setIdChefProjet($competences[array_rand($competences)]);
+                ->setChefDeProjet($competences[array_rand($competences)]);
             $manager->persist($competenceProjet);
 
         }
-        $manager->flush();*/
+        $manager->flush();
     }
 
     /**

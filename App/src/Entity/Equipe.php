@@ -24,20 +24,23 @@ class Equipe
      */
     private $idProjet;
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\User", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $idChefProjet;
+
+
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Participe", mappedBy="idEquipe", orphanRemoval=true)
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="participe")
      */
-    private $listParticipant;
+    private $listParticipants;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="equipeGerer")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $chefDeProjet;
 
     public function __construct()
     {
-        $this->listParticipant = new ArrayCollection();
+        $this->listParticipants = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -50,10 +53,6 @@ class Equipe
         return $this->idProjet;
     }
 
-    public function getIdChefProjet(): ?User
-    {
-        return $this->idChefProjet;
-    }
 
     /**
      * @param mixed $idProjet
@@ -63,29 +62,10 @@ class Equipe
         $this->idProjet = $idProjet;
     }
 
-    /**
-     * @param mixed $idChefProjet
-     */
-    public function setIdChefProjet($idChefProjet): void
-    {
-        $this->idChefProjet = $idChefProjet;
-    }
-
-
-
-    /**
-     * @return Collection|Participe[]
-     */
-    public function getListParticipant(): Collection
-    {
-        return $this->listParticipant;
-    }
-
     public function addListParticipant(Participe $listParticipant): self
     {
-        if (!$this->listParticipant->contains($listParticipant)) {
-            $this->listParticipant[] = $listParticipant;
-            $listParticipant->setIdEquipe($this);
+        if (!$this->listParticipants->contains($listParticipant)) {
+            $this->listParticipants[] = $listParticipant;
         }
 
         return $this;
@@ -93,13 +73,29 @@ class Equipe
 
     public function removeListParticipant(Participe $listParticipant): self
     {
-        if ($this->listParticipant->contains($listParticipant)) {
-            $this->listParticipant->removeElement($listParticipant);
-            // set the owning side to null (unless already changed)
-            if ($listParticipant->getIdEquipe() === $this) {
-                $listParticipant->setIdEquipe(null);
-            }
+        if ($this->listParticipants->contains($listParticipant)) {
+            $this->listParticipants->removeElement($listParticipant);
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getListParticipants(): Collection
+    {
+        return $this->listParticipants;
+    }
+
+    public function getChefDeProjet(): ?User
+    {
+        return $this->chefDeProjet;
+    }
+
+    public function setChefDeProjet(?User $chefDeProjet): self
+    {
+        $this->chefDeProjet = $chefDeProjet;
 
         return $this;
     }

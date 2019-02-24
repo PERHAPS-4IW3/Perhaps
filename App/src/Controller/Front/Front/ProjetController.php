@@ -6,7 +6,7 @@
  * Time: 16:12
  */
 
-namespace App\Controller\Front;
+namespace App\Controller\Front\Front;
 
 
 use App\Form\ProjetSearchType;
