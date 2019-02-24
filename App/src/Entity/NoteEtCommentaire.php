@@ -77,15 +77,6 @@ class NoteEtCommentaire
         return $this->idProjet;
     }
 
-
-    /**
-     * @param mixed $idProjet
-     */
-    public function setIdProjet($idProjet): void
-    {
-        $this->idProjet = $idProjet;
-    }
-
     public function getDeveloppeur(): ?user
     {
         return $this->developpeur;

@@ -125,14 +125,6 @@ class User implements UserInterface, \Serializable
      */
     private $confirmationToken;
 
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\CompetencePosseder", mappedBy="user_Id", orphanRemoval=true)
-     */
-    private $listDesCompetences;
-
-
-
     /**
      * @ORM\Column(type="integer", nullable=true)
      * @Assert\Range(min=1, max=100)
@@ -393,39 +385,7 @@ class User implements UserInterface, \Serializable
     public function setConfirmationToken(?string $confirmationToken): void
     {
         $this->confirmationToken = $confirmationToken;
-    }
 
-    /**
-     * @return Collection|CompetencePosseder[]
-     */
-    public function getListDesCompetences(): Collection
-    {
-        return $this->listDesCompetences;
-    }
-
-    public function addListDesCompetence(CompetencePosseder $listDesCompetence): self
-    {
-        if (!$this->listDesCompetences->contains($listDesCompetence)) {
-            $this->listDesCompetences[] = $listDesCompetence;
-            $listDesCompetence->setUserId($this);
-        }
-
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getStatut(): ?string
-    {
-        return $this->statut;
-    }
-
-    /**
-     * @param mixed $statut
-     */
-    public function setStatut(?string $statut): void
-    {
-        $this->statut = $statut;
     }
 
     public function getTarifHoraireFreelancer(): ?int
@@ -438,8 +398,6 @@ class User implements UserInterface, \Serializable
         $this->tarifHoraireFreelancer = $tarifHoraireFreelancer;
         return $this;
     }
-
-
 
     public function getPresentationFreelancer(): ?string
     {
@@ -731,5 +689,4 @@ class User implements UserInterface, \Serializable
 
         return $this;
     }
-
 }

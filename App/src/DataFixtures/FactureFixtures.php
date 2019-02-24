@@ -26,7 +26,7 @@ class FactureFixtures extends Fixture implements DependentFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        $faker = \Faker\Factory::create();
+       /* $faker = \Faker\Factory::create();
         $projets = $manager->getRepository(Projet::class)->findAll();
         $devis = $manager->getRepository(Devis::class)->findAll();
 
@@ -42,7 +42,7 @@ class FactureFixtures extends Fixture implements DependentFixtureInterface
             $manager->persist($facture);
 
 
-        $manager->flush();
+        $manager->flush();*/
     }
 
     /**
