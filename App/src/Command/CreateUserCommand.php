@@ -82,7 +82,7 @@ class CreateUserCommand extends Command
         $user->setVille($city);
         $user->setPays($country);
         $user->setPassword($password);
-        $user->setRole('ROLE_USER');
+        $user->setRoles(array('ROLE_USER'));
 
         $errors = $this->validator->validate($user);
 
