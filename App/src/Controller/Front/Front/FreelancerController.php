@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Front;
+namespace App\Controller\Front\Front;
 
 use App\Entity\User;
 use App\Form\FreelancerSearchType;

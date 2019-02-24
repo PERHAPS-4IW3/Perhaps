@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Controller\Back;
+namespace App\Controller\Front\Back;
 
 
 
@@ -12,9 +12,12 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-
 /**
- * @Route("/payement")
+ * Class PayementController
+ *
+ * @category  Class
+ * @package   App\Controller\Front\Back
+ * @Route("/payement", name="")
  */
 class PayementController
 {

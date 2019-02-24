@@ -29,13 +29,14 @@ class UserFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        /*$faker = \Faker\Factory::create();
+        $faker = \Faker\Factory::create();
 
-        for($i = 0; $i <10; $i++) {
+
+        for($i = 0; $i <10; $i++){
             $user = new User();
             $user->setEmail($faker->email);
             $user->setPassword($this->encoder->encodePassword($user, 'demo'));
-            $user->setRole('ROLE_USER');
+            $user->setRoles(array('ROLE_USER'));
             $user->setNomUser($faker->lastName);
             $user->setPrenomUser($faker->firstName);
             $user->setAdresseUser($faker->address);
@@ -45,13 +46,14 @@ class UserFixtures extends Fixture
             $user->setTelephoneUser($faker->phoneNumber);
             $user->getUpdatedAt();
             $manager->persist($user);
-        }*/
 
-       /* for($i = 0; $i <10; $i++){
+        }
+
+
             $userFreelancer = new User();
             $userFreelancer->setEmail($faker->email);
             $userFreelancer->setPassword($this->encoder->encodePassword($user, 'demo'));
-            $userFreelancer->setRoles('ROLE_FREELANCER');
+            $userFreelancer->setRoles(array('ROLE_FREELANCER'));
             $userFreelancer->setNomUser($faker->lastName);
             $userFreelancer->setPrenomUser($faker->firstName);
             $userFreelancer->setAdresseUser($faker->address);
@@ -60,9 +62,8 @@ class UserFixtures extends Fixture
             $userFreelancer->setPays($faker->country);
             $userFreelancer->setTelephoneUser($faker->phoneNumber);
             $manager->persist($userFreelancer);
-        }*/
 
-        /*$manager->flush();*/
+        $manager->flush();
 
     }
 }
