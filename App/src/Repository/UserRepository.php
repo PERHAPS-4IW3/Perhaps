@@ -63,7 +63,6 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
     /**
      * @return Query
      */
-
     public function findAllVisibleQuery(): Query
     {
         return $this->findVisibleQuery()
