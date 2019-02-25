@@ -51,12 +51,10 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
         $roles = $request->request->get("user")["roles"];
         if ($form->isSubmitted() && $form->isValid()) {
-
-
             if(in_array('ROLE_USER', $roles)) {
                 $user->setTarifHoraireFreelancer(-1);
-                $user->setPresentationFreelancer(null);
-                $user->setNomSociete(null);
+                $user->setPresentationFreelancer("");
+                $user->setNomSociete("");
             }
 
             $user->setRoles($roles);
