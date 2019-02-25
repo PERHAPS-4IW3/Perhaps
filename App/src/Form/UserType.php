@@ -41,9 +41,10 @@ class UserType extends AbstractType
                 'required'     => false,
                 'entry_type'   => ChoiceType::class,
                 'entry_options'  => [
+                    'label' => false,
                     'choices'             => [
-                        'Freelancer'        => 'ROLE_FREELANCER',
-                        'Porteur de Projet' => 'ROLE_USER'
+                        'Porteur de Projet' => 'ROLE_USER',
+                        'Freelancer'        => 'ROLE_FREELANCER'
                     ]
                 ]
             ])

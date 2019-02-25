@@ -5,9 +5,7 @@
  * Date: 03/02/2019
  * Time: 21:31
  */
-
 namespace App\Controller\Front\Front;
-
 use App\Form\UserType;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,7 +17,6 @@ use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Services\Mailer;
-
 class SecurityController extends AbstractController
 {
     /**
@@ -36,7 +33,6 @@ class SecurityController extends AbstractController
             'lastUsername' => $lastUsername
         ]);
     }
-
     /**
      * @Route(name="registration", path="/register")
      * @param Request $request
@@ -47,37 +43,36 @@ class SecurityController extends AbstractController
      */
     public function registerAction(Request $request, UserPasswordEncoderInterface $passwordEncoder, Mailer $mailer, TokenGeneratorInterface $tokenGenerator)
     {
-
         if ($this->getUser() instanceof User) {
             return $this->redirectToRoute('app_front_home');
         }
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
-
+        $roles = $request->request->get("user")["roles"];
         if ($form->isSubmitted() && $form->isValid()) {
-            if($request->query->get('role') == 'ROLE_USER') {
-                $user->setTarifHoraireFreelancer(null);
+
+
+            if(in_array('ROLE_USER', $roles)) {
+                $user->setTarifHoraireFreelancer(-1);
                 $user->setPresentationFreelancer(null);
                 $user->setNomSociete(null);
             }
 
+            $user->setRoles($roles);
             $confirmationToken = $tokenGenerator->generateToken();
             $password = $passwordEncoder->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
             $user->setConfirmationToken($confirmationToken);
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
-
             // on utilise le service Mailer
             $bodyMail = $mailer->createBodyMail('Front/Security/mailConfirmationEmail.html.twig', [
                 'user' => $user
             ]);
             $mailer->sendMessage('noreply.perhaps@gmail.com', $user->getEmail(), 'Validation email', $bodyMail);
             $this->addFlash('success', "Un mail va vous être envoyé afin que vous puissiez valider votre inscription.");
-
             return $this->redirectToRoute('app_front_home');
         }
         return $this->render(
@@ -86,7 +81,6 @@ class SecurityController extends AbstractController
             ]
         );
     }
-
     /**
      * @Route(name="confirmAction", path="/activate/{token}")
      * @param Request $request
@@ -97,21 +91,16 @@ class SecurityController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository(User::class)->findOneBy(array('confirmationToken' => $token));
-
         if (!$user)
         {
-            throw $this->createNotFoundException('Aucun utilisateur trouvé pour ce token');
+            $this->createNotFoundException("Aucun utilisateur trouvé pour ce token");
         }
-
         $user->setConfirmationToken(null);
         $user->setIsActive(true);
-
         $em->persist($user);
         $em->flush();
-
         return $this->redirectToRoute('login');
     }
-
     /**
      * @Route(name="forgottenPassword", path="/mot_de_passe_oublie")
      * @param Request $request
@@ -125,7 +114,6 @@ class SecurityController extends AbstractController
             $email = $request->request->get('email');
             $em = $this->getDoctrine()->getManager();
             $user = $em->getRepository(User::class)->findOneBy(['email' => $email]);
-
             //aucun email associé
             if($user === null){
                 $this->addFlash('danger', 'Email inconnu');
@@ -133,7 +121,6 @@ class SecurityController extends AbstractController
             }
             //générer le token
             $token = $tokenGenerator->generateToken();
-
             try{
                 $user->setResetToken($token);
                 //enregistrement de la date de création du token
@@ -143,20 +130,16 @@ class SecurityController extends AbstractController
                 $this->addFlash('warning',$e->getMessage());
                 return $this->redirectToRoute('app_front_home');
             }
-
             // on utilise le service Mailer
             $bodyMail = $mailer->createBodyMail('Front/Security/mailResetPassword.html.twig', [
                 'user' => $user
             ]);
             $mailer->sendMessage('noreply.perhaps@gmail.com', $user->getEmail(), 'Renouvellement du mot de passe', $bodyMail);
             $this->addFlash('success', "Un mail va vous être envoyé afin que vous puissiez renouveller votre mot de passe. Le lien que vous recevrez sera valide 15 minutes.");
-
-
             return $this->redirectToRoute('app_front_home');
         }
         return $this->render('Front/Security/recoverPassword.html.twig');
     }
-
     /**
      * @Route(name="resetPassword", path="/reset_password/{token}")
      * @param Request $request
@@ -169,25 +152,20 @@ class SecurityController extends AbstractController
         if($request->isMethod('POST')){
             $em = $this->getDoctrine()->getManager();
             $user = $em->getRepository(User::class)->findOneBy(array('resetToken' => $token));
-
             if($user === null || !$this->isRequestInTime($user->getPasswordRequestedAt())){
                 $this->addFlash('danger', 'Token inconnu');
                 return $this->redirectToRoute('app_front_home');
             }
-
             $user->setResetToken(null);
             $user->setPasswordRequestedAt(null);
             $user->setPassword($passwordEncoder->encodePassword($user, $request->request->get('password')));
             $em->flush();
-
             $this->addFlash('success', 'Mot de passe mis à jour');
-
             return $this->redirectToRoute('app_front_home');
         }else {
             return $this->render('Front/Security/resetPassword.html.twig', ['token' => $token]);
         }
     }
-
     // si supérieur à 15 min, retourne false
     //sinon retourne true
     private function isRequestInTime(\Datetime $passwordRequestedAt = null)
@@ -196,10 +174,8 @@ class SecurityController extends AbstractController
         {
             return false;
         }
-
         $now = new \DateTime();
         $interval = $now->getTimestamp() - $passwordRequestedAt->getTimestamp();
-
         $daySeconds = 60 * 15;
         $response = $interval > $daySeconds ? false : $reponse = true;
         return $response;
