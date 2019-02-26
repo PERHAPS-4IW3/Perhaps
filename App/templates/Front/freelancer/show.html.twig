@@ -3,52 +3,60 @@
 {% block title %}{{ user.nomUser }} {{ user.prenomUser }}{% endblock %}
 
 {% block body %}
-    <div class="jumbotron">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <h3>{{ user.nomUser }} {{ user.prenomUser }}</h3>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container mt-4">
+
+    <div class="container">
+        <h1>{{ user.prenomUser }} {{ user.nomUser }} </h1>
         <div class="row">
-            <div class="col-md-8">
+   
+
+        {% if vich_uploader_asset(app.user, 'imageFile') is null %}
+            <img id ="profilimage" src="{{ asset('images/profil.jpg') }}" alt="card image" >
+        {% else %}
+            <img id ="profilimage" src="{{ vich_uploader_asset(app.user, 'imageFile')| imagine_filter('thumb') }}" alt>
+        {% endif %}
+
+    <div class="panel-body">
+
                 <table class="table table-striped">
+                    <tr>
+                        <th>Nom</th>
+                        <td>{{ user.nomUser}}</td>
+                    </tr>
+                    <tr>
+                        <th>Prénom</th>
+                        <td>{{ user.prenomUser }} </td>
+                    </tr>
                     <tr>
                         <th>Roles</th>
                         <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
                     </tr>
                     <tr>
-                        <td>Email</td>
-                        <td>{{ user.nomUser }} </td>
+                        <th>Email</th>
+                        <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
                     </tr>
                     <tr>
-                        <td>TelephoneUser</td>
+                        <th>Telephone</th>
                         <td>{{ user.telephoneUser }}</td>
                     </tr>
                     <tr>
-                        <td>AdresseUser</td>
+                        <th>Adresse</th>
                         <td>{{ user.adresseUser }}</td>
                     </tr>
                     <tr>
-                        <td>CodePostalUser</td>
+                        <th>Code Postal</th>
                         <td>{{ user.codePostalUser }}</td>
                     </tr>
                     <tr>
-                        <td>Ville</td>
+                        <th>Ville</th>
                         <td>{{ user.ville }}</td>
                     </tr>
                     <tr>
-                        <td>Pays</td>
+                        <th>Pays</th>
                         <td>{{ user.pays }}</td>
                     </tr>
                 </table>
-            </div>
-            <div class="col-md-4">
 
-            </div>
-        </div>
+              </div>
+    </div>
     </div>
 {% endblock %}
