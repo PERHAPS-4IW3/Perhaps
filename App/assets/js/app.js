@@ -21,6 +21,10 @@ $(document).ready(function () {
     $('.dropdown-toggle').dropdown();
 });
 
+$('#myModal').on('shown.bs.modal', function () {
+    $('#myInput').trigger('focus')
+});
+
 //Dès lors qu'on modifie le 'selected list'
 //Si la valeur est Freelancer alors on affiche les champs le concernant et on les rend obligatoire
 $(document).ready(function(){

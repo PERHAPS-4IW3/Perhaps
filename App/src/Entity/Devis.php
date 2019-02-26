@@ -94,17 +94,18 @@ class Devis
         return $this;
     }
 
-    public function getDelaiDevis(): ?int
+    public function getDelaiDevis(): ?\DateTimeInterface
     {
         return $this->delaiDevis;
     }
 
-    public function setDelaiDevis(?int $delaiDevis): self
+    public function setDelaiDevis($delaiDevis): self
     {
         $this->delaiDevis = $delaiDevis;
 
         return $this;
     }
+
 
     public function getDateDevis(): ?\DateTimeInterface
     {
