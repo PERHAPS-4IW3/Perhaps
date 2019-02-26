@@ -45,8 +45,8 @@ class FreelancerController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
             $freelancers = $userRepository->findFreelancers($search);
-            return $this->render('Front/freelancer/showFree.html.twig', [
-                'users'         => $freelancers,
+            return $this->render('Front/freelancer/index.html.twig', [
+                'freelancers'         => $freelancers,
                 'form'          => $form->createView()
             ]);
         }
@@ -56,8 +56,8 @@ class FreelancerController extends AbstractController
             $request->query->getInt('page', 1),
             3/*limit per page*/
         );
-        return $this->render('Front/Freelancer/showFree.html.twig', [
-            'users' => $users,
+        return $this->render('Front/Freelancer/index.html.twig', [
+            'freelancers' => $users,
             'form'  => $form->createView(),
         ]);
     }

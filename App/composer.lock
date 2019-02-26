@@ -2694,16 +2694,16 @@
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v6.30.1",
+            "version": "v6.30.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "570d47d566da6e87413db1fd3a833c42907cb746"
+                "reference": "3ed30726812ac4bdd2b208c2fe3d00ef5cfe54f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/570d47d566da6e87413db1fd3a833c42907cb746",
-                "reference": "570d47d566da6e87413db1fd3a833c42907cb746",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/3ed30726812ac4bdd2b208c2fe3d00ef5cfe54f6",
+                "reference": "3ed30726812ac4bdd2b208c2fe3d00ef5cfe54f6",
                 "shasum": ""
             },
             "require": {
@@ -2746,7 +2746,7 @@
                 "payment processing",
                 "stripe"
             ],
-            "time": "2019-02-16T17:48:38+00:00"
+            "time": "2019-02-25T18:51:15+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
