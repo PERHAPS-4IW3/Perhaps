@@ -29,7 +29,7 @@ class ContactController extends AbstractController
             $bodyMail = $mailer->createBodyMail('Front/Contact/mailContact.html.twig', [
                 'form' => $contactFormData
             ]);
-            $mailer->sendMessage($contactFormData['mail'], 'muhammad.tounsi@hotmail.fr', $contactFormData['sujet'], $bodyMail);
+            $mailer->sendMessage($contactFormData['mail'], 'walidmouhsin@gmail.com', $contactFormData['sujet'], $bodyMail);
             $this->addFlash('success', "Votre email a bien été envoyé");
 
                 return $this->redirectToRoute('contact');

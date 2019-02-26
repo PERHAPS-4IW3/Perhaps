@@ -9,10 +9,10 @@
         <div class="row">
 
 
-        {% if vich_uploader_asset(app.user, 'imageFile') is null %}
-            <img id ="profilimage" src="{{ asset('images/profil.jpg') }}" alt="card image" >
+        {% if vich_uploader_asset(user, 'imageFile') is null %}
+            <img id ="profilimage" src="{{ asset('images/user.svg') }}" alt="card image" >
         {% else %}
-            <img id ="profilimage" src="{{ vich_uploader_asset(app.user, 'imageFile')| imagine_filter('thumb') }}" alt>
+            <img id ="profilimage" src="{{ vich_uploader_asset(user, 'imageFile')| imagine_filter('thumb') }}" alt>
         {% endif %}
 
     <div class="panel-body">

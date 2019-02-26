@@ -24,13 +24,13 @@ class User1Type extends AbstractType
                 #'allow_delete' => false,
                 ])
             ->add('nomUser')
-            ->add('listCompetence', EntityType::class, [
+            /*->add('listCompetence', EntityType::class, [
                 'label'        => 'Competence',
                 'class'        => Competence::class,
                 'choice_label' => 'nomCompetence',
                 'multiple'     => true,
                 'required'     => false,
-            ])
+            ])*/
             ->add('prenomUser')
             ->add('telephoneUser')
             ->add('adresseUser')

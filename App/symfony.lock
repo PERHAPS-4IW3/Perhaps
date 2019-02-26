@@ -95,6 +95,9 @@
     "egulias/email-validator": {
         "version": "2.1.7"
     },
+    "excelwebzone/recaptcha-bundle": {
+        "version": "v1.5.13"
+    },
     "facebook/webdriver": {
         "version": "1.6.0"
     },
@@ -103,6 +106,18 @@
     },
     "fzaninotto/faker": {
         "version": "v1.8.0"
+    },
+    "google/recaptcha": {
+        "version": "1.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.1",
+            "ref": "155d19cc6b4fddd9393064f553bdbe3f2f16c918"
+        },
+        "files": [
+            "config/packages/google_recaptcha.yaml"
+        ]
     },
     "imagine/imagine": {
         "version": "v0.7.1"
@@ -456,6 +471,15 @@
             "branch": "master",
             "version": "1.0",
             "ref": "248c29c070dcd79e8333c676b0c5e284e3b365b5"
+        }
+    },
+    "symfony/webpack-encore-pack": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "e18b0c550c3ee79142dc314b3e38193caafe4bb5"
         }
     },
     "symfony/yaml": {
