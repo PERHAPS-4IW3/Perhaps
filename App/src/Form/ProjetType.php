@@ -6,6 +6,9 @@ use App\Entity\Projet;
 use App\Entity\Competence;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -16,10 +19,11 @@ class ProjetType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nomProjet')
-            ->add('descriptionProjet')
-            ->add('budget')
+            ->add('nomProjet', TextType::class, ['label' => 'Nom du projet'])
+            ->add('descriptionProjet', TextareaType::class, ['label' => 'Description du projet'])
+            ->add('budget', MoneyType::class, ['label' => 'Budget'])
             ->add('choixContact', ChoiceType::class, [
+                'label' => 'Choix de contact',
                 'choices' => $this->getChoices()
             ])
             ->add('listCompetence', EntityType::class, [

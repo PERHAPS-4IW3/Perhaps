@@ -25,7 +25,7 @@ class DevisFixture extends Fixture implements  DependentFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-       /* $faker = \Faker\Factory::create();
+       $faker = \Faker\Factory::create();
         $projet = $manager->getRepository(Projet::class)->findAll();
         $users = $manager->getRepository(User::class)->findAll();
         for($i = 0; $i <10; $i++){
@@ -34,11 +34,12 @@ class DevisFixture extends Fixture implements  DependentFixtureInterface
                 ->setEtabliPar($users[array_rand($users)])
                 ->setDateDevis($faker->dateTime)
                 ->setDelaiDevis($faker->randomDigit)
-                ->setDescriptionDevis($faker->paragraph);
+                ->setDescriptionDevis($faker->paragraph)
+                ->setOffreDevis($faker->$faker->numberBetween(100, 100000));
             $manager->persist($devis);
 
         }
-        $manager->flush();*/
+        $manager->flush();
     }
 
     /**
