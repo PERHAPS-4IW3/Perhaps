@@ -7,7 +7,7 @@
     <div class="container">
         <h1>{{ user.prenomUser }} {{ user.nomUser }} </h1>
         <div class="row">
-   
+
 
         {% if vich_uploader_asset(app.user, 'imageFile') is null %}
             <img id ="profilimage" src="{{ asset('images/profil.jpg') }}" alt="card image" >
