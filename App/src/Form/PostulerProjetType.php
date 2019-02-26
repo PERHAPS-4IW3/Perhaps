@@ -1,30 +1,27 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Tounsi
+ * Date: 25/02/2019
+ * Time: 16:09
+ */
 
 namespace App\Form;
 
-use App\Entity\Projet;
-use App\Entity\Competence;
+use App\Entity\Devis;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
-class ProjetSearchType extends AbstractType
+class PostulerProjetType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nomProjet', TextType::class, [
-                'required' => true,
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'Nom du projet'
-                ]
-            ])
+            ->add('descriptionDevis', TextareaType::class, ['label' => "Description de l'offre"])
 
-            -> add('submit', SubmitType::class, [
+            ->add('submit', SubmitType::class, [
                 'label' => 'Rechercher',
                 'attr' => [
                     'class' => 'btn btn-primary'
@@ -35,9 +32,10 @@ class ProjetSearchType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data-class' =>Projet::class,
+            'data-class' => Devis::class,
             'method' => 'get',
             'csrf_protection' => false
         ]);
     }
+
 }

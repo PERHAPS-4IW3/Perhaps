@@ -9,7 +9,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity(repositoryClass="App\Repository\DevisRepository")
  * @UniqueEntity(fields={"projet","etabliPar"},
  *      errorPath =  "etabliPar",
- *      message="Vous avez déjà établi un devi pour ce projet")
+ *      message="Vous avez déjà envoyé un devis pour ce projet")
  */
 class Devis
 {
@@ -26,12 +26,12 @@ class Devis
     private $descriptionDevis;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer")
      */
     private $offreDevis;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="datetime")
      */
     private $delaiDevis;
 
@@ -56,6 +56,14 @@ class Devis
      * @ORM\JoinColumn(nullable=false)
      */
     private $etabliPar;
+
+    /**
+     * Devis constructor.
+     */
+    public function __construct()
+    {
+        $this->delaiDevis = new \DateTime();
+    }
 
     public function getId(): ?int
     {

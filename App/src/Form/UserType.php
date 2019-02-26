@@ -37,14 +37,14 @@ class UserType extends AbstractType
                 'second_options' => array('label' => 'Confirmer le mot de passe'),
             ))
             ->add('roles', CollectionType::class, [
-                'label'                     => 'Je suis un : ',
+                'label'        => 'Je suis un : ',
                 'required'     => false,
                 'entry_type'   => ChoiceType::class,
                 'entry_options'  => [
                     'label' => false,
                     'choices'             => [
+                        'Freelancer'        => 'ROLE_FREELANCER',
                         'Porteur de Projet' => 'ROLE_USER',
-                        'Freelancer'        => 'ROLE_FREELANCER'
                     ]
                 ]
             ])
