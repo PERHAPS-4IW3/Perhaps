@@ -242,11 +242,14 @@ section .section-title {
     margin-left: 80px;
     margin-bottom: 30px;
     margin-top: -30px;
-
 }
 
 #imagecard{
     width: 200px;
     height: 200px;
     border-radius: 50%;
+}
+
+#postuler_projet_descriptionDevis {
+    height: 180px;
 }

@@ -46,13 +46,12 @@ class ProjetController extends AbstractController
 
     /**
      * @param Request $request
-     * @param ProjetRepository $repository
      * @param PaginatorInterface $paginator
      * @return Response
      * @Route(name="projet_index", path="/projets", methods={"GET"})
      */
 
-    public function index(Request $request, ProjetRepository $repository, PaginatorInterface $paginator): Response
+    public function index(Request $request, PaginatorInterface $paginator): Response
     {
         $search = new Projet();
         $form = $this->createForm(ProjetSearchType::class, $search);
@@ -73,7 +72,7 @@ class ProjetController extends AbstractController
         }
 
         $projets = $paginator->paginate(
-            $this->repository->findAllVisibleQuery(),
+            $this->repository->findAllVisible(),
             $request->query->getInt('page', 1),
             9/*limit per page*/
         );
@@ -87,7 +86,7 @@ class ProjetController extends AbstractController
      * @param Projet $projet
      * @param string $slug
      * @return Response
-     * @Route(name="projet_show", path="/projets/{slug}-{id}", methods={"GET"}, requirements={"slug": "[a-z0-9\-]*"})
+     * @Route(name="projet_show", path="/projets/{slug}-{id}", methods={"GET", "POST"}, requirements={"slug": "[a-z0-9\-]*"})
      */
     public function show(Projet $projet, string $slug): Response
     {

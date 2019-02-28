@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Projet;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
@@ -32,16 +33,14 @@ class ProjetRepository extends ServiceEntityRepository
             ;
     }
 
-    /**
-     * @return Query
-     */
-
-    public function findAllVisibleQuery(): Query
+    public function findProjectByUser(User $user)
     {
-        return $this->findVisibleQuery()
-            ->getQuery();
+        return $this->createQueryBuilder('p')
+            ->Where('p.creePar = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult();
     }
-
 
     /**
      * @return array
@@ -56,7 +55,7 @@ class ProjetRepository extends ServiceEntityRepository
                 ->setParameter('nomProjet', '%'.$search->getNomProjet().'%');
             return $query->getQuery()->getResult();
         }else {
-            return $this->findLatest();
+            return $this->findAllVisible();
         }
     }
 

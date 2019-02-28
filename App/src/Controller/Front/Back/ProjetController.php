@@ -54,12 +54,14 @@ class ProjetController extends AbstractController
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\
+     * @return \Symfony\Component\HttpFoundation\Response
      * @Route(name="user_projet_index", path="/user/projets", methods={"GET"})
      */
     public function index()
     {
-        $projets = $this->repository->findAll();
+        $user = $this->getUser();
+
+        $projets = $this->repository->findProjectByUser($user);
         return $this->render('Back/Projet/index.html.twig', [
             'projets'=> $projets,
         ]);
@@ -72,9 +74,13 @@ class ProjetController extends AbstractController
      */
     public function new(Request $request)
     {
+        $user = $this->getUser();
+
         $projet = new Projet();
         $form = $this->createForm(ProjetType::class, $projet);
         $form->handleRequest($request);
+
+        $projet->setCreePar($user);
 
         if($form->isSubmitted() && $form->isValid()){
             $this->em->persist($projet);
@@ -112,9 +118,10 @@ class ProjetController extends AbstractController
     }
 
     /**
+     * @param Request $request
      * @param Projet $projet
-     * @Route(name="user_projet_delete", path="user/projets/delete/{id}", methods={"GET"})
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @Route(name="user_projet_delete", path="user/projets/delete/{id}", methods={"GET"})
      */
     public function delete(Request $request, Projet $projet): RedirectResponse
     {

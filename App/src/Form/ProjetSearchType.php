@@ -17,7 +17,7 @@ class ProjetSearchType extends AbstractType
     {
         $builder
             ->add('nomProjet', TextType::class, [
-                'required' => true,
+                'required' => false,
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Nom du projet'

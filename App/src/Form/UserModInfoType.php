@@ -10,8 +10,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class User1Type extends AbstractType
+class UserModInfoType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -23,20 +24,13 @@ class User1Type extends AbstractType
                 'download_label' => "Télécharger ma photo",
                 #'allow_delete' => false,
                 ])
-            ->add('nomUser')
-            /*->add('listCompetence', EntityType::class, [
-                'label'        => 'Competence',
-                'class'        => Competence::class,
-                'choice_label' => 'nomCompetence',
-                'multiple'     => true,
-                'required'     => false,
-            ])*/
-            ->add('prenomUser')
-            ->add('telephoneUser')
-            ->add('adresseUser')
-            ->add('codePostalUser')
-            ->add('ville')
-            ->add('pays')
+            ->add('nomUser', TextType::class, ['label' => 'Votre nom'])
+            ->add('prenomUser', TextType::class, ['label' => 'Votre prénom'])
+            ->add('telephoneUser',  TextType::class, ['label' => 'Votre téléphone'])
+            ->add('adresseUser', TextType::class, ['label' => 'Votre adresse'])
+            ->add('codePostalUser', TextType::class,  ['label' => 'Votre code postal'])
+            ->add('ville', TextType::class,  ['label' => 'Votre ville'])
+            ->add('pays', TextType::class,  ['label' => 'Votre pays'])
         ;
     }
 

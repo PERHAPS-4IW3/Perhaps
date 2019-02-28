@@ -4,10 +4,10 @@
 
 {% block body %}
 
-    <div class="container">
-        <h1>Modification du mot de passe</h1>
+    <div class="container mt-4">
+        <h1 class="mb-4">Modification du mot de passe</h1>
 
-        {{ include('Back/user/_form.html.twig', {'button_label': 'Update'}) }}
+        {{ include('Back/user/_form.html.twig', {'button_label': 'Modifier'}) }}
         <div class="">
             <a href="{{ path('user_index') }}" class="btn btn-secondary">Revoir mes informations</a>
 

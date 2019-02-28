@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User{% endblock %}
+{% block title %}Mon Profil{% endblock %}
 
 
 {% block body %}
@@ -9,8 +9,15 @@
     {% if app.user %}
 
 
-        <div class="container">
-            <h1>Vos informations personnelles</h1>
+        <div class="container mt-4">
+            <h1 class="mb-4">Vos informations personnelles</h1>
+            {% for label, messages in app.flashes(['success', 'danger', 'warning']) %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
             <div class="row">
                 <div class="jumbotron">
                     <h3 class="panel-title" id="nomprofil">{{ app.user.prenomUser }} {{ app.user.nomUser }} </h3>

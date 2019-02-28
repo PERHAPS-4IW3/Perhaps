@@ -16,7 +16,20 @@ What things you need to install the software and how to install them
 
 Launch docker-compoose up for start the project in docker container
 
+For WEBPACK :
 
+```sh
+Compser require encore
+Yarn install
+Yarn enore dev --watch
+```
+
+
+For Ckeditor :
+```sh
+php bin/console ckeditor:install
+php bin/console assets:install public
+```
 ## Deployment
 
 

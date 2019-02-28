@@ -36,49 +36,76 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
             ->getOneOrNullResult();
     }
 
+    /**
+     * Fonction qui liste tous les freelancers actifs
+     */
+    public function findVisibleFreelancerQuery(): QueryBuilder
+    {
+        return $this->findVisibleQuery()
+            ->andWhere('f.roles LIKE :role')
+            ->setParameter('role', '%"ROLE_FREELANCER"%')
+            ;
+    }
+
+    /**
+     * @param User $search
+     * @return array
+     * Fonction qui recherche notre Freelancer
+     */
     public function findFreelancers(User $search): array
     {
         $query = $this->findVisibleFreelancerQuery();
 
         if($search->getNomUser() != "") {
             $query = $query
-                ->andWhere('f.nomUser LIKE :nomUser')
+                ->Where('f.nomUser LIKE :nomUser')
                 ->setParameter('nomUser', '%'.$search->getNomUser().'%');
             return $query->getQuery()->getResult();
         }else {
-            return $query = $this->findLatest();
+            return $query->getQuery()->getResult();
         }
     }
+
     /**
      * @return array
+     * Fonction qui liste tous les Porteurs de Projets actifs
      */
-    public function findLatest(): array
+    public function findVisiblePorteurProjetQuery(): array
+    {
+        return $this->findVisibleQuery()
+            ->andWhere('f.roles LIKE :role')
+            ->setParameter('role', '%"ROLE_USER"%')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return array
+     * Fonction qui liste tous les Freelancers
+     */
+    public function findVisibleAllFreelancerQuery(): array
     {
         return $this->findVisibleFreelancerQuery()
             ->getQuery()
-            ->getResult()
-            ;
+            ->getResult();
     }
 
     /**
-     * @return Query
+     * @return array
+     * Fonction qui liste tous les utilisateurs (freelancer et porteur de projet) actif
      */
-    public function findAllVisibleQuery(): Query
+    public function findAllVisibleUserQuery(): array
     {
         return $this->findVisibleQuery()
-            ->getQuery();
+            ->getQuery()
+            ->getResult();
     }
 
-    private function findVisibleFreelancerQuery(): QueryBuilder
-    {
-        return $this->createQueryBuilder('f')
-            ->Where("f.role = 'ROLE_FREELANCER'");
-    }
 
     private function findVisibleQuery(): QueryBuilder
     {
-        return $this->createQueryBuilder('p')
-            ->Where('p.isActive = true');
+        return $this->createQueryBuilder('f')
+            ->Where('f.isActive = true');
     }
 
     // /**
