@@ -57,7 +57,7 @@
     </div>
     <div class="container mt-4">
         <div class="row">
-            <div class="col-md-8">
+            <div class="">
                 <table class="table table-striped">
                     <tr>
                         <th>Nom du Projet</th>
@@ -77,23 +77,35 @@
                     </tr>
                 </table>
             </div>
-            <div class="col-md-4">
+            <div class="">
                 <h3 class="text-secondary"> Offres pour ce projet :</h3>
-                <div class="col-lg-12 d-flex align-items-stretch mt-4" id="cardprj">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <a href="{{ path('projet_show', {id: projet.id, slug: projet.slug}) }}">{{ projet.nomProjet }}</a>
-                            </h5>
-                            <p class="card-text">
-                                {{ projet.descriptionProjet }}
-                            </p>
+                {% for devi in devis %}
+
+                    <div class="card flex-row flex-wrap">
+                        <div class="card-header border-0">
+                            {% if vich_uploader_asset(devi.etabliPar, 'imageFile') is null %}
+                                <img id ="imagecard" src="{{ asset('images/user.svg') }}" alt="card image" >
+                            {% else %}
+                                <img id ="imagecard" src="{{ vich_uploader_asset(devi.etabliPar, 'imageFile')| imagine_filter('thumb') }}" alt>
+                            {% endif %}
+                        </div>
+                        <div class="card-block px-2">
+                            <h4 class="card-title">{{ devi.etabliPar.nomUser }} {{ devi.etabliPar.prenomUser }}</h4>
+                            <p class="card-text">Email :{{ devi.etabliPar.email }} /
+                                Numero de téléphone : {{ devi.etabliPar.telephoneUser }}</p>
+                            <p class="card-text">Publié le  : {{ devi.dateDevis|date("m/d/Y")  }}</p>
                             <div class="text-primary">
-                                {{ projet.budget | number_format(0, '', ' ') }} €
+                                Prix du devis :
+                                {{ devi.offreDevis | number_format(0, '', ' ') }} €
                             </div>
                         </div>
+                        <div class="w-100"></div>
+                        <div class="card-footer w-100 text-muted">
+                            <a href="#" class="btn btn-primary">Choisir ce Freelancer</a>
+                        </div>
                     </div>
-                </div>
+                    <br>
+                {% endfor %}
             </div>
         </div>
     </div>
