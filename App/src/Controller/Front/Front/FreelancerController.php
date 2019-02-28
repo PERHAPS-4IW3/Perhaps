@@ -33,30 +33,35 @@ class FreelancerController extends AbstractController
     /**
      * @param Request $request
      * @Route("/freelancer", name="free_index", methods={"GET"})
-     * @param UserRepository $userRepository
      * @param PaginatorInterface $paginator
      * @return Response
      */
-   public function index(Request $request, UserRepository $userRepository, PaginatorInterface $paginator): Response
+   public function index(Request $request, PaginatorInterface $paginator): Response
     {
         $search = new User();
         $form = $this->createForm(FreelancerSearchType::class, $search);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-            $freelancers = $userRepository->findFreelancers($search);
+
+            $freelancers = $paginator->paginate(
+                $this->repository->findFreelancers($search),
+                $request->query->getInt('page', 1),
+                9/*limit per page*/
+            );
+
             return $this->render('Front/freelancer/index.html.twig', [
-                'freelancers'         => $freelancers,
-                'form'          => $form->createView()
+                'freelancers'   => $freelancers,
+                'form'      => $form->createView()
             ]);
         }
-      
+
         $users = $paginator->paginate(
-            $this-> repository->findAllVisibleQuery(),
+            $this-> repository->findVisibleAllFreelancerQuery(),
             $request->query->getInt('page', 1),
-            3/*limit per page*/
+            9/*limit per page*/
         );
-        return $this->render('Front/Freelancer/index.html.twig', [
+        return $this->render('Front/freelancer/index.html.twig', [
             'freelancers' => $users,
             'form'  => $form->createView(),
         ]);

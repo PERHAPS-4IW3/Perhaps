@@ -6,7 +6,7 @@ use App\Entity\User;
 use App\Form\FreelancerSearchType;
 use App\Form\ChangePasswordType;
 use App\Form\PasswordType;
-use App\Form\User1Type;
+use App\Form\UserModInfoType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,6 +41,8 @@ class UserController extends AbstractController
 
     /**
      * @Route("/{id}/show", name="user_show", methods={"GET"})
+     * @param User $user
+     * @return Response
      */
     public function show(User $user): Response
     {
@@ -51,10 +53,13 @@ class UserController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="user_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @param User $user
+     * @return Response
      */
     public function edit(Request $request, User $user): Response
     {
-        $form = $this->createForm(User1Type::class, $user);
+        $form = $this->createForm(UserModInfoType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -111,9 +116,11 @@ class UserController extends AbstractController
             $user->setPassword($password);
             $em->persist($user);
             $em->flush();
-            $this->addFlash('notice', 'Votre mot de passe à bien été changé !');
+            $this->addFlash('success', 'Votre mot de passe à bien été changé !');
 
-            return $this->redirectToRoute('login');
+            return $this->redirectToRoute('user_index', [
+                'id' => $user->getId(),
+            ]);
         }
 
         return $this->render('Back/user/changePass.html.twig', [
