@@ -36,7 +36,7 @@ class Devis
     private $delaiDevis;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private $dateDevis;
 
@@ -63,6 +63,7 @@ class Devis
     public function __construct()
     {
         $this->delaiDevis = new \DateTime();
+        $this->dateDevis = new \DateTime();
     }
 
     public function getId(): ?int
@@ -99,7 +100,7 @@ class Devis
         return $this->delaiDevis;
     }
 
-    public function setDelaiDevis($delaiDevis): self
+    public function setDelaiDevis(\DateTimeInterface $delaiDevis): self
     {
         $this->delaiDevis = $delaiDevis;
 

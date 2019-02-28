@@ -44,3 +44,11 @@ $(document).ready(function(){
         }
     });
 });
+
+$(document).ready(function(){
+
+    $('.js-datepicker').datepicker({
+        format: 'yyyy/mm/dd',
+        todayHighlight: true
+    });
+});

@@ -35,7 +35,7 @@ class DevisFixture extends Fixture implements  DependentFixtureInterface
                 ->setDateDevis($faker->dateTime)
                 //->setDelaiDevis($faker->randomDigit)
                 ->setDescriptionDevis($faker->paragraph)
-                ->setOffreDevis($faker->$faker->numberBetween(100, 100000));
+                ->setOffreDevis($faker->numberBetween(100, 100000));
             $manager->persist($devis);
 
         }

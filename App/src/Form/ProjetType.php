@@ -3,9 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Projet;
-use App\Entity\Competence;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -26,14 +26,13 @@ class ProjetType extends AbstractType
                 'label' => 'Choix de contact',
                 'choices' => $this->getChoices()
             ])
-            ->add('listCompetence', EntityType::class, [
-                'label'        => 'Competence',
-                'class'        => Competence::class,
-                'choice_label' => 'nomCompetence',
-                'multiple'     => true,
-                'required'     => false,
+            ->add('dateDebut', DateType::class, [
+                'widget' => 'single_text',
+                'attr' => [
+                    'class' => 'js-datepicker'
+                ]
+
             ])
-            ->add('dateDebut')
         ;
     }
 
