@@ -9,11 +9,13 @@
 namespace App\Controller\Front\Front;
 
 
+use App\Entity\Devis;
 use App\Form\ProjetSearchType;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Asset\Package;
 use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 use App\Repository\ProjetRepository;
+use App\Repository\DevisRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,13 +31,16 @@ class ProjetController extends AbstractController
     /**
      * @var ObjectManager
      * @var ProjetRepository
+     * @var DevisRepository
      */
     private $em;
     private $repository;
+    private $devisRepository;
 
-    public function __construct(ProjetRepository $repository, ObjectManager $em)
+    public function __construct(ProjetRepository $repository, ObjectManager $em , DevisRepository $devisRepository)
     {
         $this->repository = $repository;
+        $this->devisRepository = $devisRepository;
         $this->em = $em;
     }
 
@@ -86,17 +91,23 @@ class ProjetController extends AbstractController
      */
     public function show(Projet $projet, string $slug): Response
     {
+        $devis = $projet->getListDevis()->getValues();
+
+        dump($devis);
+
         if($projet->getSlug() !== $slug){
             return $this->redirectToRoute('projet_show', [
                 'id' => $projet->getId(),
-                'slug' => $projet->getSlug()
+                'slug' => $projet->getSlug(),
             ], 301);
         }
         return $this->render('Front/Projet/show.html.twig', [
             'projet' => $projet,
-            'current_menu' => 'projets'
+            'current_menu' => 'projets',
+            'devis' => $devis,
         ]);
 
     }
+
 
 }

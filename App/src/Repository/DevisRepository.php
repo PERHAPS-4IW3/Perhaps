@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Devis;
+use App\Entity\Projet;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -19,22 +20,23 @@ class DevisRepository extends ServiceEntityRepository
         parent::__construct($registry, Devis::class);
     }
 
-    // /**
-    //  * @return Devis[] Returns an array of Devis objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return Devis[] Returns an array of Devis objects
+     */
+
+    /*public function projetFree($id)
     {
         return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
-            ->setParameter('val', $value)
+            ->innerJoin('p.id', 'p')
+            ->Where('d.projetid = :id')
+            ->setParameter('id', $id)
             ->orderBy('d.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
-    }
-    */
+    }*/
+
 
     /*
     public function findOneBySomeField($value): ?Devis
