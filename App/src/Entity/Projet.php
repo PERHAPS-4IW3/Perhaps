@@ -98,7 +98,7 @@ class Projet
     private $listCompetence;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\TypeProjet")
+     * @ORM\ManyToMany(targetEntity="App\Entity\TypeProjet", inversedBy="projets", cascade={"persist"})
      */
     private $typeProjet;
 

@@ -7,15 +7,21 @@
 
 // any CSS you require will output into a single css file (app.css in this case)
 require('../css/app.css');
+require('jquery');
+require('bootstrap');
 require('@fortawesome/fontawesome-free/css/all.min.css');
 require('@fortawesome/fontawesome-free/js/all.js');
 require('popper.js');
-require('bootstrap');
 require('bootstrap-star-rating');
-require('jquery');
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
 
+$(document).ready(function(){
+    $('.js-datepicker').datepicker({
+        format: 'yyyy/mm/dd',
+        todayHighlight: true
+    });
+});
 
 $(document).ready(function () {
     $('.dropdown-toggle').dropdown();
@@ -42,13 +48,5 @@ $(document).ready(function(){
             $('#user_tarifHoraireFreelancer').attr('required', false);
             $('#user_presentationFreelancer').attr('required', false);
         }
-    });
-});
-
-$(document).ready(function(){
-
-    $('.js-datepicker').datepicker({
-        format: 'yyyy/mm/dd',
-        todayHighlight: true
     });
 });

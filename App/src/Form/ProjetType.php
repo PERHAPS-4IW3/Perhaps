@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Projet;
+use App\Entity\TypeProjet;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -21,6 +22,17 @@ class ProjetType extends AbstractType
         $builder
             ->add('nomProjet', TextType::class, ['label' => 'Nom du projet'])
             ->add('descriptionProjet', TextareaType::class, ['label' => 'Description du projet'])
+            ->add('typeProjet', EntityType::class, [
+                'label'        => 'Type de Projet',
+                'attr'         => [
+                    'class'    => 'selectpicker',
+                    'data-style' => 'btn-primary'
+                ],
+                'class'        => TypeProjet::class,
+                'choice_label' => 'nomType',
+                'multiple'     => true,
+                'required'     => false,
+            ])
             ->add('budget', MoneyType::class, ['label' => 'Budget'])
             ->add('choixContact', ChoiceType::class, [
                 'label' => 'Choix de contact',
@@ -31,8 +43,8 @@ class ProjetType extends AbstractType
                 'attr' => [
                     'class' => 'js-datepicker'
                 ]
-
             ])
+
         ;
     }
 
