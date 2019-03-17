@@ -17,6 +17,7 @@ use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Services\Mailer;
+
 class SecurityController extends AbstractController
 {
     /**

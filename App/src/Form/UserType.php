@@ -9,7 +9,9 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Entity\Competence;
 use Doctrine\DBAL\Types\ArrayType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
@@ -56,9 +58,19 @@ class UserType extends AbstractType
             ->add('ville', TextType::class, ['label' => 'Ville'])
             ->add('pays', TextType::class, ['label' => 'Pays'])
             ->add('nomSociete', TextType::class, ['label' => 'Nom de la société'])
-            ->add('tarifHoraireFreelancer', MoneyType::class, ['label' => 'Tarif Horaire Freelancer'])
+            ->add('tarifHoraireFreelancer', MoneyType::class, ['label' => 'Tarif Horaire'])
             ->add('presentationFreelancer', TextareaType::class, ['label' => 'Présentation'])
-        ;
+            ->add('listCompetence', EntityType::class, [
+                'label'        => 'Vos compétences',
+                'attr'         => [
+                    'class'    => 'js-multiple-select',
+                    'data-style' => 'btn-primary'
+                ],
+                'class'        => Competence::class,
+                'choice_label' => 'nomCompetence',
+                'multiple'     => true,
+            ])
+            ;
 
 
         /*$builder->get('role')->addEventListener(

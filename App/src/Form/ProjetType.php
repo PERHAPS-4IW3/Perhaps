@@ -25,13 +25,13 @@ class ProjetType extends AbstractType
             ->add('typeProjet', EntityType::class, [
                 'label'        => 'Type de Projet',
                 'attr'         => [
-                    'class'    => 'selectpicker',
+                    'class'    => 'js-multiple-select',
                     'data-style' => 'btn-primary'
                 ],
                 'class'        => TypeProjet::class,
                 'choice_label' => 'nomType',
                 'multiple'     => true,
-                'required'     => false,
+                'required'     => true,
             ])
             ->add('budget', MoneyType::class, ['label' => 'Budget'])
             ->add('choixContact', ChoiceType::class, [

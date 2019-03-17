@@ -20,13 +20,13 @@ class ProjetFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        $faker = \Faker\Factory::create();
+        $faker = \Faker\Factory::create('fr_FR');
         $users = $manager->getRepository(User::class)->findAll();
         $typeP = $manager->getRepository(TypeProjet::class)->findAll();
         for($i = 0; $i <10; $i++){
             $projet = (new Projet())
                 ->setNomProjet('Projet Informatique '.$i)
-                ->setDescriptionProjet($faker->paragraph)
+                ->setDescriptionProjet($faker->sentences(3, true))
                 ->setBudget($faker->numberBetween(100, 100000))
                 ->setChoixContact($faker->numberBetween(0, 1))
                 ->setDateDebut($faker->dateTime)

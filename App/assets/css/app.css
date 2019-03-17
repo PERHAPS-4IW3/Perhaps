@@ -12,17 +12,31 @@ body {
     position: relative;
 }
 
-#page1cont {
+#page1cont, #page1cont2 {
     margin-top: 20px;
 }
+
+#page1cont h2, #page1cont2 h2 {
+    font-family: 'Ubuntu', sans-serif;
+}
+
+#page1cont2 h5 {
+    font-family: 'Cubin', sans-serif;
+}
+
 #logo{
     height: 60px;
 }
+
 #jamb{
     background-color: transparent!important;
     color: #FFFFFF;
-
 }
+
+#jamb h1 {
+    line-height: 300%;
+}
+
 .context-dark, .bg-gray-dark, .bg-primary {
     color: rgba(255, 255, 255, 0.8);
 }
@@ -217,6 +231,7 @@ section .section-title {
     border-radius: 50%;
 }
 #cardprj{
+    position: relative;
     margin-bottom: 15px !important;
 }
 .carousel-item{
@@ -252,4 +267,60 @@ section .section-title {
 
 #postuler_projet_descriptionDevis {
     height: 180px;
+}
+
+.containerProj{
+    position: relative;
+}
+
+.containerButton{
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 5px;
+}
+
+div#home-div-values.jumbotron {
+    background-color: #4d6de6 !important;
+    border-radius: 0px !important;
+    color: #FFFFFF;
+}
+
+div#home-div-values h1 {
+    font-size: 3em;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+#home-div-values-2 div {
+    font-size: 1.2em;
+    font-family: 'Cabin', sans-serif;
+}
+
+#home-div-values-3 {
+    margin-bottom: -7%;
+}
+
+#home-div-values-3 a {
+    height: 70%;
+    width: 150%;
+    padding-top: 5px;
+    padding-bottom: 15px;
+}
+
+#home-div-values-3 .community {
+    margin-left: -5%;
+}
+
+#cardprj .card-body .created p{
+    font-size: 0.7rem;
+}
+
+#page1cont #cardprj .card-body .small-icon img{
+    height: 8%;
+    width: 8%;
+}
+
+.container-price {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 5px;
 }

@@ -13,32 +13,27 @@
             <div class="carousel-item">
                 <img class="d-block w-100" src="images/slide3.jpg" alt="First slide">
                 <div class="carousel-caption d-none d-md-block">
-                    <div class="jumbotron text-center" id="jamb">
-                    <h1>Perhaps</h1>
-                    <h2>L'application qui vous aide à gérer votre projet !</h2>
-                    <p>Un module de gestion de projet est disponible pour mener à bien votre projet !</p>
+                    <div class="jumbotron" id="jamb">
+                        <h1>Perhaps</h1>
+                        <h2>L'application qui vous aide à gérer votre projet !</h2>
                     </div>
                 </div>
             </div>
             <div class="carousel-item active">
                 <img class="d-block w-100" src="images/slider2.jpg" alt="Second slide">
                 <div class="carousel-caption d-none d-md-block">
-                    <div class="jumbotron text-center" id="jamb">
+                    <div class="jumbotron" id="jamb">
                         <h1>Perhaps</h1>
-                        <h2>Trouvez un freelance qualifié et disponible !</h2>
-                        <p>Bienvenue sur notre site ! Inscrivez-vous et déposez gratuitement vos projets !</p><br>
-                        <p>La plateforme de mise en relation entre les Freelances et les Porteurs de Projets !</p>
+                        <h2>Trouvez un freelancer qualifié et disponible !</h2>
                     </div>
                 </div>
             </div>
             <div class="carousel-item">
                 <img class="d-block w-100" src="images/slider1.png" alt="Third slide">
                 <div class="carousel-caption d-none d-md-block">
-                    <div class="jumbotron text-center " id="jamb">
+                    <div class="jumbotron" id="jamb">
                         <h1>Perhaps</h1>
-                        <h2>En tant que porteur de projet !</h2>
-                        <p>Choisissez le(s) Freelancer(s) qui vous conviennent !</p><br>
-                        <p>On vous propose des notations pour vous aider à choisir !</p>
+                        <h2>Réaliser votre projet en toute sécurité !</h2>
                     </div>
                 </div>
             </div>
@@ -53,14 +48,49 @@
         </a>
     </div>
 
-    <div class="container-fluid jumbotron" id="home-div">
-        <div class="row justify-content-center align-items-center">
-            <img src="images/trophy.svg" id="trophy"><h3 id="h3">De nombreux projets et une communauté de Freelancer actif !</h3>
+    <div class="container-fluid jumbotron" id="home-div-values">
+        <div class="row justify-content-md-center">
+            <div class="col col-lg-6">
+                <h1 class="mb-5">Perhaps : de la mise en relation <br>jusqu'à la réalisation du projet</h1>
+            </div>
+        </div>
+        <div class="row justify-content-md-center">
+            <div class="col col-lg-2 mr-2">
+                <i class="fas fa-file-invoice fa-3x"></i>
+            </div>
+            <div class="col col-lg-2 mr-2">
+                <i class="fas fa-comments fa-3x"></i>
+            </div>
+            <div class="col col-lg-2">
+                <i class="fas fa-battery-half fa-3x"></i>
+            </div>
+        </div>
+
+        <div class="row justify-content-md-center mt-4" id="home-div-values-2">
+            <div class="col col-lg-2 mr-2">
+                Je publie mon projet et je reçois des propositions commerciales des freelances pour réaliser mon projet.
+            </div>
+            <div class="col col-lg-2 mr-2">
+                Je contacte des freelancers qui ont postulé à mon projet via la messagerie Perhaps.
+            </div>
+            <div class="col col-lg-2">
+                Je démarre la mission avec mon freelance favori et collabore sur Perhaps en toute sécurité.
+            </div>
+        </div>
+        <div>
+
         </div>
     </div>
 
     <div class="container" id="page1cont">
-        <h2>Les derniers Projets</h2>
+        <div class="row flex">
+            <div class="col-10">
+                <h2 class="mb-4">Les derniers projets publiés</h2>
+            </div>
+            <div class="col-2 mb-4">
+                <a href="{{ path('projet_index') }}" class="btn btn-primary">Tous les projets</a>
+            </div>
+        </div>
         {% for label, messages in app.flashes(['success', 'danger', 'warning']) %}
             {% for message in messages %}
             <div class="alert alert-{{ label }}">
@@ -73,14 +103,40 @@
                 <div class="col-lg-4 d-flex align-items-stretch" id="cardprj">
                     <div class="card h-100">
                         <div class="card-body">
-                            <h5 class="card-title">
-                                <a href="{{ path('projet_show', {id: projet.id, slug: projet.slug}) }}">{{ projet.nomProjet }}</a>
-                            </h5>
-                            <p class="card-text">
+                            <div class="row flex">
+                                <div class="col-8">
+                                    <h5 class="card-title">
+                                        <a href="{{ path('projet_show', {id: projet.id, slug: projet.slug}) }}">{{ projet.nomProjet }}</a>
+                                    </h5>
+                                </div>
+                                <div class="col-4 mt-1 created">
+                                    <p><em>Le {{ projet.createdAt|date("d/m/Y") }}</em></p>
+                                </div>
+                            </div>
+                            <div class="row flex small-icon">
+                                <img src="images/sign-check-icon.png" alt="open project" class="ml-3">
+                                <p class="text-secondary ml-3"><em>Ouvert</em></p>
+                            </div>
+                            <p class="card-text mt-2 mb-5">
                                 {{ projet.descriptionProjet }}
                             </p>
-                            <div class="text-primary">
-                                {{ projet.budget | number_format(0, '', ' ') }} €
+                            <div class="mb-2">
+                                {% for competence in projet.typeProjet %}
+                                <p class="btn btn-primary">
+                                    {{ competence.nomType }}
+                                </p>
+                                {% endfor %}
+                            </div>
+                            <div class="text-primary container-price">
+                                {% if projet.budget < 500 %}
+                                    Moins de 500 €
+                                {% elseif projet.budget >= 500 and projet.budget < 1000 %}
+                                    500 € à 1000 €
+                                {% elseif projet.budget >= 1000 and projet.budget < 10000 %}
+                                    1000 € à 10 000 €
+                                {% else %}
+                                    Plus de 10 000 €
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -88,4 +144,72 @@
             {% endfor %}
         </div>
     </div>
+
+    <div class="container mb-4" id="page1cont2">
+        <h2 class="mb-4">Les catégories des projets</h2>
+        <div class="row justify-content-md-start">
+            <div class="col col-lg-4 mb-4">
+                <h5>
+                    <a href="#">Web</a>
+                </h5>
+            </div>
+            <div class="col col-lg-4 mb-4">
+                <h5>
+                    <a href="#">E-commerce</a>
+                </h5>
+            </div>
+            <div class="col col-lg-4 mb-4">
+                <h5>
+                    <a href="#">Graphisme</a>
+                </h5>
+            </div>
+            <div class="col col-lg-4 mb-4">
+                <h5>
+                    <a href="#">Gestion de projet & Coaching</a>
+                </h5>
+            </div>
+            <div class="col col-lg-4 mb-4">
+                <h5>
+                    <a href="#">Webmarketing</a>
+                </h5>
+            </div>
+            <div class="col col-lg-4 mb-4">
+                <h5>
+                    <a href="#">CRM</a>
+                </h5>
+            </div>
+            <div class="col col-lg-4">
+                <h5>
+                    <a href="#">Jeux vidéos</a>
+                </h5>
+            </div>
+            <div class="col col-lg-4">
+                <h5>
+                    <a href="#">Android & IOS</a>
+                </h5>
+            </div>
+            <div class="col col-lg-4">
+                <h5>
+                    <a href="#">Services</a>
+                </h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid jumbotron mt-5" id="home-div-values-3">
+        <div class="row justify-content-center">
+            <div>
+                <h1>Rejoignez la communauté Perhaps</h1>
+            </div>
+        </div>
+        <div class="row flex justify-content-center community">
+            <div class="col-1 mt-4 mb-4 mr-5">
+                <a href="{{ path('registration') }}" class="btn btn-primary">Je m'inscris</a>
+            </div>
+            <div class="col-1 mt-4 mb-4">
+                <a href="{{ path('projet_index') }}" class="btn btn-info">Rechercher un projet</a>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

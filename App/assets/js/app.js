@@ -41,12 +41,14 @@ $(document).ready(function(){
             $('#user_nomSociete').attr('required', true);
             $('#user_tarifHoraireFreelancer').attr('required', true);
             $('#user_presentationFreelancer').attr('required', true);
+            $('.js-multiple-select').attr('required', true);
         }else{
             console.log("Je suis un Porteur de projet");
             $('.freelancerField').css("display", "none");
             $('#user_nomSociete').attr('required', false);
             $('#user_tarifHoraireFreelancer').attr('required', false);
             $('#user_presentationFreelancer').attr('required', false);
+            $('.js-multiple-select').attr('required', false);
         }
     });
 });

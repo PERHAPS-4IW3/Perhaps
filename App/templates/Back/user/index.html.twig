@@ -67,9 +67,15 @@
                                             <td><a href="mailto:{{ app.user.email }}">{{ app.user.email }}</a></td>
                                         </tr>
                                         <tr>
-                                        <td>Phone Number</td>
-                                        <td>{{ app.user.telephoneUser }}</td>
-
+                                            <td>Numéro de téléphone</td>
+                                            <td>{{ app.user.telephoneUser }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mes compétences</td>
+                                            {% for competence in app.user.listCompetence %}
+                                                <td class="badge badge-pill badge-primary ml-2 mt-2 mr-2">{{ competence.nomCompetence }}
+                                            {% endfor %}
+                                                </td>
                                         </tr>
 
                                         </tbody>
