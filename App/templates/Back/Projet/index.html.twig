@@ -19,28 +19,31 @@
             </div>
         {% endfor %}
 
-        <div class="row flex mt-4">
-            {% for projet in projets %}
-                <div class="col-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                {{ projet.nomProjet }}
-                            </h5>
-                            <p class="card-text">
-                                {{ projet.descriptionProjet }}
-                            </p>
-                            <div class="text-primary">
-                                {{ projet.budget | number_format(0, '', ' ') }} €
+        <div class="container mt-4">
+            <div class="row flex">
+                {% for projet in projets %}
+                    <div class="col-lg-4 d-flex align-items-stretch containerProj" id="cardprj">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    {{ projet.nomProjet }}
+                                </h5>
+                                <p class="card-text">
+                                    {{ projet.descriptionProjet }}
+                                </p>
+                                <div class="text-primary">
+                                    {{ projet.budget | number_format(0, '', ' ') }} €
+                                </div>
+                                <div class="containerButton">
+                                    <a href="{{ path('user_projet_edit', {id: projet.id}) }}" class="btn btn-primary" style="display: inline-block;">Éditer</a>
+                                    <a href="{{ path('user_projet_delete', {id: projet.id, '_token': csrf_token('delete-project')}) }}" class="btn btn-danger" onclick="return confirm('Etes-vous sûr ?')">Supprimer</a>
+                                </div>
                             </div>
-                            <a href="{{ path('user_projet_edit', {id: projet.id}) }}" class="btn btn-primary" style="display: inline-block;">Éditer</a>
-                            <a href="{{ path('user_projet_delete', {id: projet.id, '_token': csrf_token('delete-project')}) }}" class="btn btn-danger" onclick="return confirm('Etes-vous sûr ?')">Supprimer</a>
                         </div>
                     </div>
-                </div>
-                {% else %}
-                Vous n'avez encore aucun projet
-            {% endfor %}
+                    {% else %}
+                    Vous n'avez encore aucun projet
+                {% endfor %}
+            </div>
         </div>
-    </div>
 {% endblock %}

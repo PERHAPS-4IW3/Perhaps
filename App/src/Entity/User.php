@@ -153,7 +153,7 @@ class User implements UserInterface, \Serializable
     private $updated_at;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Competence")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Competence", inversedBy="users")
      */
     private $listCompetence;
 

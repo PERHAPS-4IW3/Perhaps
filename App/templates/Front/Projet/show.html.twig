@@ -64,21 +64,32 @@
                         <td> {{ projet.nomProjet }}</td>
                     </tr>
                     <tr>
-                        <th>Déscription</th>
-                        <td> {{ projet.descriptionProjet}}</td>
+                        <th>Description</th>
+                        <td> {{ projet.descriptionProjet | nl2br }}</td>
                     </tr>
                     <tr>
                         <th>Publié le</th>
-                        <td> {{ projet.createdAt|date("m/d/Y") }}</td>
+                        <td> {{ projet.createdAt|date("d/m/Y") }}</td>
                     </tr>
                     <tr>
                         <th>Budget indicatif</th>
                         <td>{{ projet.budget | number_format(0, '', ' ') }} €</td>
                     </tr>
+                    <tr>
+                        <th>Début du projet</th>
+                        <td>Vers le {{ projet.dateDebut|date("d/m/Y") }}</td>
+                    </tr>
+                    <tr>
+                        <th>Compétences recherchés</th>
+                        {% for competence in projet.typeProjet %}
+                        <td class="badge badge-pill badge-primary ml-2 mt-2 mr-2">{{ competence.nomType }}
+                            {% endfor %}
+                        </td>
+                    </tr>
                 </table>
             </div>
             <div class="col-md-12">
-                <h3 class="text-secondary"> Offres pour ce projet :</h3>
+                <h3 class="text-secondary mb-4"> Offres pour ce projet :</h3>
                 {% for devi in devis %}
 
                     <div class="card flex-row flex-wrap">
@@ -90,14 +101,13 @@
                             {% endif %}
                         </div>
                         <div class="card-block px-2">
-                            <h4 class="card-title">{{ devi.etabliPar.nomUser }} {{ devi.etabliPar.prenomUser }}</h4>
-                            <p class="card-text">Email :{{ devi.etabliPar.email }} /
-                                Numero de téléphone : {{ devi.etabliPar.telephoneUser }}</p>
-                            <p class="card-text">Publié le  : {{ devi.dateDevis|date("m/d/Y")  }}</p>
-                            <div class="text-primary">
-                                Prix du devis :
-                                {{ devi.offreDevis | number_format(0, '', ' ') }} €
-                            </div>
+                            <p><em>Offre déposée le {{ devi.dateDevis|date("d/m/Y") }}</em></p>
+                            <h4 class="card-title">
+                                <a href="{{ path('user_show', {id: devi.etabliPar.id, slug: devi.etabliPar.slug}) }}">{{ devi.etabliPar.nomUser }} {{ devi.etabliPar.prenomUser }}</a>
+                            </h4>
+                            <p class="card-text">{{ devi.etabliPar.pays }}, {{ devi.etabliPar.ville }}, {{ devi.etabliPar.codePostalUser }}</p>
+                            <p><strong>Prix du devis : <i class="fas fa-lock"></i> Montant privé</strong></p>
+                        </div>
                         </div>
                         <div class="w-100"></div>
                         <div class="card-footer w-100 text-muted">
@@ -106,7 +116,17 @@
                     </div>
                     <br>
                 {% else %}
-                    Vous n'avez encore aucune offre pour le moment
+                    <div class="card flex-row flex-wrap">
+                        <div class="card-block px-2">
+                            <h4 class="card-title">Il n'y a aucune offre pour le moment.</h4>
+                            <p class="card-text mb-4">Si vous êtes un Freelancer et que vous souhaitez postuler à cette offre,<br>
+                            inscrivez-vous si ce n'est pas déjà fait !</p>
+                        </div>
+                        <div class="w-100"></div>
+                        <div class="card-footer w-100 text-muted">
+                            <a href="{{ path('registration') }}" class="btn btn-primary">Je m'inscris</a>
+                        </div>
+                    </div>
                 {% endfor %}
             </div>
         </div>
