@@ -31,6 +31,7 @@ class ProjetFixtures extends Fixture implements DependentFixtureInterface
                 ->setChoixContact($faker->numberBetween(0, 1))
                 ->setDateDebut($faker->dateTime)
                 //->setCreatedAt($faker->dateTime)
+                ->addTypeProjet($typeP[array_rand($typeP)])
                 ->setCreePar($users[array_rand($users)])
                 ->setIsVisible($faker->boolean);
                 $manager->persist($projet);
