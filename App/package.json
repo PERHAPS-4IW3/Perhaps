@@ -21,6 +21,7 @@
   "dependencies": {
 <<<<<<< HEAD
     "bootstrap-select": "^1.13.5",
+<<<<<<< HEAD
     "bootstrap-star-rating": "^4.0.4"
 =======
     "babel-loader": "^8.0.5",
@@ -30,6 +31,10 @@
     "infinite-scroll": "^3.0.5",
     "style-loader": "^0.23.1"
 >>>>>>> note du freelancer
+=======
+    "bootstrap-star-rating": "^4.0.4",
+    "infinite-scroll": "^3.0.5"
+>>>>>>>  first
   },
   "name": "App",
   "version": "1.0.0",

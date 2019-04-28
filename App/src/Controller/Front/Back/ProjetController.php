@@ -28,6 +28,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+
 
 /**
  * Class ProjetController
@@ -151,6 +153,19 @@ class ProjetController extends AbstractController
     public function showOffers(Projet $projet): Response
     {
         $devis = $projet->getListDevis()->getValues();
+    }
+
+    /**
+    * @param Projet $projet
+     * @Route(name="user_projet_listOfU_note", path="/user/projets/Note/listOfU/{id}", methods={"GET"})
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function getListOfUserP(Request $request, Projet $projet)
+    {
+        $form = $this->createForm(EquipeCollectionType::class, $projet);
+        return $this->render('Back/Projet/list.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 
     /**

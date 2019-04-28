@@ -21,22 +21,31 @@ var $ = require('jquery');
 require('popper.js');
 require('bootstrap-star-rating');
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
 
+=======
+require('infinite-scroll');
+>>>>>>>  first
 $(document).ready(function(){
     $('.js-datepicker').datepicker({
         format: 'yyyy/mm/dd',
         todayHighlight: true
     });
+<<<<<<< HEAD
 });
 
 =======
 require('infinite-scroll');
 >>>>>>>  first
 $(document).ready(function () {
+=======
+>>>>>>>  first
     $('.dropdown-toggle').dropdown();
 });
+
+
 
 $('#myModal').on('shown.bs.modal', function () {
     $('#myInput').trigger('focus')
@@ -48,11 +57,17 @@ $(document).ready(function(){
 <<<<<<< HEAD
 <<<<<<< HEAD
     $('#user_roles_0').val("ROLE_FREELANCER");
+<<<<<<< HEAD
     $('#user_roles_0').change(function() {
 =======
 
 =======
 >>>>>>> note du freelancer
+    $('#user_role').change(function() {
+>>>>>>>  first
+=======
+    $('#user_roles_0').change(function() ;
+
     $('#user_role').change(function() {
 >>>>>>>  first
         if ($('option:selected', $(this)).html() === 'Freelancer') {

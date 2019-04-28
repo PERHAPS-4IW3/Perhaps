@@ -742,5 +742,29 @@ class User implements UserInterface, \Serializable
         $this->titreFreelancer = $titreFreelancer;
         return $this;
     }
+    /**
+     * @return Collection|Equipe[]
+     */
+    public function getParticipe(): Collection
+    {
+        return $this->participe;
+    }
 
+    public function addParticipe(Equipe $participe): self
+    {
+        if (!$this->participe->contains($participe)) {
+            $this->participe[] = $participe;
+        }
+
+        return $this;
+    }
+
+    public function removeParticipe(Equipe $participe): self
+    {
+        if ($this->participe->contains($participe)) {
+            $this->participe->removeElement($participe);
+        }
+
+        return $this;
+    }
 }

@@ -44,12 +44,16 @@ Encore
     //.enableTypeScriptLoader()
 
     // uncomment if you're having problems with a jQuery plugin
+<<<<<<< HEAD
    /*9 .autoProvideVariables({
         $: 'jquery',
         jQuery: 'jquery',
         'window.jQuery': 'jquery',
     })*/
     .autoProvidejQuery({
+=======
+    .autoProvideVariables({
+>>>>>>>  first
         $: 'jquery',
         jQuery: 'jquery',
         'window.jQuery': 'jquery',
