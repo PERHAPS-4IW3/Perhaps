@@ -99,7 +99,7 @@ class ProjetController extends AbstractController
 
        // var_dump($competenceProjet->getListParticipants()->first());
         $this->getDoctrine()->getManager()->persist($equipe[array_rand($equipe)]->addListParticipant($competences[array_rand($competences)]));
-
+        
         // }
         $this->getDoctrine()->getManager()->flush();
        /* $t = $this->getDoctrine()->getRepository(Equipe::class)->findBy(['idProjet' => $projet->getId()] );
