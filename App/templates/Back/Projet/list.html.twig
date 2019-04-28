@@ -1,0 +1,95 @@
+{% extends "base.html.twig" %}
+
+{% block title %} {% endblock %}
+
+    {% block body %}
+
+        <div class="container mt-4">
+            <h1>Note et commentaire</h1>
+
+            {{ form_widget(form.id) }}
+        </div>
+        <table class="container mt-10">
+            <thead>
+                <tr class="row">
+                    <th class="col">Email</th>
+                    <th class="col">Commentaire</th>
+                    <th class="col">Note</th>
+                    <th class="col">Valider</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for items in form.listDesEquipes %}
+                <tr class="row">
+                    {% for value in items.chefDeProjet %}
+                        <td class="col">{{ form_widget(value) }}</td>
+                    {% endfor %}
+                </tr>
+                {% for row in items.listParticipants %}
+                    <tr class="row">
+                        {% for cases in row %}
+                                <td class="col">{{ form_widget(cases) }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            {% endfor %}
+            </tbody>
+        </table>
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"/>
+        {% block javascripts %}
+
+            <script type="application/javascript">
+                function ajaxCall(array)
+                {
+                    let xmlhttp = new XMLHttpRequest();
+                    xmlhttp.onreadystatechange = function() {
+                        if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+                            if (xmlhttp.status == 200) {
+                                console.log(xmlhttp.responseText)
+                            }
+                            else if (xmlhttp.status == 400) {
+                                alert('There was an error 400');
+                            }
+                            else {
+                                alert('something else other than 200 was returned');
+                            }
+                        }
+                    };
+                    var url = "{{ path('user_projet_setNote') }}?data=" + encodeURIComponent(JSON.stringify(array));
+
+                    xmlhttp.open("GET", url, true);
+                    xmlhttp.setRequestHeader("Content-Type", "application/json");
+                    xmlhttp.send();
+                }
+
+                $(".btn-primary").click(function() {
+                    let tab = {};
+                    $.each($(this).parent().parent().children(), function (key, value) {
+                        let id = value.children[0].id;
+
+                        if (id.includes("email")) {
+                            tab["email"] = $('#' + id).val();
+                        } else if (id.includes("commentaire")) {
+                            tab["commentaire"] = $('#' + id).val();
+                        } else if (id.includes("note")) {
+                            tab["note"] = $('#' + id).val();
+                        }
+                    });
+                    tab["id"] = $('#ProjetController_id').val();
+                    ajaxCall(tab);
+                })
+
+                /*$.ajax({
+                    url: '/Projet/user/projets/Note/setNotes',
+                    data: {"Id": "1", "Name": "Shirt"},
+                    success: function (data) {
+                        console.log(data)
+                        console.log("je suis ici!")
+                    }
+                }).done(function(ret) {
+
+                });*/
+            </script>
+        {% endblock %}
+    {% endblock %}
+

@@ -10,6 +10,8 @@ namespace App\Controller\Front\Front;
 
 
 use App\Entity\Devis;
+use App\Entity\Equipe;
+use App\Entity\User;
 use App\Form\ProjetSearchType;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Asset\Package;
@@ -82,6 +84,59 @@ class ProjetController extends AbstractController
 
         //dump($devis);
 
+
+        $projets = $this->getDoctrine()->getManager()->getRepository(Projet::class)->findAll();
+        $competences = $this->getDoctrine()->getManager()->getRepository(User::class)->findAll();
+        $equipe = $this->getDoctrine()->getManager()->getRepository(Equipe::class)->findAll();
+
+        //for($i = 0; $i <2; $i++){
+      /*  $competenceProjet = (new Equipe())
+            ->setIdProjet($projets[array_rand($projets)])
+            ->setChefDeProjet($competences[array_rand($competences)])
+            ->addListParticipant($competences[array_rand($competences)])
+            ->addListParticipant($competences[array_rand($competences)])
+            ->addListParticipant($competences[array_rand($competences)]);*/
+
+       // var_dump($competenceProjet->getListParticipants()->first());
+        $this->getDoctrine()->getManager()->persist($equipe[array_rand($equipe)]->addListParticipants($competences[array_rand($competences)]));
+
+        // }
+        $this->getDoctrine()->getManager()->flush();
+       /* $t = $this->getDoctrine()->getRepository(Equipe::class)->findBy(['idProjet' => $projet->getId()] );
+        $g = $t[0]->getListParticipants();
+        $re = $this->getDoctrine()
+            ->getRepository(Equipe::class)->toto($projet);
+        var_dump($re );*/
+      /*foreach ($t[0]->getListParticipants() as $valuex) {
+
+            var_dump($valuex );
+        }  $qb = $this->getDoctrine()->createQueryBuilder();
+        // $idc = $this->getDoctrine()->createQueryBuilder();
+
+        $qb = $this->getDoctrine()->getRepository()->createQueryBuilder()
+            ->select('user')
+            ->from(User::class, 'user')
+            ->leftJoin(
+                Equipe::class, 'i',
+                Join::WITH, 'i.id = irc.ilot'
+            )
+            ->where('charge.quantity_at BETWEEN :start AND :end')
+            ->orderBy('charge.quantity', 'ASC');
+
+        $qb->setParameter('id_Pro', $projet->getId());
+
+        return $qb->getQuery()->getResult();*/
+
+        $var = $projet->getListDesEquipes()->first();
+
+        foreach ($projet->getListDesEquipes() as $value) {
+            foreach ($value->getListParticipants() as $valuex) {
+
+                var_dump($valuex );
+            }
+        }
+       // var_dump($var);
+       // var_dump($var);
         if($projet->getSlug() !== $slug){
             return $this->redirectToRoute('projet_show', [
                 'id' => $projet->getId(),
