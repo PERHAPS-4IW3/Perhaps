@@ -57,7 +57,7 @@
                     };
                     var url = "{{ path('user_projet_setNote') }}?data=" + encodeURIComponent(JSON.stringify(array));
 
-                    xmlhttp.open("GET", url);
+                    xmlhttp.open("GET", url, true);
 
                     xmlhttp.setRequestHeader("Content-Type", "application/json");
                     xmlhttp.send(JSON.stringify(array));

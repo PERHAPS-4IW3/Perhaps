@@ -27,7 +27,10 @@ $(document).ready(function(){
         todayHighlight: true
     });
     $('.dropdown-toggle').dropdown();
+
+
     $('#user_role').change(function() {
+
         if ($('option:selected', $(this)).html() === 'Freelancer') {
             $('.freelancerField').css("display", "block");
             $('#user_nomSociete').attr('required', true);
