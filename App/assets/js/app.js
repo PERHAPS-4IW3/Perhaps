@@ -13,19 +13,16 @@ require('@fortawesome/fontawesome-free/css/all.min.css');
 require('@fortawesome/fontawesome-free/js/all.js');
 require('popper.js');
 require('bootstrap-star-rating');
-
-// Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
-
+require('infinite-scroll');
 $(document).ready(function(){
     $('.js-datepicker').datepicker({
         format: 'yyyy/mm/dd',
         todayHighlight: true
     });
-});
-
-$(document).ready(function () {
     $('.dropdown-toggle').dropdown();
 });
+
+
 
 $('#myModal').on('shown.bs.modal', function () {
     $('#myInput').trigger('focus')
@@ -35,7 +32,9 @@ $('#myModal').on('shown.bs.modal', function () {
 //Si la valeur est Freelancer alors on affiche les champs le concernant et on les rend obligatoire
 $(document).ready(function(){
     $('#user_roles_0').val("ROLE_FREELANCER");
-    $('#user_roles_0').change(function() {
+    $('#user_roles_0').change(function() ;
+
+    $('#user_role').change(function() {
         if ($('option:selected', $(this)).html() === 'Freelancer') {
             $('.freelancerField').css("display", "block");
             $('#user_nomSociete').attr('required', true);
@@ -53,4 +52,6 @@ $(document).ready(function(){
             $('.js-multiple-select').attr('required', false);
         }
     });
+
+
 });

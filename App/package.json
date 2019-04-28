@@ -19,7 +19,8 @@
   },
   "dependencies": {
     "bootstrap-select": "^1.13.5",
-    "bootstrap-star-rating": "^4.0.4"
+    "bootstrap-star-rating": "^4.0.4",
+    "infinite-scroll": "^3.0.5"
   },
   "name": "App",
   "version": "1.0.0",

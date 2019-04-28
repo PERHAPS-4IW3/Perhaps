@@ -24,16 +24,17 @@ class Equipe
      */
     private $idProjet;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="participe")
-     */
-    private $listParticipants;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="equipeGerer")
      * @ORM\JoinColumn(nullable=false)
      */
     private $chefDeProjet;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="participe")
+     */
+    private $listParticipants;
 
 
     public function __construct()
@@ -51,37 +52,18 @@ class Equipe
         return $this->idProjet;
     }
 
+    public function setIdProjet(?Projet $idProjet): self
+    {
+         $this->idProjet =$idProjet ;
+        return $this;
+    }
+
     public function getIdChefProjet(): ?User
     {
         return $this->idChefProjet;
     }
 
-    public function addListParticipant(Participe $listParticipant): self
-    {
-        if (!$this->listParticipants->contains($listParticipant)) {
-            $this->listParticipants[] = $listParticipant;
-        }
 
-        return $this;
-    }
-
-    public function removeListParticipant(Participe $listParticipant): self
-    {
-        if ($this->listParticipants->contains($listParticipant)) {
-            $this->listParticipants->removeElement($listParticipant);
-        }
-
-        return $this;
-
-    }
-
-    /**
-     * @return Collection|User[]
-     */
-    public function getListParticipants(): Collection
-    {
-        return $this->listParticipants;
-    }
 
     public function getChefDeProjet(): ?User
     {
@@ -94,4 +76,33 @@ class Equipe
 
         return $this;
     }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getListParticipants(): Collection
+    {
+        return $this->listParticipants;
+    }
+
+    public function addListParticipant(User $listParticipant): self
+    {
+        if (!$this->listParticipants->contains($listParticipant)) {
+            $this->listParticipants[] = $listParticipant;
+            $listParticipant->addParticipe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeListParticipant(User $listParticipant): self
+    {
+        if ($this->listParticipants->contains($listParticipant)) {
+            $this->listParticipants->removeElement($listParticipant);
+            $listParticipant->removeParticipe($this);
+        }
+
+        return $this;
+    }
+
 }

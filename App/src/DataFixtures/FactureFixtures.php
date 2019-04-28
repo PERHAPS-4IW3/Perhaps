@@ -26,23 +26,23 @@ class FactureFixtures extends Fixture implements DependentFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-       /* $faker = \Faker\Factory::create();
+        $faker = \Faker\Factory::create();
         $projets = $manager->getRepository(Projet::class)->findAll();
         $devis = $manager->getRepository(Devis::class)->findAll();
 
-            $facture = (new Facture())
-                ->setIdProjet( $projets[array_rand($projets)])
-                ->setAutresCharges($faker->randomFloat())
-                ->setDevis($devis[array_rand($devis)])
-                ->setNbrHeures($faker->randomDigitNotNull)
-                ->setNomFacture($faker->randomLetter)
-                ->setPrixHT($faker->randomFloat())
-                ->setPrixTTC($faker->randomFloat())
-                ->setTauxH($faker->randomDigitNotNull);
+            $facture = new Facture();
+            $facture->setIdProjet( $projets[array_rand($projets)]);
+            $facture->setAutresCharges($faker->randomFloat());
+            $facture->setDevis($devis[array_rand($devis)]);
+            $facture->setNbrHeures($faker->randomDigitNotNull);
+            $facture->setNomFacture($faker->randomLetter);
+            $facture->setPrixHT($faker->randomFloat());
+            $facture->setPrixTTC($faker->randomFloat());
+            $facture->setTauxH($faker->randomDigitNotNull);
             $manager->persist($facture);
 
 
-        $manager->flush();*/
+        $manager->flush();
     }
 
     /**
