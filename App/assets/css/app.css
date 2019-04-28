@@ -244,3 +244,14 @@ section .section-title {
     margin-top: -30px;
 
 }
+
+#scrollBox {
+    background-color: lightblue;
+    width: 110px;
+    height: 110px;
+    overflow: auto;
+}
+
+tr{
+    margin-bottom: 10px;
+}

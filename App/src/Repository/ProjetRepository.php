@@ -2,7 +2,9 @@
 
 namespace App\Repository;
 
+use App\Entity\Equipe;
 use App\Entity\Projet;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
@@ -78,6 +80,26 @@ class ProjetRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('p')
             ->Where('p.isVisible = true');
     }
+
+    public function getListOfUserLinkedToPro(Projet $projet)
+    {
+        $qb = $this->getDoctrine()->createQueryBuilder();
+        // $idc = $this->getDoctrine()->createQueryBuilder();
+
+        $qb = $this->getRepository()->createQueryBuilder('user')
+            ->select('i AS ilot', 'charge.quantity')
+            ->from(User::class, 'user')
+            ->where('charge.quantity_at BETWEEN :start AND :end')
+            ->orderBy('charge.quantity', 'ASC');
+
+        $qb->setParameter('id_Pro', $projet->getId());
+
+        return $qb->getQuery()->getResult();
+    }
+
+
+
+
     // /**
     //  * @return Projet[] Returns an array of Projet objects
     //  */

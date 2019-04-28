@@ -41,6 +41,7 @@ class UserType extends AbstractType
                 'required'     => false,
                 'entry_type'   => ChoiceType::class,
                 'entry_options'  => [
+                    'label' => false,
                     'choices'             => [
                         'Freelancer'        => 'ROLE_FREELANCER',
                         'Porteur de Projet' => 'ROLE_USER'
@@ -58,23 +59,6 @@ class UserType extends AbstractType
             ->add('tarifHoraireFreelancer', MoneyType::class, ['label' => 'Tarif Horaire Freelancer'])
             ->add('presentationFreelancer', TextareaType::class, ['label' => 'Présentation'])
         ;
-
-
-        /*$builder->get('role')->addEventListener(
-            FormEvents::POST_SUBMIT,
-            function(FormEvent $event)
-            {
-                $form = $event->getForm();
-                $data = $event->getData();
-
-                dump($data);
-
-                if($data === "ROLE_FREELANCER") {
-                    $form->getParent()->add('statut', TextType::class, ['label' => 'Statut']);
-                }
-            }
-
-        );*/
     }
 
     public function configureOptions(OptionsResolver $resolver)

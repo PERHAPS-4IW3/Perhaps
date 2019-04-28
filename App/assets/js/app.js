@@ -12,11 +12,7 @@ require('@fortawesome/fontawesome-free/js/all.js');
 require('popper.js');
 require('bootstrap');
 require('bootstrap-star-rating');
-require('jquery');
-
-// Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
-
-
+require('infinite-scroll');
 $(document).ready(function () {
     $('.dropdown-toggle').dropdown();
 });
@@ -24,6 +20,7 @@ $(document).ready(function () {
 //Dès lors qu'on modifie le 'selected list'
 //Si la valeur est Freelancer alors on affiche les champs le concernant et on les rend obligatoire
 $(document).ready(function(){
+
     $('#user_role').change(function() {
         if ($('option:selected', $(this)).html() === 'Freelancer') {
             $('.freelancerField').css("display", "block");
@@ -38,4 +35,6 @@ $(document).ready(function(){
             $('#user_presentationFreelancer').attr('required', false);
         }
     });
+
+
 });

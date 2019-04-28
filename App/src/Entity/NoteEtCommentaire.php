@@ -77,6 +77,13 @@ class NoteEtCommentaire
         return $this->idProjet;
     }
 
+    public function setIdProjet(Projet $idProjet): self
+    {
+        $this->idProjet = $idProjet;
+        return $this;
+    }
+
+
     public function getDeveloppeur(): ?user
     {
         return $this->developpeur;
