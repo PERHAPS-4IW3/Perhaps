@@ -158,8 +158,10 @@ class ProjetController extends AbstractController
             'devis' => $devis,
         ]);
     }
+
+
     /**
-     * @param Projet $projet
+    * @param Projet $projet
      * @Route(name="user_projet_listOfU_note", path="/user/projets/Note/listOfU/{id}", methods={"GET"})
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */

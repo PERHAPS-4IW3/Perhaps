@@ -43,13 +43,7 @@ Encore
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()
 
-    // uncomment if you're having problems with a jQuery plugin
-   /*9 .autoProvideVariables({
-        $: 'jquery',
-        jQuery: 'jquery',
-        'window.jQuery': 'jquery',
-    })*/
-    .autoProvidejQuery({
+    .autoProvideVariables({
         $: 'jquery',
         jQuery: 'jquery',
         'window.jQuery': 'jquery',

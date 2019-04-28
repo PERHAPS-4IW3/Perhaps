@@ -25,7 +25,7 @@ class DevisFixture extends Fixture implements  DependentFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-       $faker = \Faker\Factory::create();
+        $faker = \Faker\Factory::create();
         $projet = $manager->getRepository(Projet::class)->findAll();
         $users = $manager->getRepository(User::class)->findAll();
         for($i = 0; $i <10; $i++){
