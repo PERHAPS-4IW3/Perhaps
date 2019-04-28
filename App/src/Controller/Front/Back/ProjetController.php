@@ -9,9 +9,17 @@
 namespace App\Controller\Front\Back;
 
 
+use App\Entity\Equipe;
+use App\Entity\NoteEtCommentaire;
 use App\Entity\Projet;
 use App\Entity\User;
+use App\Entity\UserCollection;
+use Symfony\Component\HttpFoundation\Response;
+use App\Form\EquipeCollectionType;
+use App\Form\NoteEtCommenaireType;
 use App\Form\ProjetType;
+use App\Form\TableNoteUserType;
+use App\Form\UserCollectionType;
 use App\Repository\ProjetRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -19,7 +27,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\HttpFoundation\Response;
 
 
 /**

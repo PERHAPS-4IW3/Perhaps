@@ -175,10 +175,7 @@ class User implements UserInterface, \Serializable
      */
     private $listCompetence;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Equipe", inversedBy="listParticipants")
-     */
-    private $participe;
+
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\NoteEtCommentaire", mappedBy="developpeur", orphanRemoval=true)
@@ -196,6 +193,11 @@ class User implements UserInterface, \Serializable
     private $equipeGerer;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Equipe", inversedBy="listParticipants")
+     */
+    private $participe;
+
+    /**
      * User constructor.
      */
     public function __construct()
@@ -203,10 +205,10 @@ class User implements UserInterface, \Serializable
         $this->isActive = false;
         $this->projetGerer = new ArrayCollection();
         $this->listCompetence = new ArrayCollection();
-        $this->participe = new ArrayCollection();
         $this->noteEtCommentaire = new ArrayCollection();
         $this->listDesDevis = new ArrayCollection();
         $this->equipeGerer = new ArrayCollection();
+        $this->participe = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -610,31 +612,6 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-    /**
-     * @return Collection|Equipe[]
-     */
-    public function getParticipe(): Collection
-    {
-        return $this->participe;
-    }
-
-    public function addParticipe(Equipe $participe): self
-    {
-        if (!$this->participe->contains($participe)) {
-            $this->participe[] = $participe;
-        }
-
-        return $this;
-    }
-
-    public function removeParticipe(Equipe $participe): self
-    {
-        if ($this->participe->contains($participe)) {
-            $this->participe->removeElement($participe);
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|NoteEtCommentaire[]

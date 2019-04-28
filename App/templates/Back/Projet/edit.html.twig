@@ -13,4 +13,10 @@
         {{ form_end(form) }}
     </div>
 
+    {% include "modals/user_notation.html.twig" with
+        {
+            modal: { id: "modal_gst-reserve_comment-edit", title: "Modifier un suivi commande" }
+        }
+    %}
+
 {% endblock %}
