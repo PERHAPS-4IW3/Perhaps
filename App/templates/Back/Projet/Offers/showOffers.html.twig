@@ -1,0 +1,55 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Offres pour {{ projet.nomProjet }}{% endblock %}
+
+{% block body %}
+
+    <div class="jumbotron">
+        <div class="container mt-4">
+            <h3 class="text-center">Toutes les offres pour le projet : {{ projet.nomProjet }}</h3>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row flex">
+            {% for devi in devis %}
+            <div class="col-md-12">
+                <div class="card flex-row flex-wrap">
+                    <div class="card-header border-0">
+                        {% if vich_uploader_asset(devi.etabliPar, 'imageFile') is null %}
+                            <img id ="imagecard" src="{{ asset('images/user.svg') }}" alt="card image" >
+                        {% else %}
+                            <img id ="imagecard" src="{{ vich_uploader_asset(devi.etabliPar, 'imageFile')| imagine_filter('thumb') }}" alt>
+                        {% endif %}
+                    </div>
+                    <div class="card-block px-4">
+                        <p><em>Offre déposée le {{ devi.dateDevis|date("d/m/Y") }}</em></p>
+                        <h4 class="card-title">
+                            <a href="{{ path('user_show', {id: devi.etabliPar.id, slug: devi.etabliPar.slug}) }}">{{ devi.etabliPar.nomUser }} {{ devi.etabliPar.prenomUser }}</a>
+                        </h4>
+                        <p class="card-text">{{ devi.etabliPar.pays }}, {{ devi.etabliPar.ville }}, {{ devi.etabliPar.codePostalUser }}</p>
+                        <p><strong>Prix du devis : <i class="fas fa-lock"></i> {{ devi.offreDevis }} € </strong></p>
+                    </div>
+                </div>
+                <div class="w-100"></div>
+                <div class="card-footer w-100 text-muted">
+                    <a href="#" class="btn btn-primary">Choisir ce Freelancer</a>
+                </div>
+                <br>
+                {% else %}
+                    <div class="card flex-row flex-wrap">
+                        <div class="card-block px-2">
+                            <h4 class="card-title">Il n'y a aucune offre pour le moment.</h4>
+                            <p class="card-text mb-4">Si vous êtes un Freelancer et que vous souhaitez postuler à cette offre,<br>
+                                inscrivez-vous si ce n'est pas déjà fait !</p>
+                        </div>
+                        <div class="w-100"></div>
+                        <div class="card-footer w-100 text-muted">
+                            <a href="{{ path('registration') }}" class="btn btn-primary">Je m'inscris</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

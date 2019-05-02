@@ -6,42 +6,75 @@
     <div class="jumbotron">
         <div class="container">
             {{ form_start(form) }}
-            <div class="form-row">
+            <div class="form-row align-items-end">
                 <div class="col">
-                    {{ form_row(form.nomProjet) }}
+                    {{ form_row(form.nomProjetSearch) }}
                 </div>
                 <div class="col">
-                    {{ form_row(form.submit) }}
+                    {{ form_row(form.minBudgetSearch) }}
+                </div>
+                <div class="col">
+                    {{ form_row(form.typeProjet) }}
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <button class="btn btn-primary">Rechercher</button>
+                    </div>
                 </div>
             </div>
             {{ form_end(form) }}
         </div>
     </div>
     <div class="container mt-4">
-
-        <h1>Nos Projets</h1>
+        <h1>Tous les projets</h1>
         </br>
     </div>
-    <div class="container">
-
+    <div class="container pageProjContainer">
         <div class="row flex">
             {% for projet in projets %}
                 <div class="col-lg-4 d-flex align-items-stretch" id="cardprj">
                     <div class="card h-100">
                         <div class="card-body">
-                            <h5 class="card-title">
-                                <a href="{{ path('projet_show', {id: projet.id, slug: projet.slug}) }}">{{ projet.nomProjet }}</a>
-                            </h5>
-                            <p class="card-text">
+                            <div class="row flex">
+                                <div class="col-8">
+                                    <h5 class="card-title">
+                                        <a href="{{ path('projet_show', {id: projet.id, slug: projet.slug}) }}">{{ projet.nomProjet }}</a>
+                                    </h5>
+                                </div>
+                                <div class="col-4 mt-1 created">
+                                    <p><em>Le {{ projet.createdAt|date("d/m/Y") }}</em></p>
+                                </div>
+                            </div>
+                            <div class="row flex small-icon">
+                                <img src="images/sign-check-icon.png" alt="open project" class="ml-3">
+                                <p class="text-secondary ml-3"><em>Ouvert</em></p>
+                            </div>
+                            <p class="card-text mt-2 mb-5">
                                 {{ projet.descriptionProjet }}
                             </p>
-                            <div class="text-primary">
-                                {{ projet.budget | number_format(0, '', ' ') }} €
+                            <div class="mb-2">
+                                {% for competence in projet.typeProjet %}
+                                    <p class="btn btn-primary">
+                                        {{ competence.nomType }}
+                                    </p>
+                                {% endfor %}
+                            </div>
+                            <div class="text-primary container-price">
+                                {% if projet.budget < 500 %}
+                                    Moins de 500 €
+                                {% elseif projet.budget >= 500 and projet.budget < 1000 %}
+                                    500 € à 1000 €
+                                {% elseif projet.budget >= 1000 and projet.budget < 10000 %}
+                                    1000 € à 10 000 €
+                                {% else %}
+                                    Plus de 10 000 €
+                                {% endif %}
                             </div>
                         </div>
                     </div>
                 </div>
             {% endfor %}
+
         </div>
         <div class="navigation">
             {{ knp_pagination_render(projets) }}

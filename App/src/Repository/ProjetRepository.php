@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Projet;
+use App\Entity\ProjetSearch;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
@@ -45,18 +46,32 @@ class ProjetRepository extends ServiceEntityRepository
     /**
      * @return array
      */
-    public function findProjects(Projet $search): array
+    public function findProjects(ProjetSearch $search): Query
     {
-        $query = $this->createQueryBuilder('p');
+        $query = $this->findVisibleQuery();
 
-        if($search->getNomProjet() != "") {
+        if($search->getNomProjetSearch()) {
             $query = $query
-                ->Where('p.nomProjet LIKE :nomProjet')
-                ->setParameter('nomProjet', '%'.$search->getNomProjet().'%');
-            return $query->getQuery()->getResult();
-        }else {
-            return $this->findAllVisible();
+                ->andwhere('p.nomProjet LIKE :nomProjetSearch')
+                ->setParameter('nomProjetSearch', '%'.$search->getNomProjetSearch().'%');
         }
+
+        if($search->getMinBudgetSearch()) {
+            $query = $query
+                ->andwhere('p.budget >= :minBudgetSearch')
+                ->setParameter('minBudgetSearch', $search->getMinBudgetSearch());
+        }
+
+        if($search->getTypeProjet()->count() > 0){
+            $k = 0;
+            foreach ($search->getTypeProjet() as $typeProjet){
+                $k++;
+                $query = $query
+                    ->andWhere(":typeProjets$k MEMBER OF p.typeProjet")
+                    ->setParameter("typeProjets$k", $typeProjet);
+            }
+        }
+        return $query->getQuery();
     }
 
     /**

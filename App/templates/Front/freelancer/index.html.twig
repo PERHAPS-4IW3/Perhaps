@@ -6,12 +6,20 @@
     <div class="jumbotron">
         <div class="container">
             {{ form_start(form) }}
-            <div class="form-row">
+            <div class="form-row align-items-end">
                 <div class="col">
-                    {{ form_row(form.nomUser) }}
+                    {{ form_row(form.userNameAndCompany) }}
                 </div>
                 <div class="col">
-                    {{ form_row(form.submit) }}
+                    {{ form_row(form.userProfession) }}
+                </div>
+                <div class="col">
+                    {{ form_row(form.listCompetence) }}
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <button class="btn btn-primary">Rechercher</button>
+                    </div>
                 </div>
             </div>
             {{ form_end(form) }}
@@ -19,7 +27,7 @@
     </div>
 
     <div class="container mt-4">
-        <h1>Les Freelancers</h1>
+        <h1>Tous les freelancers</h1>
     </div>
 
     <section id="team" class="pb-5">

@@ -39,6 +39,7 @@ $(document).ready(function(){
         if ($('option:selected', $(this)).html() === 'Freelancer') {
             $('.freelancerField').css("display", "block");
             $('#user_nomSociete').attr('required', true);
+            $('#user_titreFreelancer').attr('required', true);
             $('#user_tarifHoraireFreelancer').attr('required', true);
             $('#user_presentationFreelancer').attr('required', true);
             $('.js-multiple-select').attr('required', true);
@@ -46,6 +47,7 @@ $(document).ready(function(){
             console.log("Je suis un Porteur de projet");
             $('.freelancerField').css("display", "none");
             $('#user_nomSociete').attr('required', false);
+            $('#user_titreFreelancer').attr('required', false);
             $('#user_tarifHoraireFreelancer').attr('required', false);
             $('#user_presentationFreelancer').attr('required', false);
             $('.js-multiple-select').attr('required', false);

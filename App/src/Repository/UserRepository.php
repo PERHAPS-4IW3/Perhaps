@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\User;
+use App\Entity\UserSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query;
@@ -48,22 +49,36 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
     }
 
     /**
-     * @param User $search
+     * @param UserSearch $search
      * @return array
      * Fonction qui recherche notre Freelancer
      */
-    public function findFreelancers(User $search): array
+    public function findFreelancers(UserSearch $search): Query
     {
         $query = $this->findVisibleFreelancerQuery();
 
-        if($search->getNomUser() != "") {
+        if($search->getUserProfession()) {
             $query = $query
-                ->Where('f.nomUser LIKE :nomUser')
-                ->setParameter('nomUser', '%'.$search->getNomUser().'%');
-            return $query->getQuery()->getResult();
-        }else {
-            return $query->getQuery()->getResult();
+                ->andwhere('p.userProfession LIKE :profession')
+                ->setParameter('profession', '%'.$search->getUserProfession().'%');
         }
+
+        if($search->getListCompetence()->count() > 0){
+            $k = 0;
+            foreach ($search->getListCompetence() as $listComp){
+                $k++;
+                $query = $query
+                    ->andWhere(":listCompetences$k MEMBER OF p.listCompetence")
+                    ->setParameter("listCompetences$k", $listComp);
+            }
+        }
+
+        if($search->getUserNameAndCompany()) {
+            $query = $query
+                ->andwhere('p.userNameAndCompany LIKE :nameAndCompany')
+                ->setParameter('nameAndCompany', '%'.$search->getUserNameAndCompany().'%');
+        }
+        return $query->getQuery();
     }
 
     /**

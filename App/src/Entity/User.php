@@ -41,6 +41,18 @@ class User implements UserInterface, \Serializable
     private $imageFile;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string|null
+     */
+    private $cvName;
+
+    /**
+     * @Vich\UploadableField(mapping="user_cv", fileNameProperty="cvName")
+     * @var File|null
+     */
+    private $cvFile;
+
+    /**
      * @ORM\Column(type="string", length=80, unique=true)
      * @Assert\Email()
      * @Assert\NotBlank()
@@ -130,6 +142,12 @@ class User implements UserInterface, \Serializable
      * @Assert\Range(min=1, max=100)
      */
     private $tarifHoraireFreelancer;
+
+    /**
+     * @ORM\Column(type="string", length=150, nullable=true)
+     * @Assert\Length(min=5)
+     */
+    private $titreFreelancer;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -451,7 +469,8 @@ class User implements UserInterface, \Serializable
 
         return $this;
     }
-    /*
+
+    /**
      * @return null|string
      */
     public function getImageName(): ?string
@@ -485,6 +504,45 @@ class User implements UserInterface, \Serializable
     {
         $this->imageFile = $imageFile;
         if(null !== $imageFile && $this->imageFile instanceof UploadedFile){
+            $this->updated_at = new \DateTime('now');
+        }
+        return $this;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getCvName(): ?string
+    {
+        return $this->cvName;
+    }
+
+    /**
+     * @param null|string $cvName
+     * @return User
+     */
+    public function setCvName(?string $cvName): User
+    {
+        $this->cvName = $cvName;
+        return $this;
+    }
+
+    /**
+     * @return null|File
+     */
+    public function getCvFile(): ?File
+    {
+        return $this->cvFile;
+    }
+
+    /**
+     * @param null|File $cvFile
+     * @return User
+     */
+    public function setCvFile(?File $cvFile = null): User
+    {
+        $this->cvFile = $cvFile;
+        if(null != $cvFile && $this->cvFile instanceof UploadedFile){
             $this->updated_at = new \DateTime('now');
         }
         return $this;
@@ -689,4 +747,23 @@ class User implements UserInterface, \Serializable
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getTitreFreelancer(): ?string
+    {
+        return $this->titreFreelancer;
+    }
+
+    /**
+     * @param mixed $titreFreelancer
+     * @return User
+     */
+    public function setTitreFreelancer(string $titreFreelancer): self
+    {
+        $this->titreFreelancer = $titreFreelancer;
+        return $this;
+    }
+
 }
