@@ -214,8 +214,6 @@ class Projet
         return self::CONTACT[$this->choixContact];
     }
 
-
-
     public function getFacture(): ?Facture
     {
         return $this->facture;

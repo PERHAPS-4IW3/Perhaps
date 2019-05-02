@@ -70,24 +70,8 @@ class UserType extends AbstractType
                 'choice_label' => 'nomCompetence',
                 'multiple'     => true,
             ])
+            ->add('titreFreelancer', TextType::class, ['label' => 'Titre profesionnelle'])
             ;
-
-
-        /*$builder->get('role')->addEventListener(
-            FormEvents::POST_SUBMIT,
-            function(FormEvent $event)
-            {
-                $form = $event->getForm();
-                $data = $event->getData();
-
-                dump($data);
-
-                if($data === "ROLE_FREELANCER") {
-                    $form->getParent()->add('statut', TextType::class, ['label' => 'Statut']);
-                }
-            }
-
-        );*/
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -96,6 +80,5 @@ class UserType extends AbstractType
             'data_class' => User::class,
         ));
     }
-
 
 }

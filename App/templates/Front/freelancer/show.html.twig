@@ -3,60 +3,76 @@
 {% block title %}{{ user.nomUser }} {{ user.prenomUser }}{% endblock %}
 
 {% block body %}
-
-    <div class="container">
-        <h1>{{ user.prenomUser }} {{ user.nomUser }} </h1>
-        <div class="row">
-
-
-        {% if vich_uploader_asset(user, 'imageFile') is null %}
-            <img id ="profilimage" src="{{ asset('images/user.svg') }}" alt="card image" >
-        {% else %}
-            <img id ="profilimage" src="{{ vich_uploader_asset(user, 'imageFile')| imagine_filter('thumb') }}" alt>
-        {% endif %}
-
-    <div class="panel-body">
-
-                <table class="table table-striped">
-                    <tr>
-                        <th>Nom</th>
-                        <td>{{ user.nomUser}}</td>
-                    </tr>
-                    <tr>
-                        <th>Prénom</th>
-                        <td>{{ user.prenomUser }} </td>
-                    </tr>
-                    <tr>
-                        <th>Roles</th>
-                        <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-                    </tr>
-                    <tr>
-                        <th>Email</th>
-                        <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
-                    </tr>
-                    <tr>
-                        <th>Telephone</th>
-                        <td>{{ user.telephoneUser }}</td>
-                    </tr>
-                    <tr>
-                        <th>Adresse</th>
-                        <td>{{ user.adresseUser }}</td>
-                    </tr>
-                    <tr>
-                        <th>Code Postal</th>
-                        <td>{{ user.codePostalUser }}</td>
-                    </tr>
-                    <tr>
-                        <th>Ville</th>
-                        <td>{{ user.ville }}</td>
-                    </tr>
-                    <tr>
-                        <th>Pays</th>
-                        <td>{{ user.pays }}</td>
-                    </tr>
-                </table>
-
-              </div>
+    <div class="jumbotron">
+        <div class="container align-items-center">
+            <div class="row">
+                <div class="col-md-4 mr-5">
+                    {% if vich_uploader_asset(user, 'imageFile') is null %}
+                        <img id ="profilimage" src="{{ asset('images/user.svg') }}" alt="card image" >
+                    {% else %}
+                        <img id ="profilimage" src="{{ vich_uploader_asset(user, 'imageFile')| imagine_filter('thumb') }}" alt>
+                    {% endif %}
+                </div>
+                <div class="col-md-6 ml-5 mt-5">
+                    <h1>{{ user.prenomUser }} {{ user.nomUser }}</h1>
+                    <h4>{{ user.nomSociete }}</h4>
+                    <h4>{{ user.titreFreelancer }} à {{ user.ville }}</h4>
+                    <h4><i class="fas fa-map-marker-alt"></i> {{ user.ville }}, {{ user.pays }}</h4>
+                    <div class="mt-5">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                            Demander un devis
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <div class="container mt-4 mb-5">
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-presentation-tab" data-toggle="tab" href="#nav-presentation" role="tab" aria-controls="nav-presentation" aria-selected="true">Présentation</a>
+                <a class="nav-item nav-link" id="nav-cv-tab" data-toggle="tab" href="#nav-cv" role="tab" aria-controls="nav-cv" aria-selected="false">CV</a>
+                <a class="nav-item nav-link" id="nav-competence-tab" data-toggle="tab" href="#nav-competences" role="tab" aria-controls="nav-competence" aria-selected="false">Compétences</a>
+            </div>
+        </nav>
+        <div class="tab-content mt-5" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-presentation" role="tabpanel" aria-labelledby="nav-presentation-tab">
+                <div class="card w-75">
+                    <div class="card-body card-shad">
+                        <h4 class="card-title">{{ user.prenomUser }} {{ user.nomUser }}</h4>
+                        <p class="card-text">{{ user.presentationFreelancer }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="nav-cv" role="tabpanel" aria-labelledby="nav-cv-tab">
+                <div class="card w-75">
+                    <div class="card-body card-shad">
+                        <h4 class="card-title">Mon CV</h4>
+                        <p class="card-text">
+                            {% if vich_uploader_asset(user, 'cvFile') is null %}
+                                {{ user.prenomUser }} {{ user.nomUser }} n'a pas encore mis de CV.
+                            {% else %}
+                                <a href="/web/cv/{{ user.cvName }}">Voir mon cv</a>
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="nav-competences" role="tabpanel" aria-labelledby="nav-competences-tab">
+                <div class="card w-75">
+                    <div class="card-body card-shad">
+                        <h4 class="card-title">Mes compétences</h4>
+                        <ul class="list-group">
+                            {% for competence in user.listCompetence %}
+                                <li class="list-group-item text-primary">{{ competence.nomCompetence }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+
 {% endblock %}

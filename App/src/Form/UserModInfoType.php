@@ -11,6 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
@@ -25,7 +26,7 @@ class UserModInfoType extends AbstractType
                 'delete_label' => "Supprimer ma photo",
                 'download_label' => "Télécharger ma photo",
                 #'allow_delete' => false,
-                ])
+            ])
             ->add('nomUser', TextType::class, ['label' => 'Votre nom'])
             ->add('prenomUser', TextType::class, ['label' => 'Votre prénom'])
             ->add('listCompetence', EntityType::class, [
@@ -43,6 +44,10 @@ class UserModInfoType extends AbstractType
             ->add('codePostalUser', TextType::class,  ['label' => 'Votre code postal'])
             ->add('ville', TextType::class,  ['label' => 'Votre ville'])
             ->add('pays', TextType::class,  ['label' => 'Votre pays'])
+            ->add('cvFile', VichFileType::class, [
+                'required' => false,
+                'label' => "Mon CV"
+            ])
         ;
     }
 
