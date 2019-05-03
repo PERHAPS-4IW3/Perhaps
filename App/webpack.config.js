@@ -1,4 +1,5 @@
 var Encore = require('@symfony/webpack-encore');
+const $ = require('jquery');
 Encore
     // directory where compiled assets will be stored
     .setOutputPath('public/build/')
@@ -44,6 +45,11 @@ Encore
     //.enableTypeScriptLoader()
 
     .autoProvideVariables({
+        $: 'jquery',
+        jQuery: 'jquery',
+        'window.jQuery': 'jquery',
+    })
+    .autoProvidejQuery({
         $: 'jquery',
         jQuery: 'jquery',
         'window.jQuery': 'jquery',
