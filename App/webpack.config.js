@@ -58,6 +58,11 @@ Encore
         jQuery: 'jquery',
         'window.jQuery': 'jquery',
     })
+    .autoProvidejQuery({
+        $: 'jquery',
+        jQuery: 'jquery',
+        'window.jQuery': 'jquery',
+    })
     // uncomment if you use API Platform Admin (composer req api-admin)
     //.enableReactPreset()
     //.addEntry('admin', './assets/js/admin.js')
