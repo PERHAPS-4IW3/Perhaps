@@ -20,7 +20,14 @@ class FreelancerSearchType extends AbstractType
                 'required' => false,
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'Nom du freelancer'
+                    'placeholder' => 'Nom du freelancer',
+                ]
+            ])
+            ->add('prenomUser', TextType::class, [
+                'required' => false,
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Prenom du freelancer',
                 ]
             ])
             -> add('submit', SubmitType::class, [

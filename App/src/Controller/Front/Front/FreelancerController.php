@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Controller\Front\Front;
-
 use App\Entity\User;
 use App\Form\FreelancerSearchType;
 use Knp\Component\Pager\PaginatorInterface;
@@ -10,9 +8,14 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 use App\Repository\UserRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+
 
 class FreelancerController extends AbstractController
 {
@@ -22,14 +25,17 @@ class FreelancerController extends AbstractController
      */
     private $em;
     private $repository;
-
     public function __construct(UserRepository $repository, ObjectManager $em)
     {
         $this->repository = $repository;
         $this->em = $em;
     }
-
-
+    /**
+     * @param Request $request
+     * @Route("/freelancer", name="free_index", methods={"GET"})
+     * @param PaginatorInterface $paginator
+     * @return Response
+     */
     /**
      * @param Request $request
      * @Route("/freelancer", name="free_index", methods={"GET"})
@@ -41,21 +47,17 @@ class FreelancerController extends AbstractController
         $search = new User();
         $form = $this->createForm(FreelancerSearchType::class, $search);
         $form->handleRequest($request);
-
         if($form->isSubmitted() && $form->isValid()){
-
             $freelancers = $paginator->paginate(
                 $this->repository->findFreelancers($search),
                 $request->query->getInt('page', 1),
                 9/*limit per page*/
             );
-
             return $this->render('Front/freelancer/index.html.twig', [
                 'freelancers'   => $freelancers,
                 'form'      => $form->createView()
             ]);
         }
-
         $users = $paginator->paginate(
             $this-> repository->findVisibleAllFreelancerQuery(),
             $request->query->getInt('page', 1),
@@ -65,6 +67,12 @@ class FreelancerController extends AbstractController
             'freelancers' => $users,
             'form'  => $form->createView(),
         ]);
+    }
+
+    public function getFreelancer($id = null){
+       $freelancer = $this->repository->find($id);
+
+       return $this->json($freelancer->getNomUser());
     }
 
 
@@ -86,6 +94,20 @@ class FreelancerController extends AbstractController
             'user' => $user,
             'current_menu' => 'users'
         ]);
+    }
+
+    /**
+     * @Route("/freelancer/API", name="free_api", methods={"GET"})
+     * @return Response
+     */
+    public function getAllFreelancer(){
+
+        $freelancers = $this->repository->findAllFreelancers()->getArrayResult();
+
+        $response = new Response(json_encode($freelancers));
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
     }
 
 }

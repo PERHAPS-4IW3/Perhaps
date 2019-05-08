@@ -191,6 +191,9 @@
     "psr/simple-cache": {
         "version": "1.0.1"
     },
+    "pugx/autocompleter-bundle": {
+        "version": "v1.4.2"
+    },
     "sensio/framework-extra-bundle": {
         "version": "5.2",
         "recipe": {
@@ -349,6 +352,9 @@
     },
     "symfony/polyfill-intl-icu": {
         "version": "v1.10.0"
+    },
+    "symfony/polyfill-intl-idn": {
+        "version": "v1.11.0"
     },
     "symfony/polyfill-mbstring": {
         "version": "v1.10.0"

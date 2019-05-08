@@ -35,7 +35,7 @@ class UserFixtures extends Fixture
             $user = new User();
             $user->setEmail($faker->email);
             $user->setPassword($this->encoder->encodePassword($user, 'demo'));
-            $user->setRoles(array('ROLE_USER'));
+            $user->setRoles(array('ROLE_FREELANCER'));
             $user->setNomUser($faker->lastName);
             $user->setPrenomUser($faker->firstName);
             $user->setAdresseUser($faker->address);
@@ -53,7 +53,7 @@ class UserFixtures extends Fixture
             $userFreelancer = new User();
             $userFreelancer->setEmail($faker->email);
             $userFreelancer->setPassword($this->encoder->encodePassword($user, 'demo'));
-            $userFreelancer->setRoles(array('ROLE_FREELANCER'));
+            $userFreelancer->setRoles(array('ROLE_USER'));
             $userFreelancer->setNomUser($faker->lastName);
             $userFreelancer->setPrenomUser($faker->firstName);
             $userFreelancer->setAdresseUser($faker->address);

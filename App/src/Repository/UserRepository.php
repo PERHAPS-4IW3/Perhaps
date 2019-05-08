@@ -47,6 +47,13 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
             ;
     }
 
+    /*private function findVisibleFreelancerQuery(): QueryBuilder
+    {
+        return $this->createQueryBuilder('p')
+            ->Where("p.roles LIKE :role")
+            ->setParameter('role', '%"ROLE_FREELANCER"%');
+    }*/
+
     /**
      * @param User $search
      * @return array
@@ -56,14 +63,25 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
     {
         $query = $this->findVisibleFreelancerQuery();
 
-        if($search->getNomUser() != "") {
+        if($search->getNomUser() != "" || $search->getPrenomUser() != "") {
             $query = $query
-                ->Where('f.nomUser LIKE :nomUser')
-                ->setParameter('nomUser', '%'.$search->getNomUser().'%');
+                ->andWhere('f.nomUser LIKE :nomUser')
+                ->andWhere('f.prenomUser LIKE :prenomUser')
+                ->setParameter('nomUser', '%'.$search->getNomUser().'%')
+                ->setParameter('prenomUser', '%'.$search->getPrenomUser().'%');
             return $query->getQuery()->getResult();
         }else {
             return $query->getQuery()->getResult();
         }
+    }
+
+    public function findLikeName(){
+        return $this
+            ->createQueryBuilder('p')
+            ->where('f.nomUser LIKE :nomUser')
+            ->setParameter('nomUser', '%$nomUser%')
+            ->getQuery()
+            ->execute();
     }
 
     /**
@@ -99,6 +117,11 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
         return $this->findVisibleQuery()
             ->getQuery()
             ->getResult();
+    }
+
+    public function findAllFreelancers(): Query{
+        return $this->findVisibleFreelancerQuery()
+            ->getQuery();
     }
 
 

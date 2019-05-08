@@ -11,6 +11,7 @@
         "fzaninotto/faker": "^1.8",
         "knplabs/knp-paginator-bundle": "^2.8",
         "liip/imagine-bundle": "^2.1",
+        "pugx/autocompleter-bundle": "^1.4",
         "sensio/framework-extra-bundle": "^5.1",
         "snapappointments/bootstrap-select": "^1.13",
         "stripe/stripe-php": "^6.30",
