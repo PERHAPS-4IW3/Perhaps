@@ -91,5 +91,16 @@ class DevisController extends AbstractController
         }
     }
 
+    /**
+     * @param Request $request
+     * @param Projet $projet
+     * @param User $user
+     * @Route(name="demanderDevis", path="/demande/devis/{user}")
+     */
+    public function demanderDevis(Request $request, Projet $projet, User $user)
+    {
+
+    }
+
 
 }

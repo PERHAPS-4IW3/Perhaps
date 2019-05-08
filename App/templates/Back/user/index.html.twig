@@ -2,13 +2,9 @@
 
 {% block title %}Mon Profil{% endblock %}
 
-
 {% block body %}
 
-
     {% if app.user %}
-
-
         <div class="container mt-4">
             <h1 class="mb-4">Vos informations personnelles</h1>
             {% for label, messages in app.flashes(['success', 'danger', 'warning']) %}

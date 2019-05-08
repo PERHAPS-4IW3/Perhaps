@@ -5,6 +5,9 @@
     "cocur/slugify": {
         "version": "v3.2"
     },
+    "defuse/php-encryption": {
+        "version": "v2.2.1"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -92,6 +95,19 @@
             "ref": "70062abc2cd58794d2a90274502f81b55cd9951b"
         }
     },
+    "easycorp/easyadmin-bundle": {
+        "version": "2.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "2.0",
+            "ref": "0a51040a43c6f2172a3a0135cd15daf2043905d7"
+        },
+        "files": [
+            "config/packages/easy_admin.yaml",
+            "config/routes/easy_admin.yaml"
+        ]
+    },
     "egulias/email-validator": {
         "version": "2.1.7"
     },
@@ -140,6 +156,12 @@
     "jms/metadata": {
         "version": "2.0.0"
     },
+    "jms/payment-core-bundle": {
+        "version": "1.4.1"
+    },
+    "jms/payment-paypal-bundle": {
+        "version": "1.2.0"
+    },
     "knplabs/knp-components": {
         "version": "v1.3.10"
     },
@@ -166,6 +188,9 @@
     },
     "ocramius/proxy-manager": {
         "version": "2.1.1"
+    },
+    "pagerfanta/pagerfanta": {
+        "version": "v2.1.2"
     },
     "phpdocumentor/reflection-common": {
         "version": "1.0.1"
@@ -505,6 +530,18 @@
     },
     "symfony/yaml": {
         "version": "v4.2.1"
+    },
+    "twig/extensions": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "ddb2e0a77773b7fd75d8d649545f174e664500ab"
+        },
+        "files": [
+            "config/packages/twig_extensions.yaml"
+        ]
     },
     "twig/twig": {
         "version": "v2.6.0"

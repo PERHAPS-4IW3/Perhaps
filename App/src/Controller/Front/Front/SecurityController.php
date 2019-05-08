@@ -56,6 +56,7 @@ class SecurityController extends AbstractController
                 $user->setTarifHoraireFreelancer(-1);
                 $user->setPresentationFreelancer("");
                 $user->setNomSociete("");
+                $user->setTitreFreelancer("");
             }
 
             $user->setRoles($roles);

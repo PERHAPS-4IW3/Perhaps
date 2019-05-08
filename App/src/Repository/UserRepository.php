@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\User;
+use App\Entity\UserSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query;
@@ -47,37 +48,41 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
             ;
     }
 
-    /*private function findVisibleFreelancerQuery(): QueryBuilder
-    {
-        return $this->createQueryBuilder('p')
-            ->Where("p.roles LIKE :role")
-            ->setParameter('role', '%"ROLE_FREELANCER"%');
-    }*/
-
     /**
-     * @param User $search
+     * @param UserSearch $search
      * @return array
      * Fonction qui recherche notre Freelancer
      */
-    public function findFreelancers(User $search): array
+    public function findFreelancers(UserSearch $search): Query
     {
         $query = $this->findVisibleFreelancerQuery();
 
-        if($search->getNomUser() != "" || $search->getPrenomUser() != "") {
+        if($search->getUserProfession()) {
             $query = $query
-                ->andWhere('f.nomUser LIKE :nomUser')
-                ->andWhere('f.prenomUser LIKE :prenomUser')
-                ->setParameter('nomUser', '%'.$search->getNomUser().'%')
-                ->setParameter('prenomUser', '%'.$search->getPrenomUser().'%');
-            return $query->getQuery()->getResult();
-        }else {
-            return $query->getQuery()->getResult();
+                ->andwhere('f.titreFreelancer LIKE :profession')
+                ->setParameter('profession', '%'.$search->getUserProfession().'%');
         }
+
+        if($search->getListCompetence()->count() > 0){
+            $k = 0;
+            foreach ($search->getListCompetence() as $listComp){
+                $k++;
+                $query = $query
+                    ->andWhere(":listCompetences$k MEMBER OF f.listCompetence")
+                    ->setParameter("listCompetences$k", $listComp);
+            }
+        }
+
+        if($search->getUserNameAndCompany()) {
+            $query = $query
+                ->andwhere('f.nomUser LIKE :nameAndCompany OR f.prenomUser LIKE :nameAndCompany OR f.nomSociete LIKE :nameAndCompany')
+                ->setParameter('nameAndCompany', '%'.$search->getUserNameAndCompany().'%');
+        }
+        return $query->getQuery();
     }
 
     public function findLikeName(){
-        return $this
-            ->createQueryBuilder('p')
+        return $this->findVisibleFreelancerQuery()
             ->where('f.nomUser LIKE :nomUser')
             ->setParameter('nomUser', '%$nomUser%')
             ->getQuery()
@@ -110,6 +115,17 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
 
     /**
      * @return array
+     * Fonction pour API
+     */
+    public function findVisibleAllFreelancerQueryAPI(): array
+    {
+        return $this->findVisibleFreelancerQuery()
+            ->getQuery()
+            ->getArrayResult();
+    }
+
+    /**
+     * @return array
      * Fonction qui liste tous les utilisateurs (freelancer et porteur de projet) actif
      */
     public function findAllVisibleUserQuery(): array
@@ -118,12 +134,6 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
             ->getQuery()
             ->getResult();
     }
-
-    public function findAllFreelancers(): Query{
-        return $this->findVisibleFreelancerQuery()
-            ->getQuery();
-    }
-
 
     private function findVisibleQuery(): QueryBuilder
     {

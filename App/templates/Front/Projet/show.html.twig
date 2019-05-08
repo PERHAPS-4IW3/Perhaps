@@ -33,7 +33,7 @@
                                             <div class="form-group">
                                                 <label for="descriptionDevis">Décrivez votre offre</label>
                                                 <textarea id="descriptionDevis" name="descriptionDevis" class="form-control" rows="3" required></textarea>
-                                                <label for="offreDevis">Quel offre souhaitez-vous faire ?</label>
+                                                <label for="offreDevis">Quel est votre tarif journalier ?</label>
                                                 <input type="number" id="offreDevis" name="offreDevis" class="form-control" required/>
                                             </div>
 
@@ -88,31 +88,29 @@
                     </tr>
                 </table>
             </div>
+            <h3 class="text-secondary mb-4"> Offres pour ce projet :</h3>
+            {% for devi in devis %}
             <div class="col-md-12">
-                <h3 class="text-secondary mb-4"> Offres pour ce projet :</h3>
-                {% for devi in devis %}
-
-                    <div class="card flex-row flex-wrap">
-                        <div class="card-header border-0">
-                            {% if vich_uploader_asset(devi.etabliPar, 'imageFile') is null %}
-                                <img id ="imagecard" src="{{ asset('images/user.svg') }}" alt="card image" >
-                            {% else %}
-                                <img id ="imagecard" src="{{ vich_uploader_asset(devi.etabliPar, 'imageFile')| imagine_filter('thumb') }}" alt>
-                            {% endif %}
-                        </div>
-                        <div class="card-block px-2">
-                            <p><em>Offre déposée le {{ devi.dateDevis|date("d/m/Y") }}</em></p>
-                            <h4 class="card-title">
-                                <a href="{{ path('user_show', {id: devi.etabliPar.id, slug: devi.etabliPar.slug}) }}">{{ devi.etabliPar.nomUser }} {{ devi.etabliPar.prenomUser }}</a>
-                            </h4>
-                            <p class="card-text">{{ devi.etabliPar.pays }}, {{ devi.etabliPar.ville }}, {{ devi.etabliPar.codePostalUser }}</p>
-                            <p><strong>Prix du devis : <i class="fas fa-lock"></i> Montant privé</strong></p>
-                        </div>
-                        </div>
-                        <div class="w-100"></div>
-                        <div class="card-footer w-100 text-muted">
-                            <a href="#" class="btn btn-primary">Choisir ce Freelancer</a>
-                        </div>
+                <div class="card flex-row flex-wrap">
+                    <div class="card-header border-0">
+                        {% if vich_uploader_asset(devi.etabliPar, 'imageFile') is null %}
+                            <img id ="imagecard" src="{{ asset('images/user.svg') }}" alt="card image" >
+                        {% else %}
+                            <img id ="imagecard" src="{{ vich_uploader_asset(devi.etabliPar, 'imageFile')| imagine_filter('thumb') }}" alt>
+                        {% endif %}
+                    </div>
+                    <div class="card-block px-4">
+                        <p><em>Offre déposée le {{ devi.dateDevis|date("d/m/Y") }}</em></p>
+                        <h4 class="card-title">
+                            <a href="{{ path('user_show', {id: devi.etabliPar.id, slug: devi.etabliPar.slug}) }}">{{ devi.etabliPar.nomUser }} {{ devi.etabliPar.prenomUser }}</a>
+                        </h4>
+                        <p class="card-text">{{ devi.etabliPar.pays }}, {{ devi.etabliPar.ville }}, {{ devi.etabliPar.codePostalUser }}</p>
+                        <p><strong>Prix du devis : <i class="fas fa-lock"></i> Montant privé</strong></p>
+                    </div>
+                    </div>
+                    <div class="w-100"></div>
+                    <div class="card-footer w-100 text-muted">
+                        <a href="#" class="btn btn-primary">Choisir ce Freelancer</a>
                     </div>
                     <br>
                 {% else %}
@@ -127,7 +125,7 @@
                             <a href="{{ path('registration') }}" class="btn btn-primary">Je m'inscris</a>
                         </div>
                     </div>
-                {% endfor %}
+        {% endfor %}
             </div>
         </div>
     </div>

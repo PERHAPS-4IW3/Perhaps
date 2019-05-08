@@ -23,6 +23,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Projet;
+use App\Entity\ProjetSearch;
 
 
 class ProjetController extends AbstractController
@@ -53,32 +54,19 @@ class ProjetController extends AbstractController
 
     public function index(Request $request, PaginatorInterface $paginator): Response
     {
-        $search = new Projet();
+        $search = new ProjetSearch();
         $form = $this->createForm(ProjetSearchType::class, $search);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()){
-
-            $projets = $paginator->paginate(
-                $this->repository->findProjects($search),
-                $request->query->getInt('page', 1),
-                9/*limit per page*/
-            );
-
-            return $this->render('Front/Projet/index.html.twig', [
-                'projets'   => $projets,
-                'form'      => $form->createView()
-            ]);
-        }
-
         $projets = $paginator->paginate(
-            $this->repository->findAllVisible(),
+            $this->repository->findProjects($search),
             $request->query->getInt('page', 1),
             9/*limit per page*/
         );
+
         return $this->render('Front/Projet/index.html.twig', [
-            'projets' => $projets,
-            'form'    => $form->createView()
+            'projets'   => $projets,
+            'form'      => $form->createView()
         ]);
     }
 
@@ -92,7 +80,7 @@ class ProjetController extends AbstractController
     {
         $devis = $projet->getListDevis()->getValues();
 
-        dump($devis);
+        //dump($devis);
 
         if($projet->getSlug() !== $slug){
             return $this->redirectToRoute('projet_show', [
@@ -106,6 +94,20 @@ class ProjetController extends AbstractController
             'devis' => $devis,
         ]);
 
+    }
+
+    /**
+     * @Route("/projet/API", name="projet_api", methods={"GET"})
+     * @return Response
+     */
+    public function getAllFreelancer(){
+
+        $freelancers = $this->repository->findAllProjectsAPI();
+
+        $response = new Response(json_encode($freelancers));
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
     }
 
 

@@ -143,20 +143,41 @@
         $('.js-multiple-select').select2();
     });
 
+
+    /*
+        AUTOCOMPLETE POUR LES FREELANCERS
+     */
     $( function() {
-        let tabNomFreelancer = [];
-        let tabPrenomFreelancer = [];
+        let tabNomEtSociete = [];
+        let tabUserProfession = [];
         $.get("./freelancer/API", function(data){
             data.forEach(function(element){
-                tabNomFreelancer.push(element.nomUser);
-                tabPrenomFreelancer.push(element.prenomUser);
+                tabNomEtSociete.push(element.nomUser);
+                tabUserProfession.push(element.titreFreelancer);
             });
         });
-        $("#freelancer_search_nomUser").autocomplete({
-            source: tabNomFreelancer
+
+        $("#userNameAndCompany").autocomplete({
+            source: tabNomEtSociete
         });
-        $("#freelancer_search_prenomUser").autocomplete({
-            source: tabPrenomFreelancer
+        $("#userProfession").autocomplete({
+            source: tabUserProfession
+        });
+    });
+
+    /*
+        AUTOCOMPLETE POUR LES PROJETS
+     */
+    $( function() {
+        let tabNomProjet = [];
+        $.get("./projet/API", function(data){
+            data.forEach(function(element){
+                tabNomProjet.push(element.nomProjet);
+            });
+        });
+
+        $("#nomProjetSearch").autocomplete({
+            source: tabNomProjet
         });
     });
 

@@ -19,6 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\HttpFoundation\Response;
 
 
 /**
@@ -133,5 +134,20 @@ class ProjetController extends AbstractController
         $this->em->flush();
         $this->addFlash('success', 'Le projet '. $projet->getNomProjet() .' a bien été supprimé');
         return $this->redirectToRoute('user_projet_index');
+    }
+
+    /**
+     * @Route(name="user_projet_offers", path="user/projets/offers/{id}", methods={"GET", "POST"})
+     * @param Projet $projet
+     * @return Response
+     */
+    public function showOffers(Projet $projet): Response
+    {
+        $devis = $projet->getListDevis()->getValues();
+
+        return $this->render('Back/Projet/Offers/showOffers.html.twig', [
+            'projet' => $projet,
+            'devis' => $devis,
+        ]);
     }
 }

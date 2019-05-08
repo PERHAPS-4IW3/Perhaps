@@ -21,4 +21,7 @@ return [
     Liip\ImagineBundle\LiipImagineBundle::class => ['all' => true],
     FOS\CKEditorBundle\FOSCKEditorBundle::class => ['all' => true],
     EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle::class => ['all' => true],
+    EasyCorp\Bundle\EasyAdminBundle\EasyAdminBundle::class => ['all' => true],
+    JMS\Payment\CoreBundle\JMSPaymentCoreBundle::class => ['all' => true],
+    JMS\Payment\PaypalBundle\JMSPaymentPaypalBundle::class => ['all' => true],
 ];

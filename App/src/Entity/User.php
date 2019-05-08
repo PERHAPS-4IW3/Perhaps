@@ -24,59 +24,81 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="integer")
      */
     private $id;
+
     /**
      * @ORM\Column(type="string", length=255 , nullable=true)
      * @var string|null
      */
     private $imageName;
+
     /**
      * @Vich\UploadableField(mapping="user_images", fileNameProperty="imageName")
      * @var File|null
      */
     private $imageFile;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string|null
+     */
+    private $cvName;
+
+    /**
+     * @Vich\UploadableField(mapping="user_cv", fileNameProperty="cvName")
+     * @var File|null
+     */
+    private $cvFile;
+
     /**
      * @ORM\Column(type="string", length=80, unique=true)
      * @Assert\Email()
-     *
+     * @Assert\NotBlank()
      * @Assert\Length(max=80)
      */
     private $email;
+
     /**
      * @ORM\Column(type="json")
      */
     private $roles = [];
+
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     *
+     * @Assert\NotBlank()
      */
     private $password;
+
     /**
      * @ORM\Column(type="string", length=50)
-     *
+     * @Assert\NotBlank()
      */
     private $nomUser;
     /**
      * @ORM\Column(type="string", length=50)
-     *
+     * @Assert\NotBlank()
      */
     private $prenomUser;
+
     /**
      * @ORM\Column(type="string", length=50)
-     *
+     * @Assert\NotBlank()
      */
     private $telephoneUser;
+
     /**
      * @ORM\Column(type="string", length=255)
-     *
+     * @Assert\NotBlank()
      */
     private $adresseUser;
+
     /**
      * @ORM\Column(type="string", length=50)
-     *
+     * @Assert\NotBlank()
      * @Assert\Regex("/^[0-9]{5}/")
      */
     private $codePostalUser;
+
     /**
      * @ORM\Column(type="string", length=50)
      *
@@ -84,13 +106,15 @@ class User implements UserInterface, \Serializable
     private $ville;
     /**
      * @ORM\Column(type="string", length=50)
-     *
+     * @Assert\NotBlank()
      */
     private $pays;
+
     /**
      * @ORM\Column(type="boolean", options={"default" : true})
      */
     private $isActive;
+
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
@@ -105,47 +129,65 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $confirmationToken;
+
     /**
      * @ORM\Column(type="integer", nullable=true)
      * @Assert\Range(min=1, max=100)
      */
     private $tarifHoraireFreelancer;
+
+    /**
+     * @ORM\Column(type="string", length=150, nullable=true)
+     * @Assert\Length(min=5)
+     */
+    private $titreFreelancer;
+
     /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $presentationFreelancer;
+
     /**
      * @ORM\Column(type="string", length=150, nullable=true)
      */
     private $nomSociete;
+
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Projet", mappedBy="creePar", orphanRemoval=true)
      */
     private $projetGerer;
+
+
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $updated_at;
+
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Competence", inversedBy="users")
      */
     private $listCompetence;
+
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Equipe", inversedBy="listParticipants")
      */
     private $participe;
+
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\NoteEtCommentaire", mappedBy="developpeur", orphanRemoval=true)
      */
     private $noteEtCommentaire;
+
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Devis", mappedBy="etabliPar", orphanRemoval=true)
      */
     private $listDesDevis;
+
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Equipe", mappedBy="chefDeProjet")
      */
     private $equipeGerer;
+
     /**
      * User constructor.
      */
@@ -172,6 +214,7 @@ class User implements UserInterface, \Serializable
         $this->email = $email;
         return $this;
     }
+
     /**
      * A visual identifier that represents this user.
      *
@@ -193,6 +236,7 @@ class User implements UserInterface, \Serializable
         $this->password = $password;
         return $this;
     }
+
     /**
      * @see UserInterface
      */
@@ -200,6 +244,7 @@ class User implements UserInterface, \Serializable
     {
         // not needed when using the "bcrypt" algorithm in security.yaml
     }
+
     /**
      * @see UserInterface
      */
@@ -208,92 +253,112 @@ class User implements UserInterface, \Serializable
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
+
     public function getNomUser(): ?string
     {
         return $this->nomUser;
     }
+
     public function setNomUser(string $nomUser): self
     {
         $this->nomUser = $nomUser;
         return $this;
     }
+
     //Fonction Slug - Convertir un string en slug
     public function getSlug(): string
     {
         return (new Slugify())->slugify($this->nomUser);
     }
+
     public function getPrenomUser(): ?string
     {
         return $this->prenomUser;
     }
+
     public function setPrenomUser(string $prenomUser): self
     {
         $this->prenomUser = $prenomUser;
         return $this;
     }
+
     public function getTelephoneUser(): ?string
     {
         return $this->telephoneUser;
     }
+
     public function setTelephoneUser(string $telephoneUser): self
     {
         $this->telephoneUser = $telephoneUser;
         return $this;
     }
+
     public function getAdresseUser(): ?string
     {
         return $this->adresseUser;
     }
+
     public function setAdresseUser(string $adresseUser): self
     {
         $this->adresseUser = $adresseUser;
         return $this;
     }
+
     public function getCodePostalUser(): ?string
     {
         return $this->codePostalUser;
     }
+
     public function setCodePostalUser(string $codePostalUser): self
     {
         $this->codePostalUser = $codePostalUser;
         return $this;
     }
+
     public function getVille(): ?string
     {
         return $this->ville;
     }
+
     public function setVille(string $ville): self
     {
         $this->ville = $ville;
         return $this;
     }
+
     public function getPays(): ?string
     {
         return $this->pays;
     }
+
     public function setPays(string $pays): self
     {
         $this->pays = $pays;
         return $this;
     }
+
     public function getIsActive(): ?bool
     {
         return $this->isActive;
     }
+
     public function setIsActive(bool $isActive): self
     {
         $this->isActive = $isActive;
         return $this;
     }
+
     //contrôler la validité du token
     public function getPasswordRequestedAt(): string
     {
         return $this->passwordRequestedAt;
     }
+
     public function setPasswordRequestedAt(?string $passwordRequestedAt): void
     {
         $this->passwordRequestedAt = $passwordRequestedAt;
     }
+
     /**
      * @return string
      */
@@ -301,36 +366,44 @@ class User implements UserInterface, \Serializable
     {
         return $this->resetToken;
     }
+
     public function setResetToken(?string $resetToken): void
     {
         $this->resetToken = $resetToken;
     }
+
     public function getConfirmationToken(): string
     {
         return $this->confirmationToken;
     }
+
     public function setConfirmationToken(?string $confirmationToken): void
     {
         $this->confirmationToken = $confirmationToken;
     }
+
     public function getTarifHoraireFreelancer(): ?int
     {
         return $this->tarifHoraireFreelancer;
     }
+
     public function setTarifHoraireFreelancer(int $tarifHoraireFreelancer): self
     {
         $this->tarifHoraireFreelancer = $tarifHoraireFreelancer;
         return $this;
     }
+
     public function getPresentationFreelancer(): ?string
     {
         return $this->presentationFreelancer;
     }
+
     public function setPresentationFreelancer(string $presentationFreelancer): self
     {
         $this->presentationFreelancer = $presentationFreelancer;
         return $this;
     }
+
     public function getNomSociete(): ?string
     {
         return $this->nomSociete;
@@ -340,6 +413,7 @@ class User implements UserInterface, \Serializable
         $this->nomSociete = $nomSociete;
         return $this;
     }
+
     /**
      * @return Collection|Projet[]
      */
@@ -347,6 +421,7 @@ class User implements UserInterface, \Serializable
     {
         return $this->projetGerer;
     }
+
     public function addProjetGerer(Projet $projetGerer): self
     {
         if (!$this->projetGerer->contains($projetGerer)) {
@@ -355,6 +430,7 @@ class User implements UserInterface, \Serializable
         }
         return $this;
     }
+
     public function removeProjetGerer(Projet $projetGerer): self
     {
         if ($this->projetGerer->contains($projetGerer)) {
@@ -366,7 +442,8 @@ class User implements UserInterface, \Serializable
         }
         return $this;
     }
-    /*
+
+    /**
      * @return null|string
      */
     public function getImageName(): ?string
@@ -401,10 +478,51 @@ class User implements UserInterface, \Serializable
         }
         return $this;
     }
+
+    /**
+     * @return null|string
+     */
+    public function getCvName(): ?string
+    {
+        return $this->cvName;
+    }
+
+    /**
+     * @param null|string $cvName
+     * @return User
+     */
+    public function setCvName(?string $cvName): User
+    {
+        $this->cvName = $cvName;
+        return $this;
+    }
+
+    /**
+     * @return null|File
+     */
+    public function getCvFile(): ?File
+    {
+        return $this->cvFile;
+    }
+
+    /**
+     * @param null|File $cvFile
+     * @return User
+     */
+    public function setCvFile(?File $cvFile = null): User
+    {
+        $this->cvFile = $cvFile;
+        if(null != $cvFile && $this->cvFile instanceof UploadedFile){
+            $this->updated_at = new \DateTime('now');
+        }
+        return $this;
+    }
+
     public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updated_at;
     }
+
     public function setUpdatedAt(\DateTimeInterface $updated_at): self
     {
         $this->updated_at = $updated_at;
@@ -420,6 +538,7 @@ class User implements UserInterface, \Serializable
             $this->password,
         ));
     }
+
     /** @see \Serializable::unserialize() */
     public function unserialize($serialized)
     {
@@ -430,6 +549,7 @@ class User implements UserInterface, \Serializable
             $this->password,
             ) = unserialize($serialized);
     }
+
     /**
      * @return Collection|Competence[]
      */
@@ -437,6 +557,7 @@ class User implements UserInterface, \Serializable
     {
         return $this->listCompetence;
     }
+
     public function addListCompetence(Competence $listCompetence): self
     {
         if (!$this->listCompetence->contains($listCompetence)) {
@@ -444,6 +565,7 @@ class User implements UserInterface, \Serializable
         }
         return $this;
     }
+
     public function removeListCompetence(Competence $listCompetence): self
     {
         if ($this->listCompetence->contains($listCompetence)) {
@@ -451,6 +573,7 @@ class User implements UserInterface, \Serializable
         }
         return $this;
     }
+
     /**
      * @return Collection|Equipe[]
      */
@@ -458,6 +581,7 @@ class User implements UserInterface, \Serializable
     {
         return $this->participe;
     }
+
     public function addParticipe(Equipe $participe): self
     {
         if (!$this->participe->contains($participe)) {
@@ -465,6 +589,7 @@ class User implements UserInterface, \Serializable
         }
         return $this;
     }
+
     public function removeParticipe(Equipe $participe): self
     {
         if ($this->participe->contains($participe)) {
@@ -472,6 +597,7 @@ class User implements UserInterface, \Serializable
         }
         return $this;
     }
+
     /**
      * @return Collection|NoteEtCommentaire[]
      */
@@ -479,6 +605,7 @@ class User implements UserInterface, \Serializable
     {
         return $this->noteEtCommentaire;
     }
+
     public function addNoteEtCommentaire(NoteEtCommentaire $noteEtCommentaire): self
     {
         if (!$this->noteEtCommentaire->contains($noteEtCommentaire)) {
@@ -487,6 +614,7 @@ class User implements UserInterface, \Serializable
         }
         return $this;
     }
+
     public function removeNoteEtCommentaire(NoteEtCommentaire $noteEtCommentaire): self
     {
         if ($this->noteEtCommentaire->contains($noteEtCommentaire)) {
@@ -498,6 +626,7 @@ class User implements UserInterface, \Serializable
         }
         return $this;
     }
+
     /**
      * @see UserInterface
      */
@@ -508,11 +637,13 @@ class User implements UserInterface, \Serializable
         $roles[] = 'ROLE_USER';
         return array_unique($roles);
     }
+
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
         return $this;
     }
+
     /**
      * @return Collection|Devis[]
      */
@@ -520,6 +651,7 @@ class User implements UserInterface, \Serializable
     {
         return $this->listDesDevis;
     }
+
     public function addListDesDevi(Devis $listDesDevi): self
     {
         if (!$this->listDesDevis->contains($listDesDevi)) {
@@ -528,6 +660,7 @@ class User implements UserInterface, \Serializable
         }
         return $this;
     }
+
     public function removeListDesDevi(Devis $listDesDevi): self
     {
         if ($this->listDesDevis->contains($listDesDevi)) {
@@ -539,6 +672,7 @@ class User implements UserInterface, \Serializable
         }
         return $this;
     }
+
     /**
      * @return Collection|Equipe[]
      */
@@ -546,6 +680,7 @@ class User implements UserInterface, \Serializable
     {
         return $this->equipeGerer;
     }
+
     public function addEquipeGerer(Equipe $equipeGerer): self
     {
         if (!$this->equipeGerer->contains($equipeGerer)) {
@@ -554,6 +689,7 @@ class User implements UserInterface, \Serializable
         }
         return $this;
     }
+
     public function removeEquipeGerer(Equipe $equipeGerer): self
     {
         if ($this->equipeGerer->contains($equipeGerer)) {
@@ -565,4 +701,23 @@ class User implements UserInterface, \Serializable
         }
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getTitreFreelancer(): ?string
+    {
+        return $this->titreFreelancer;
+    }
+
+    /**
+     * @param mixed $titreFreelancer
+     * @return User
+     */
+    public function setTitreFreelancer(string $titreFreelancer): self
+    {
+        $this->titreFreelancer = $titreFreelancer;
+        return $this;
+    }
+
 }

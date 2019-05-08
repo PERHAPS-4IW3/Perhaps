@@ -2,9 +2,10 @@
 
 namespace App\Form;
 
-use App\Entity\Projet;
-use App\Entity\Competence;
+use App\Entity\ProjetSearch;
+use App\Entity\TypeProjet;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,28 +17,38 @@ class ProjetSearchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nomProjet', TextType::class, [
+            ->add('nomProjetSearch', TextType::class, [
                 'required' => false,
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'Nom du projet'
-                ]
+                'label' => 'Nom du projet'
             ])
-
-            -> add('submit', SubmitType::class, [
-                'label' => 'Rechercher',
-                'attr' => [
-                    'class' => 'btn btn-primary'
-                ]
+            ->add('minBudgetSearch', IntegerType::class, [
+                'required' => false,
+                'label' => 'Budget minimum'
+            ])
+            ->add('typeProjet', EntityType::class, [
+                'required' => false,
+                'label' => 'Type de projet',
+                'attr'         => [
+                    'class'    => 'js-multiple-select',
+                    'data-style' => 'btn-primary'
+                ],
+                'class' => TypeProjet::class,
+                'choice_label' => 'nomType',
+                'multiple' => true
             ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data-class' =>Projet::class,
+            'data-class' =>ProjetSearch::class,
             'method' => 'get',
             'csrf_protection' => false
         ]);
+    }
+
+    public function getBlockPrefix()
+    {
+        return '';
     }
 }
