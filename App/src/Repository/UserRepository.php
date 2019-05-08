@@ -59,7 +59,7 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
 
         if($search->getUserProfession()) {
             $query = $query
-                ->andwhere('p.userProfession LIKE :profession')
+                ->andwhere('f.titreFreelancer LIKE :profession')
                 ->setParameter('profession', '%'.$search->getUserProfession().'%');
         }
 
@@ -68,14 +68,14 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
             foreach ($search->getListCompetence() as $listComp){
                 $k++;
                 $query = $query
-                    ->andWhere(":listCompetences$k MEMBER OF p.listCompetence")
+                    ->andWhere(":listCompetences$k MEMBER OF f.listCompetence")
                     ->setParameter("listCompetences$k", $listComp);
             }
         }
 
         if($search->getUserNameAndCompany()) {
             $query = $query
-                ->andwhere('p.userNameAndCompany LIKE :nameAndCompany')
+                ->andwhere('f.nomUser LIKE :nameAndCompany OR f.prenomUser LIKE :nameAndCompany OR f.nomSociete LIKE :nameAndCompany')
                 ->setParameter('nameAndCompany', '%'.$search->getUserNameAndCompany().'%');
         }
         return $query->getQuery();
