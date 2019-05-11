@@ -15,6 +15,12 @@ require('popper.js');
 require('bootstrap-star-rating');
 require('infinite-scroll');
 
+$(document).ready(function(){
+    $('.js-datepicker').datepicker({
+        format: 'yyyy/mm/dd',
+        todayHighlight: true
+    });
+});
 
 
 
@@ -25,6 +31,7 @@ $('#myModal').on('shown.bs.modal', function () {
 //Dès lors qu'on modifie le 'selected list'
 //Si la valeur est Freelancer alors on affiche les champs le concernant et on les rend obligatoire
 $(document).ready(function(){
+
     $('.js-datepicker').datepicker({
         format: 'yyyy/mm/dd',
         todayHighlight: true
