@@ -16,7 +16,7 @@ require('infinite-scroll');
 
 
 $('#myModal').on('shown.bs.modal', function () {
-    $('#myInput').trigger('focus')
+    $('#myInput').trigger('focus');
 });
 
 //Dès lors qu'on modifie le 'selected list'
