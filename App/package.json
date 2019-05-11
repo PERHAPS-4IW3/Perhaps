@@ -22,10 +22,10 @@
     "bootstrap-select": "^1.13.5",
     "bootstrap-star-rating": "^4.0.4",
     "babel-loader": "^8.0.5",
-    "encore": "^0.0.30-beta",
     "fontawesome": "^5.6.3",
     "infinite-scroll": "^3.0.5",
-    "style-loader": "^0.23.1"
+    "style-loader": "^0.23.1",
+    "encore": "^0.0.30-beta"
 
   },
   "name": "App",

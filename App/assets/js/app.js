@@ -31,7 +31,6 @@ $(document).ready(function(){
     });
     $('.dropdown-toggle').dropdown();
 
-
     $('#user_role').change(function() {
 
         if ($('option:selected', $(this)).html() === 'Freelancer') {
