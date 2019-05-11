@@ -9,7 +9,7 @@
 
             {{ form_widget(form.id) }}
         </div>
-        <table class="container mt-10">
+        <table class="table table-striped container mt-10">
             <thead>
                 <tr class="row">
                     <th class="col">Email</th>
@@ -57,9 +57,10 @@
                     };
                     var url = "{{ path('user_projet_setNote') }}?data=" + encodeURIComponent(JSON.stringify(array));
 
-                    xmlhttp.open("GET", url, true);
+                    xmlhttp.open("GET", url);
+
                     xmlhttp.setRequestHeader("Content-Type", "application/json");
-                    xmlhttp.send();
+                    xmlhttp.send(JSON.stringify(array));
                 }
 
                 $(".btn-primary").click(function() {
@@ -77,18 +78,44 @@
                     });
                     tab["id"] = $('#ProjetController_id').val();
                     ajaxCall(tab);
+                   
                 })
+                
 
-                /*$.ajax({
-                    url: '/Projet/user/projets/Note/setNotes',
-                    data: {"Id": "1", "Name": "Shirt"},
-                    success: function (data) {
-                        console.log(data)
-                        console.log("je suis ici!")
+                function ForNumbers(evt){
+                        var charCode = (evt.which) ? evt.which : event.keyCode;
+
+                        if (
+                            //0~9
+                            charCode >= 48 && charCode <= 57 ||
+                        //number pad 0~9
+                        charCode >= 96 && charCode <= 105 ||
+                            //backspace
+                        charCode == 8 ||
+                            //tab
+                            charCode == 9 ||
+                            //enter
+                            charCode == 13 || 
+                            //left, right, delete..
+                            charCode >= 35 && charCode <= 46
+                        )
+                        {
+                            //make sure the new value below 20
+                            if(parseInt(this.value+String.fromCharCode(charCode), 10) <=5) 
+                                return true;
+                        }
+                        
+                        evt.preventDefault();
+                        evt.stopPropagation();
+                        
+                        return false;
                     }
-                }).done(function(ret) {
+                    classname = document.getElementsByClassName('numberlimit');
+                    for (var i = 0; i < classname.length; i++) {
+                        classname[i].addEventListener('keypress', ForNumbers, false);
+                    }
 
-                });*/
+                    
             </script>
         {% endblock %}
     {% endblock %}

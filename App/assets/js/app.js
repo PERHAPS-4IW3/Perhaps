@@ -6,9 +6,11 @@
  */
 
 // any CSS you require will output into a single css file (app.css in this case)
-require('../css/app.css');
-require('@fortawesome/fontawesome-free/css/all.min.css');
+/*require('../css/app.css');
+require('@fortawesome/fontawesome-free/css/all.css');
 require('@fortawesome/fontawesome-free/js/all.js');
+// loads the jquery package from node_modules*/
+var $ = require('jquery');
 require('popper.js');
 require('bootstrap');
 require('bootstrap-star-rating');
@@ -20,7 +22,6 @@ $(document).ready(function () {
 //Dès lors qu'on modifie le 'selected list'
 //Si la valeur est Freelancer alors on affiche les champs le concernant et on les rend obligatoire
 $(document).ready(function(){
-
     $('#user_role').change(function() {
         if ($('option:selected', $(this)).html() === 'Freelancer') {
             $('.freelancerField').css("display", "block");
