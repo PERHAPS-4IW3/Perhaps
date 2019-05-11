@@ -106,7 +106,7 @@ class ProjetController extends AbstractController
     }
 
     /**
-     * @Route(name="user_projet_edit", path="user/projets/{id}", methods={"GET", "POST"})
+     * @Route(name="user_projet_edit", path="/user/projets/{id}", methods={"GET", "POST"})
      * @param Projet $projet
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
@@ -131,7 +131,7 @@ class ProjetController extends AbstractController
      * @param Request $request
      * @param Projet $projet
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     * @Route(name="user_projet_delete", path="user/projets/delete/{id}", methods={"GET"})
+     * @Route(name="user_projet_delete", path="/user/projets/delete/{id}", methods={"GET"})
      */
     public function delete(Request $request, Projet $projet): RedirectResponse
     {
@@ -146,7 +146,7 @@ class ProjetController extends AbstractController
     }
 
     /**
-     * @Route(name="user_projet_offers", path="user/projets/offers/{id}", methods={"GET", "POST"})
+     * @Route(name="user_projet_offers", path="/user/projets/offres/{id}", methods={"GET", "POST"})
      * @param Projet $projet
      * @return Response
      */
@@ -159,6 +159,19 @@ class ProjetController extends AbstractController
             'devis' => $devis,
         ]);
     }
+
+        /**
+     * @Route(name="user_projet_offers", path="/user/projets/manage/{id}", methods={"GET", "POST"})
+     * @param Projet $projet
+     * @return Response
+     */
+    public function manageFreelancer(Projet $projet): Response
+    {
+        return $this->render('Back/Projet/Manage/index.html.twig', [
+            'listeDesequipe' => $projet->getListDesEquipes()
+        ]);
+    }
+
 
     /**
     * @param Projet $projet
@@ -174,10 +187,42 @@ class ProjetController extends AbstractController
     }
 
     /**
-     * @Route(name="user_projet_setNote", path="/user/projets/Note/setNotes", methods={"GET"})
+     * @Route(name="user_projet_setNote", path="/user/projets/Note/setNote", methods={"GET"})
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function setUserNote(Request $request)
+    {
+        $data = json_decode($request->query->get("data"), true);
+        var_dump($data );
+        if(!$noteEtCommentaire = $this->em->getRepository(NoteEtCommentaire::class)->findOneBy(
+           array ( 'idProjet' => $data["projet"],  'developpeur' =>  $data["user"]))
+            )
+        {
+            $noteEtCommentaire = new NoteEtCommentaire();
+        }
+        var_dump($data );
+        $noteEtCommentaire->setCommentaire($data["commentaire"]);
+        $noteEtCommentaire->setNote(intval($data["note"]));
+        $noteEtCommentaire->setDeveloppeur($this->em->getRepository(User::class)->findOneBy(['id' => $data["user"]]));
+        $noteEtCommentaire->setIdProjet($this->em->getRepository(Projet::class)->findOneBy(['id' => $data["projet"]]));        
+        $this->em->merge($noteEtCommentaire);
+        $this->em->flush();
+
+         $response = new Response(
+            '',
+            Response::HTTP_OK,
+            ['content-type' => 'text/html']
+        );
+        return $response;
+    }     
+
+
+
+    /**
+     * @Route(name="user_projet_setNotes", path="/user/projets/Note/setNotes", methods={"GET"})
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function setUserNotes(Request $request)
     {
         $data = json_decode($request->query->get("data"), true);
         $user = $this->em->getRepository(User::class)->findOneBy(['email' => $data["email"]]);

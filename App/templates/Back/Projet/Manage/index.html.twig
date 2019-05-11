@@ -1,0 +1,186 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Gérer mes projets{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <div class="row flex">
+            <div class="col-8">
+                <h2>Gérer les freelancers</h2>
+            </div>
+            <div class="col-2 mb-4">
+                <a href="{{ path('user_projet_new') }}" class="btn btn-success">Publier un projet</a>
+            </div>
+        </div>
+        <table class="table table-striped container mt-10">
+            <thead>
+                <tr class="row">
+                    <th class="col">Prénom</th>
+                    <th class="col">Nom</th>
+                    <th class="col">Rôle</th>
+                    <th class="col">Noter</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% set i =1 %}
+            {% for items in listeDesequipe %}
+                <tr class="row">
+                    <td class="col" id="id_p" style="display : none;" value ="{{ items.idProjet.id}}">{{ items.idProjet.id}}</td>
+                    <td class="col" id="id_U" style="display : none;" value ="{{ items.chefDeProjet.id}}">{{ items.chefDeProjet.id}}</td>
+                    <td class="col" id="id_subn">{{ items.chefDeProjet.prenomUser}}</td>
+                    <td class="col" id="id_name">{{ items.chefDeProjet.nomUser }}</td>
+                    <td class="col">Chef de l'équipe {{ i  }}</td>
+                    <td class="col"><button type="submit" id="ProjetCo" name="ProjetCo" class="btn-primary btn" >Noter</button></td>
+                </tr>
+                {% for row in items.listParticipants %}
+                    <tr class="row">
+                        <td class="col" id="id_p" style="display : none;">{{ items.idProjet.id}}</td>
+                        <td class="col" id="id_U" style="display : none;">{{ row.id}}</td>
+                        <td class="col" id="id_subn">{{ row.prenomUser}}</td>
+                        <td class="col" id="id_name">{{ row.nomUser }}</td>
+                        <td class="col">Développeur dans l'équipe {{ i  }}</td>
+                        <td class="col"><button type="submit" id="ProjetCo" name="ProjetCo" class="btn-primary btn">Noter</button></td>
+                    </tr>
+                {% endfor %}
+            {% set i=i+1 %}
+    
+            {% endfor %}
+            </tbody>
+        </table>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group" style="display : none;">
+            <input type="text" class="form-control" id="user" >
+         
+        </div>
+        <div class="form-group" style="display : none;">
+            <input type="text" class="form-control" id="projet" >
+         
+        </div>
+        <div class="form-group">
+            <label for="Commentaire">Commentaire</label>
+            <textarea class="form-control" id="commentaire" ></textarea>
+         
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Note</label>
+            <input type="number" class="form-control" id="note" min="0" max="5" class="numberlimit form-control">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-info" id="Sauvegarder">Sauvegarder</button>
+      </div>
+    </div>
+  </div>
+</div>
+            
+    </div>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"/>
+    {% block javascripts %}
+
+            <script type="application/javascript">
+                function ajaxCall(array)
+                {
+                    let xmlhttp = new XMLHttpRequest();
+                    xmlhttp.onreadystatechange = function() {
+                        if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+                            if (xmlhttp.status == 200) {
+                                alert('La note a été ajouter');          
+                                $('#exampleModal').modal('hide');
+                            }
+                            else if (xmlhttp.status == 400) {
+                                //alert('There was an error 400');
+                            }
+                            else {
+                                //alert('something else other than 200 was returned');
+                            }
+                        }
+                    };
+                    var url = "{{ path('user_projet_setNote') }}?data=" + encodeURIComponent(JSON.stringify(array));
+
+                    xmlhttp.open("GET", url);
+
+                    xmlhttp.setRequestHeader("Content-Type", "application/json");
+                    xmlhttp.send(JSON.stringify(array));
+                }
+
+                $(".btn-primary").click(function() {
+                    let tab = {};
+                    
+                    document.getElementById('modalTitle').innerText ="";
+                    $.each($(this).parent().parent().children(), function (key, value) {
+                        
+                    console.log(value);
+                        let id = value.id;
+                        if (id.includes("id_p")) {
+                           document.getElementById('projet').innerText =  value.innerText;
+                        } else if (id.includes("id_U")) {
+                           document.getElementById('user').innerText =  value.innerText;
+                        } else if (id.includes("id_subn")) {
+                           document.getElementById('modalTitle').innerText +=  value.innerText+" ";
+                        } else if (id.includes("id_name")) {
+                          document.getElementById('modalTitle').innerText +=  value.innerText+" ";
+                        }
+                    });
+                   $('#note').val(0);
+                   $('#commentaire').val("");
+                   $('#exampleModal').modal('show');
+                })
+
+                 $("#Sauvegarder").click(function() {
+                     let tab  = {};
+                     tab["user"] = $('#user').text();
+                     tab["projet"] = $('#projet').text();
+                     tab["commentaire"] = $('#commentaire').val();
+                     tab["note"] = $('#note').val();
+                     console.log(tab);
+                    ajaxCall(tab);
+                })
+
+                
+
+                 function ForNumbers(evt){
+                        var charCode = (evt.which) ? evt.which : event.keyCode;
+
+                        if (
+                            //0~9
+                            charCode >= 48 && charCode <= 57 ||
+                        //number pad 0~9
+                        charCode >= 96 && charCode <= 105 ||
+                            //backspace
+                        charCode == 8 ||
+                            //tab
+                            charCode == 9 ||
+                            //enter
+                            charCode == 13 || 
+                            //left, right, delete..
+                            charCode >= 35 && charCode <= 46
+                        )
+                        {
+                            //make sure the new value below 20
+                            if(parseInt(this.value+String.fromCharCode(charCode), 10) <=5) 
+                                return true;
+                        }
+                        
+                        evt.preventDefault();
+                        evt.stopPropagation();
+                        
+                        return false;
+                    }
+                        document.getElementById('note').addEventListener('keypress', ForNumbers, false);
+                
+
+            </script>
+        {% endblock %}
+
+{% endblock %}

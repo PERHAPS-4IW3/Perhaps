@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Equipe;
 use App\Entity\Projet;
 use App\Entity\User;
+use App\Entity\ProjetSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
