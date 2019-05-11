@@ -1,5 +1,4 @@
 var Encore = require('@symfony/webpack-encore');
-const $ = require('jquery');
 Encore
     // directory where compiled assets will be stored
     .setOutputPath('public/build/')

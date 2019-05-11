@@ -152,11 +152,6 @@ class ProjetController extends AbstractController
     public function showOffers(Projet $projet): Response
     {
         $devis = $projet->getListDevis()->getValues();
-
-        return $this->render('Back/Projet/Offers/showOffers.html.twig', [
-            'projet' => $projet,
-            'devis' => $devis,
-        ]);
     }
 
         /**
@@ -186,57 +181,23 @@ class ProjetController extends AbstractController
     }
 
     /**
-     * @Route(name="user_projet_setNote", path="/user/projets/Note/setNote", methods={"GET"})
+     * @Route(name="user_projet_setNote", path="/user/projets/Note/setNotes", methods={"GET"})
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function setUserNote(Request $request)
     {
         $data = json_decode($request->query->get("data"), true);
-        var_dump($data );
+
         if(!$noteEtCommentaire = $this->em->getRepository(NoteEtCommentaire::class)->findOneBy(
            array ( 'idProjet' => $data["projet"],  'developpeur' =>  $data["user"]))
             )
         {
             $noteEtCommentaire = new NoteEtCommentaire();
         }
-        var_dump($data );
         $noteEtCommentaire->setCommentaire($data["commentaire"]);
         $noteEtCommentaire->setNote(intval($data["note"]));
         $noteEtCommentaire->setDeveloppeur($this->em->getRepository(User::class)->findOneBy(['id' => $data["user"]]));
         $noteEtCommentaire->setIdProjet($this->em->getRepository(Projet::class)->findOneBy(['id' => $data["projet"]]));        
-        $this->em->merge($noteEtCommentaire);
-        $this->em->flush();
-
-         $response = new Response(
-            '',
-            Response::HTTP_OK,
-            ['content-type' => 'text/html']
-        );
-        return $response;
-    }     
-
-
-
-    /**
-     * @Route(name="user_projet_setNotes", path="/user/projets/Note/setNotes", methods={"GET"})
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     */
-    public function setUserNotes(Request $request)
-    {
-        $data = json_decode($request->query->get("data"), true);
-        $user = $this->em->getRepository(User::class)->findOneBy(['email' => $data["email"]]);
-
-        if(!$noteEtCommentaire = $this->em->getRepository(NoteEtCommentaire::class)->findOneBy(
-           array ( 'idProjet' => $data["id"],  'developpeur' => $user->getId()))
-            )
-        {
-            $noteEtCommentaire = new NoteEtCommentaire();
-        }
-    
-        $noteEtCommentaire->setCommentaire($data["commentaire"]);
-        $noteEtCommentaire->setNote($data["note"]);
-        $noteEtCommentaire->setDeveloppeur($user);
-        $noteEtCommentaire->setIdProjet($this->em->getRepository(Projet::class)->findOneBy(['id' => $data["id"]]));
         $this->em->merge($noteEtCommentaire);
         $this->em->flush();
 
