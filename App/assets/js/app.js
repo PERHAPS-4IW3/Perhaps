@@ -12,6 +12,7 @@ require('jquery');
 require('bootstrap');
 require('@fortawesome/fontawesome-free/css/all.min.css');
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 /*require('../css/app.css');
 require('@fortawesome/fontawesome-free/css/all.css');
@@ -25,6 +26,8 @@ require('@fortawesome/fontawesome-free/js/all.js');
 */
 >>>>>>> note du freelancer
 var $ = require('jquery');
+=======
+>>>>>>> note du freelancer version finale
 require('popper.js');
 require('bootstrap-star-rating');
 <<<<<<< HEAD
@@ -34,6 +37,7 @@ require('bootstrap-star-rating');
 
 =======
 require('infinite-scroll');
+<<<<<<< HEAD
 >>>>>>>  first
 $(document).ready(function(){
     $('.js-datepicker').datepicker({
@@ -52,6 +56,8 @@ $(document).ready(function () {
     $('.dropdown-toggle').dropdown();
 });
 
+=======
+>>>>>>> note du freelancer version finale
 
 
 $('#myModal').on('shown.bs.modal', function () {
@@ -61,6 +67,7 @@ $('#myModal').on('shown.bs.modal', function () {
 //Dès lors qu'on modifie le 'selected list'
 //Si la valeur est Freelancer alors on affiche les champs le concernant et on les rend obligatoire
 $(document).ready(function(){
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -78,6 +85,13 @@ $(document).ready(function(){
 
 =======
 >>>>>>> note du freelancer
+=======
+    $('.js-datepicker').datepicker({
+        format: 'yyyy/mm/dd',
+        todayHighlight: true
+    });
+    $('.dropdown-toggle').dropdown();
+>>>>>>> note du freelancer version finale
     $('#user_role').change(function() {
 >>>>>>>  first
         if ($('option:selected', $(this)).html() === 'Freelancer') {
