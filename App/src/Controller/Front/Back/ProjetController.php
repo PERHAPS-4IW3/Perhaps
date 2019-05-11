@@ -179,13 +179,30 @@ class ProjetController extends AbstractController
      */
     public function setUserNote(Request $request)
     {
+        $data = json_decode($request->query->get("data"), true);
+        $user = $this->em->getRepository(User::class)->findOneBy(['email' => $data["email"]]);
+
+        if(!$noteEtCommentaire = $this->em->getRepository(NoteEtCommentaire::class)->findOneBy(
+           array ( 'idProjet' => $data["id"],  'developpeur' => $user->getId()))
+            )
+        {
+            $noteEtCommentaire = new NoteEtCommentaire();
+        }
+    
+        $noteEtCommentaire->setCommentaire($data["commentaire"]);
+        $noteEtCommentaire->setNote($data["note"]);
+        $noteEtCommentaire->setDeveloppeur($user);
+        $noteEtCommentaire->setIdProjet($this->em->getRepository(Projet::class)->findOneBy(['id' => $data["id"]]));
+        $this->em->merge($noteEtCommentaire);
+        $this->em->flush();
+
          $response = new Response(
-            'Content',
+            '',
             Response::HTTP_OK,
             ['content-type' => 'text/html']
         );
         return $response;
-    }
-
+    }     
+      
 
 }
