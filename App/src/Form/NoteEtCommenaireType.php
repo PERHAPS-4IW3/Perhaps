@@ -26,7 +26,12 @@ class NoteEtCommenaireType extends AbstractType
         $builder
             ->add('email', TextType::class, ['label' => false])
             ->add('commentaire',TextareaType::class, ["mapped" => false])
-            ->add('note',NumberType::class, ["mapped" => false])
+            ->add('note',NumberType::class, ["mapped" => false,
+            'attr' => [
+                'min' => '0',
+                'max' => '5',
+                'class' => 'numberlimit',
+            ]])
             ->add('save', SubmitType::class, [
                 'label' => 'Save',
             ]);

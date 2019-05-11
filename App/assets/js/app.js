@@ -6,11 +6,18 @@
  */
 
 // any CSS you require will output into a single css file (app.css in this case)
+<<<<<<< HEAD
 require('../css/app.css');
 require('jquery');
 require('bootstrap');
 require('@fortawesome/fontawesome-free/css/all.min.css');
+=======
+/*require('../css/app.css');
+require('@fortawesome/fontawesome-free/css/all.css');
+>>>>>>> note du freelancer
 require('@fortawesome/fontawesome-free/js/all.js');
+// loads the jquery package from node_modules*/
+var $ = require('jquery');
 require('popper.js');
 require('bootstrap-star-rating');
 <<<<<<< HEAD
@@ -39,10 +46,13 @@ $('#myModal').on('shown.bs.modal', function () {
 //Si la valeur est Freelancer alors on affiche les champs le concernant et on les rend obligatoire
 $(document).ready(function(){
 <<<<<<< HEAD
+<<<<<<< HEAD
     $('#user_roles_0').val("ROLE_FREELANCER");
     $('#user_roles_0').change(function() {
 =======
 
+=======
+>>>>>>> note du freelancer
     $('#user_role').change(function() {
 >>>>>>>  first
         if ($('option:selected', $(this)).html() === 'Freelancer') {
