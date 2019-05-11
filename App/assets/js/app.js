@@ -13,7 +13,7 @@ require('@fortawesome/fontawesome-free/css/all.min.css');
 /*require('../css/app.css');
 require('@fortawesome/fontawesome-free/css/all.css');
 require('@fortawesome/fontawesome-free/js/all.js');
-// loads the jquery package from node_modules*/
+*/
 var $ = require('jquery');
 require('popper.js');
 require('bootstrap-star-rating');

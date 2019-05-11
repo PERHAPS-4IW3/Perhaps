@@ -19,9 +19,9 @@
     "build": "encore production --progress"
   },
   "dependencies": {
+    "bootstrap-select": "^1.13.5",
     "babel-loader": "^8.0.5",
     "bootstrap-star-rating": "^4.0.4",
-    "bootstrap-select": "^1.13.5",
     "encore": "^0.0.30-beta",
     "fontawesome": "^5.6.3",
     "infinite-scroll": "^3.0.5",
