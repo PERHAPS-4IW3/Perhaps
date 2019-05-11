@@ -1,12 +1,13 @@
 {
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.7.2",
-    "@symfony/webpack-encore": "^0.21.0",
+    "@fortawesome/fontawesome-free": "^5.8.2",
+    "@symfony/webpack-encore": "^0.27.0",
     "bootstrap": "^4.3.1",
-    "jquery": "^3.3.1",
+    "jquery": "^3.4.1",
     "popper.js": "^1.14.7",
-    "webpack": "^4.29.5",
+    "webpack": "^4.30.0",
     "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.3.1",
     "webpack-notifier": "^1.6.0"
   },
   "license": "UNLICENSED",
@@ -18,9 +19,12 @@
     "build": "encore production --progress"
   },
   "dependencies": {
-    "bootstrap-select": "^1.13.5",
+    "babel-loader": "^8.0.5",
     "bootstrap-star-rating": "^4.0.4",
-    "infinite-scroll": "^3.0.5"
+    "encore": "^0.0.30-beta",
+    "fontawesome": "^5.6.3",
+    "infinite-scroll": "^3.0.5",
+    "style-loader": "^0.23.1"
   },
   "name": "App",
   "version": "1.0.0",
