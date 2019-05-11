@@ -11,12 +11,19 @@ require('../css/app.css');
 require('jquery');
 require('bootstrap');
 require('@fortawesome/fontawesome-free/css/all.min.css');
+<<<<<<< HEAD
 =======
 /*require('../css/app.css');
 require('@fortawesome/fontawesome-free/css/all.css');
 >>>>>>> note du freelancer
 require('@fortawesome/fontawesome-free/js/all.js');
 // loads the jquery package from node_modules*/
+=======
+/*require('../css/app.css');
+require('@fortawesome/fontawesome-free/css/all.css');
+require('@fortawesome/fontawesome-free/js/all.js');
+*/
+>>>>>>> note du freelancer
 var $ = require('jquery');
 require('popper.js');
 require('bootstrap-star-rating');
@@ -56,6 +63,7 @@ $('#myModal').on('shown.bs.modal', function () {
 $(document).ready(function(){
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     $('#user_roles_0').val("ROLE_FREELANCER");
 <<<<<<< HEAD
     $('#user_roles_0').change(function() {
@@ -68,6 +76,8 @@ $(document).ready(function(){
 =======
     $('#user_roles_0').change(function() ;
 
+=======
+>>>>>>> note du freelancer
     $('#user_role').change(function() {
 >>>>>>>  first
         if ($('option:selected', $(this)).html() === 'Freelancer') {
