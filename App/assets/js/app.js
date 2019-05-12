@@ -15,17 +15,10 @@ require('popper.js');
 require('bootstrap-star-rating');
 require('infinite-scroll');
 
-$(document).ready(function(){
-    $('.js-datepicker').datepicker({
-        format: 'yyyy/mm/dd',
-        todayHighlight: true
-    });
-});
-
 
 
 $('#myModal').on('shown.bs.modal', function () {
-    $('#myInput').trigger('focus')
+    $('#myInput').trigger('focus');
 });
 
 //Dès lors qu'on modifie le 'selected list'
