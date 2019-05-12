@@ -72,6 +72,7 @@ class UserType extends AbstractType
             ])
             ->add('titreFreelancer', TextType::class, ['label' => 'Titre profesionnelle'])
             ;
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

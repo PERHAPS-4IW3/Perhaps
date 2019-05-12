@@ -8,7 +8,7 @@
         "cocur/slugify": "^3.2",
         "easycorp/easyadmin-bundle": "^2.1",
         "excelwebzone/recaptcha-bundle": "^1.5",
-        "friendsofsymfony/ckeditor-bundle": "^2.0",
+        "friendsofsymfony/ckeditor-bundle": "^2.1",
         "fzaninotto/faker": "^1.8",
         "jms/payment-paypal-bundle": "^1.2",
         "knplabs/knp-paginator-bundle": "^2.8",
@@ -34,7 +34,7 @@
         "symfony/twig-bundle": "4.2.*",
         "symfony/validator": "4.2.*",
         "symfony/web-link": "4.2.*",
-        "symfony/webpack-encore-bundle": "^1.1",
+        "symfony/webpack-encore-bundle": "^1.5",
         "symfony/webpack-encore-pack": "^1.0",
         "symfony/yaml": "4.2.*",
         "vich/uploader-bundle": "^1.9"

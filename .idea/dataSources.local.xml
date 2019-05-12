@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal">
-    <data-source name="perhaps@192.168.99.100" uuid="b8126456-dd23-463c-bbf9-fb696b1f71fc">
-      <database-info product="PostgreSQL" version="9.6.10" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.2.2" family="POSTGRES" exact-version="9.6.10">
+    <data-source name="perhaps@192.168.99.100" uuid="8dc164e3-147a-4ed2-9fd4-29f45f69b5b9">
+      <database-info product="PostgreSQL" version="9.6.11" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.2.2" family="POSTGRES" exact-version="9.6.11">
         <identifier-quote-string>&quot;</identifier-quote-string>
       </database-info>
       <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
       <user-name>api-platform</user-name>
       <introspection-schemas>@:@</introspection-schemas>
     </data-source>

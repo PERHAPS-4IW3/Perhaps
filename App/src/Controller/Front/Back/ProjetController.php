@@ -9,9 +9,17 @@
 namespace App\Controller\Front\Back;
 
 
+use App\Entity\Equipe;
+use App\Entity\NoteEtCommentaire;
 use App\Entity\Projet;
 use App\Entity\User;
+use App\Entity\UserCollection;
+use Symfony\Component\HttpFoundation\Response;
+use App\Form\EquipeCollectionType;
+use App\Form\NoteEtCommenaireType;
 use App\Form\ProjetType;
+use App\Form\TableNoteUserType;
+use App\Form\UserCollectionType;
 use App\Repository\ProjetRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -19,7 +27,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+
 
 
 /**
@@ -97,7 +106,7 @@ class ProjetController extends AbstractController
     }
 
     /**
-     * @Route(name="user_projet_edit", path="user/projets/{id}", methods={"GET", "POST"})
+     * @Route(name="user_projet_edit", path="/user/projets/{id}", methods={"GET", "POST"})
      * @param Projet $projet
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
@@ -122,7 +131,7 @@ class ProjetController extends AbstractController
      * @param Request $request
      * @param Projet $projet
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     * @Route(name="user_projet_delete", path="user/projets/delete/{id}", methods={"GET"})
+     * @Route(name="user_projet_delete", path="/user/projets/delete/{id}", methods={"GET"})
      */
     public function delete(Request $request, Projet $projet): RedirectResponse
     {
@@ -137,7 +146,7 @@ class ProjetController extends AbstractController
     }
 
     /**
-     * @Route(name="user_projet_offers", path="user/projets/offers/{id}", methods={"GET", "POST"})
+     * @Route(name="user_projet_offers", path="/user/projets/offers/{id}", methods={"GET", "POST"})
      * @param Projet $projet
      * @return Response
      */
@@ -150,4 +159,121 @@ class ProjetController extends AbstractController
             'devis' => $devis,
         ]);
     }
+
+        /**
+     * @Route(name="user_projet_noter_user", path="/user/projets/noteUser/{id}", methods={"GET", "POST"})
+     * @param Projet $projet
+     * @return Response
+     */
+    public function manageFreelancer(Projet $projet): Response
+    {
+        return $this->render('Back/Projet/Manage/index.html.twig', [
+            'listeDesequipe' => $projet->getListDesEquipes(),
+            'notation' => $projet->getListCommentaireEtNote()
+        ]);
+    }
+
+
+    /**
+    * @param Projet $projet
+     * @Route(name="user_projet_listOfU_note", path="/user/projets/Note/listOfU/{id}", methods={"GET"})
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function getListOfUserP(Request $request, Projet $projet)
+    {
+        $form = $this->createForm(EquipeCollectionType::class, $projet);
+        return $this->render('Back/Projet/list.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+<<<<<<< HEAD
+    * @param Projet $projet
+     * @Route(name="user_projet_listOfU_note", path="/user/projets/Note/listOfU/{id}", methods={"GET"})
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function getListOfUserP(Request $request, Projet $projet)
+    {
+        $form = $this->createForm(EquipeCollectionType::class, $projet);
+        return $this->render('Back/Projet/list.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+=======
+>>>>>>> 75eb20f0a846f40a03c2d2df1068bc24ba89ce21
+     * @Route(name="user_projet_setNote", path="/user/projets/Note/setNote", methods={"GET"})
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function setUserNote(Request $request)
+    {
+        $data = json_decode($request->query->get("data"), true);
+        if(!$noteEtCommentaire = $this->em->getRepository(NoteEtCommentaire::class)->findOneBy(
+           array ( 'idProjet' => $data["projet"],  'developpeur' =>  $data["user"]))
+            )
+        {
+            $noteEtCommentaire = new NoteEtCommentaire();
+        }
+        $noteEtCommentaire->setCommentaire($data["commentaire"]);
+        $noteEtCommentaire->setNote(intval($data["note"]));
+        $noteEtCommentaire->setDeveloppeur($this->em->getRepository(User::class)->findOneBy(['id' => $data["user"]]));
+        $noteEtCommentaire->setIdProjet($this->em->getRepository(Projet::class)->findOneBy(['id' => $data["projet"]]));        
+        $this->em->merge($noteEtCommentaire);
+        $this->em->flush();
+
+         $response = new Response(
+            '',
+            Response::HTTP_OK,
+            ['content-type' => 'text/html']
+        );
+        return $response;
+    }     
+
+
+
+    /**
+     * @Route(name="user_projet_setNotes", path="/user/projets/Note/setNotes", methods={"GET"})
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function setUserNotes(Request $request)
+    {
+        $data = json_decode($request->query->get("data"), true);
+        $user = $this->em->getRepository(User::class)->findOneBy(['email' => $data["email"]]);
+
+        if(!$noteEtCommentaire = $this->em->getRepository(NoteEtCommentaire::class)->findOneBy(
+<<<<<<< HEAD
+           array ( 'idProjet' => $data["projet"],  'developpeur' =>  $data["user"]))
+=======
+           array ( 'idProjet' => $data["id"],  'developpeur' => $user->getId()))
+>>>>>>> 75eb20f0a846f40a03c2d2df1068bc24ba89ce21
+            )
+        {
+            $noteEtCommentaire = new NoteEtCommentaire();
+        }
+<<<<<<< HEAD
+        $noteEtCommentaire->setCommentaire($data["commentaire"]);
+        $noteEtCommentaire->setNote(intval($data["note"]));
+        $noteEtCommentaire->setDeveloppeur($this->em->getRepository(User::class)->findOneBy(['id' => $data["user"]]));
+        $noteEtCommentaire->setIdProjet($this->em->getRepository(Projet::class)->findOneBy(['id' => $data["projet"]]));        
+=======
+    
+        $noteEtCommentaire->setCommentaire($data["commentaire"]);
+        $noteEtCommentaire->setNote($data["note"]);
+        $noteEtCommentaire->setDeveloppeur($user);
+        $noteEtCommentaire->setIdProjet($this->em->getRepository(Projet::class)->findOneBy(['id' => $data["id"]]));
+>>>>>>> 75eb20f0a846f40a03c2d2df1068bc24ba89ce21
+        $this->em->merge($noteEtCommentaire);
+        $this->em->flush();
+
+         $response = new Response(
+            '',
+            Response::HTTP_OK,
+            ['content-type' => 'text/html']
+        );
+        return $response;
+    }     
+      
+
 }

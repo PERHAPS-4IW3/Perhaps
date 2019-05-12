@@ -1,5 +1,4 @@
 var Encore = require('@symfony/webpack-encore');
-
 Encore
     // directory where compiled assets will be stored
     .setOutputPath('public/build/')
@@ -45,8 +44,18 @@ Encore
     //.enableTypeScriptLoader()
 
     // uncomment if you're having problems with a jQuery plugin
-    .autoProvidejQuery()
 
+    .autoProvideVariables({
+
+        $: 'jquery',
+        jQuery: 'jquery',
+        'window.jQuery': 'jquery',
+    })
+    .autoProvidejQuery({
+        $: 'jquery',
+        jQuery: 'jquery',
+        'window.jQuery': 'jquery',
+    })
     // uncomment if you use API Platform Admin (composer req api-admin)
     //.enableReactPreset()
     //.addEntry('admin', './assets/js/admin.js')
