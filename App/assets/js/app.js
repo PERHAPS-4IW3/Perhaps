@@ -6,94 +6,34 @@
  */
 
 // any CSS you require will output into a single css file (app.css in this case)
-<<<<<<< HEAD
 require('../css/app.css');
 require('jquery');
 require('bootstrap');
 require('@fortawesome/fontawesome-free/css/all.min.css');
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-/*require('../css/app.css');
-require('@fortawesome/fontawesome-free/css/all.css');
->>>>>>> note du freelancer
-require('@fortawesome/fontawesome-free/js/all.js');
-// loads the jquery package from node_modules*/
-=======
-/*require('../css/app.css');
-require('@fortawesome/fontawesome-free/css/all.css');
-require('@fortawesome/fontawesome-free/js/all.js');
-*/
->>>>>>> note du freelancer
 var $ = require('jquery');
-=======
->>>>>>> note du freelancer version finale
 require('popper.js');
 require('bootstrap-star-rating');
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-// Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
-
-=======
 require('infinite-scroll');
-<<<<<<< HEAD
->>>>>>>  first
-$(document).ready(function(){
-    $('.js-datepicker').datepicker({
-        format: 'yyyy/mm/dd',
-        todayHighlight: true
-    });
-<<<<<<< HEAD
-});
 
-=======
-require('infinite-scroll');
->>>>>>>  first
-$(document).ready(function () {
-=======
->>>>>>>  first
-    $('.dropdown-toggle').dropdown();
-});
 
-=======
->>>>>>> note du freelancer version finale
 
 
 $('#myModal').on('shown.bs.modal', function () {
-    $('#myInput').trigger('focus')
+    $('#myInput').trigger('focus');
 });
 
 //Dès lors qu'on modifie le 'selected list'
 //Si la valeur est Freelancer alors on affiche les champs le concernant et on les rend obligatoire
 $(document).ready(function(){
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-    $('#user_roles_0').val("ROLE_FREELANCER");
-<<<<<<< HEAD
-    $('#user_roles_0').change(function() {
-=======
 
-=======
->>>>>>> note du freelancer
-    $('#user_role').change(function() {
->>>>>>>  first
-=======
-    $('#user_roles_0').change(function() ;
-
-=======
->>>>>>> note du freelancer
-=======
     $('.js-datepicker').datepicker({
         format: 'yyyy/mm/dd',
         todayHighlight: true
     });
     $('.dropdown-toggle').dropdown();
->>>>>>> note du freelancer version finale
+
     $('#user_role').change(function() {
->>>>>>>  first
+
         if ($('option:selected', $(this)).html() === 'Freelancer') {
             $('.freelancerField').css("display", "block");
             $('#user_nomSociete').attr('required', true);
