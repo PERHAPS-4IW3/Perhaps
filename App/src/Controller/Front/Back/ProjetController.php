@@ -146,24 +146,30 @@ class ProjetController extends AbstractController
     }
 
     /**
-     * @Route(name="user_projet_offers", path="/user/projets/offres/{id}", methods={"GET", "POST"})
+     * @Route(name="user_projet_offers", path="/user/projets/offers/{id}", methods={"GET", "POST"})
      * @param Projet $projet
      * @return Response
      */
     public function showOffers(Projet $projet): Response
     {
         $devis = $projet->getListDevis()->getValues();
+
+        return $this->render('Back/Projet/Offers/showOffers.html.twig', [
+            'projet' => $projet,
+            'devis' => $devis,
+        ]);
     }
 
         /**
-     * @Route(name="user_projet_offers", path="/user/projets/manage/{id}", methods={"GET", "POST"})
+     * @Route(name="user_projet_noter_user", path="/user/projets/noteUser/{id}", methods={"GET", "POST"})
      * @param Projet $projet
      * @return Response
      */
     public function manageFreelancer(Projet $projet): Response
     {
         return $this->render('Back/Projet/Manage/index.html.twig', [
-            'listeDesequipe' => $projet->getListDesEquipes()
+            'listeDesequipe' => $projet->getListDesEquipes(),
+            'notation' => $projet->getListCommentaireEtNote()
         ]);
     }
 
@@ -188,14 +194,12 @@ class ProjetController extends AbstractController
     public function setUserNote(Request $request)
     {
         $data = json_decode($request->query->get("data"), true);
-        var_dump($data );
         if(!$noteEtCommentaire = $this->em->getRepository(NoteEtCommentaire::class)->findOneBy(
            array ( 'idProjet' => $data["projet"],  'developpeur' =>  $data["user"]))
             )
         {
             $noteEtCommentaire = new NoteEtCommentaire();
         }
-        var_dump($data );
         $noteEtCommentaire->setCommentaire($data["commentaire"]);
         $noteEtCommentaire->setNote(intval($data["note"]));
         $noteEtCommentaire->setDeveloppeur($this->em->getRepository(User::class)->findOneBy(['id' => $data["user"]]));
