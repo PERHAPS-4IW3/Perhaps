@@ -188,22 +188,6 @@ class ProjetController extends AbstractController
     }
 
     /**
-<<<<<<< HEAD
-    * @param Projet $projet
-     * @Route(name="user_projet_listOfU_note", path="/user/projets/Note/listOfU/{id}", methods={"GET"})
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     */
-    public function getListOfUserP(Request $request, Projet $projet)
-    {
-        $form = $this->createForm(EquipeCollectionType::class, $projet);
-        return $this->render('Back/Projet/list.html.twig', [
-            'form' => $form->createView()
-        ]);
-    }
-
-    /**
-=======
->>>>>>> 75eb20f0a846f40a03c2d2df1068bc24ba89ce21
      * @Route(name="user_projet_setNote", path="/user/projets/Note/setNote", methods={"GET"})
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
@@ -243,27 +227,15 @@ class ProjetController extends AbstractController
         $user = $this->em->getRepository(User::class)->findOneBy(['email' => $data["email"]]);
 
         if(!$noteEtCommentaire = $this->em->getRepository(NoteEtCommentaire::class)->findOneBy(
-<<<<<<< HEAD
            array ( 'idProjet' => $data["projet"],  'developpeur' =>  $data["user"]))
-=======
-           array ( 'idProjet' => $data["id"],  'developpeur' => $user->getId()))
->>>>>>> 75eb20f0a846f40a03c2d2df1068bc24ba89ce21
             )
         {
             $noteEtCommentaire = new NoteEtCommentaire();
         }
-<<<<<<< HEAD
         $noteEtCommentaire->setCommentaire($data["commentaire"]);
         $noteEtCommentaire->setNote(intval($data["note"]));
         $noteEtCommentaire->setDeveloppeur($this->em->getRepository(User::class)->findOneBy(['id' => $data["user"]]));
         $noteEtCommentaire->setIdProjet($this->em->getRepository(Projet::class)->findOneBy(['id' => $data["projet"]]));        
-=======
-    
-        $noteEtCommentaire->setCommentaire($data["commentaire"]);
-        $noteEtCommentaire->setNote($data["note"]);
-        $noteEtCommentaire->setDeveloppeur($user);
-        $noteEtCommentaire->setIdProjet($this->em->getRepository(Projet::class)->findOneBy(['id' => $data["id"]]));
->>>>>>> 75eb20f0a846f40a03c2d2df1068bc24ba89ce21
         $this->em->merge($noteEtCommentaire);
         $this->em->flush();
 
