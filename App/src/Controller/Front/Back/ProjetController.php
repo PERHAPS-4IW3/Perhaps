@@ -29,7 +29,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
 
 
 /**
