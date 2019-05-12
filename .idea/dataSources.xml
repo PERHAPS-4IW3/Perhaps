@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="perhaps@192.168.99.100" read-only="true" uuid="8dc164e3-147a-4ed2-9fd4-29f45f69b5b9">
+    <data-source source="LOCAL" name="perhaps@192.168.99.100" uuid="98ffbb6a-4e80-49c9-93e9-5e890c6ec1e3">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+<<<<<<< HEAD
       <jdbc-url>jdbc:postgresql://192.168.99.100:32768/perhaps</jdbc-url>
+=======
+      <jdbc-url>jdbc:postgresql://192.168.99.100:5432/perhaps</jdbc-url>
+>>>>>>> 2333bb6d94630cc823cabc2ae4da4306023bd6d5
     </data-source>
   </component>
 </project>

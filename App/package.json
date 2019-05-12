@@ -1,6 +1,6 @@
 {
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.8.2",
+    "@fortawesome/fontawesome-free": "^5.7.2",
     "@symfony/webpack-encore": "^0.27.0",
     "bootstrap": "^4.3.1",
     "jquery": "^3.4.1",
@@ -25,8 +25,8 @@
     "fontawesome": "^5.6.3",
     "infinite-scroll": "^3.0.5",
     "style-loader": "^0.23.1",
-    "encore": "^0.0.30-beta"
-
+    "encore": "^0.0.30-beta",
+    "jquery-ui": "^1.12.1"
   },
   "name": "App",
   "version": "1.0.0",

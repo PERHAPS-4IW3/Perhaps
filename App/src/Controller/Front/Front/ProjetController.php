@@ -152,5 +152,19 @@ class ProjetController extends AbstractController
 
     }
 
+    /**
+     * @Route("/projet/API", name="projet_api", methods={"GET"})
+     * @return Response
+     */
+    public function getAllFreelancer(){
+
+        $freelancers = $this->repository->findAllProjectsAPI();
+
+        $response = new Response(json_encode($freelancers));
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
 
 }

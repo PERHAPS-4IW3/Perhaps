@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal">
+<<<<<<< HEAD
     <data-source name="perhaps@192.168.99.100" uuid="8dc164e3-147a-4ed2-9fd4-29f45f69b5b9">
       <database-info product="PostgreSQL" version="9.6.11" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.2.2" family="POSTGRES" exact-version="9.6.11">
+=======
+    <data-source name="perhaps@192.168.99.100" uuid="98ffbb6a-4e80-49c9-93e9-5e890c6ec1e3">
+      <database-info product="PostgreSQL" version="9.6.10" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.2.2" family="POSTGRES" exact-version="9.6.10">
+>>>>>>> 2333bb6d94630cc823cabc2ae4da4306023bd6d5
         <identifier-quote-string>&quot;</identifier-quote-string>
       </database-info>
       <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />

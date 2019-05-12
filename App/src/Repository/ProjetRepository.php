@@ -113,6 +113,13 @@ class ProjetRepository extends ServiceEntityRepository
 
 
 
+    public function findAllProjectsAPI(): array
+    {
+        return $this->findVisibleQuery()
+            ->getQuery()
+            ->getArrayResult();
+    }
+
     // /**
     //  * @return Projet[] Returns an array of Projet objects
     //  */

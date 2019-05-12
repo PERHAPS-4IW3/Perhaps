@@ -19,12 +19,12 @@ class TypeProjetFixtures extends Fixture
     {
         $faker = \Faker\Factory::create();
 
-        for($i = 0; $i <10; $i++){
+        /*for($i = 0; $i <10; $i++){
             $competence = (new TypeProjet())
                 ->setNomType($faker->text(5));
             $manager->persist($competence);
 
-        }
+        }*/
         $manager->flush();
     }
 }

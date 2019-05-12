@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Entity;
-
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -12,7 +10,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(name="user_perhaps")
@@ -77,7 +74,6 @@ class User implements UserInterface, \Serializable
      * @Assert\NotBlank()
      */
     private $nomUser;
-
     /**
      * @ORM\Column(type="string", length=50)
      * @Assert\NotBlank()
@@ -105,10 +101,9 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Assert\NotBlank()
+     *
      */
     private $ville;
-
     /**
      * @ORM\Column(type="string", length=50)
      * @Assert\NotBlank()
@@ -124,13 +119,11 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $passwordRequestedAt;
-
     /**
      * @var string le token qui servira lors de l'oubli de mot de passe
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $resetToken;
-
     /**
      * @var string le token qui servira lors de la confirmation du mail
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -196,6 +189,17 @@ class User implements UserInterface, \Serializable
      * @ORM\ManyToMany(targetEntity="App\Entity\Equipe", inversedBy="listParticipants")
      */
     private $participe;
+    /**
+    * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="sender")
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $messages;
+
+    /**
+     *@ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="receiver")
+     * @ORM\Column(type="text", length=255, nullable=true)
+     */
+    private $recievedMessage;
 
     /**
      * User constructor.
@@ -210,21 +214,17 @@ class User implements UserInterface, \Serializable
         $this->equipeGerer = new ArrayCollection();
         $this->participe = new ArrayCollection();
     }
-
     public function getId(): ?int
     {
         return $this->id;
     }
-
     public function getEmail(): ?string
     {
         return $this->email;
     }
-
     public function setEmail(string $email): self
     {
         $this->email = $email;
-
         return $this;
     }
 
@@ -237,8 +237,6 @@ class User implements UserInterface, \Serializable
     {
         return (string) $this->email;
     }
-
-
     /**
      * @see UserInterface
      */
@@ -246,11 +244,9 @@ class User implements UserInterface, \Serializable
     {
         return (string) $this->password;
     }
-
     public function setPassword(string $password): self
     {
         $this->password = $password;
-
         return $this;
     }
 
@@ -279,7 +275,6 @@ class User implements UserInterface, \Serializable
     public function setNomUser(string $nomUser): self
     {
         $this->nomUser = $nomUser;
-
         return $this;
     }
 
@@ -297,7 +292,6 @@ class User implements UserInterface, \Serializable
     public function setPrenomUser(string $prenomUser): self
     {
         $this->prenomUser = $prenomUser;
-
         return $this;
     }
 
@@ -309,7 +303,6 @@ class User implements UserInterface, \Serializable
     public function setTelephoneUser(string $telephoneUser): self
     {
         $this->telephoneUser = $telephoneUser;
-
         return $this;
     }
 
@@ -321,7 +314,6 @@ class User implements UserInterface, \Serializable
     public function setAdresseUser(string $adresseUser): self
     {
         $this->adresseUser = $adresseUser;
-
         return $this;
     }
 
@@ -333,7 +325,6 @@ class User implements UserInterface, \Serializable
     public function setCodePostalUser(string $codePostalUser): self
     {
         $this->codePostalUser = $codePostalUser;
-
         return $this;
     }
 
@@ -345,7 +336,6 @@ class User implements UserInterface, \Serializable
     public function setVille(string $ville): self
     {
         $this->ville = $ville;
-
         return $this;
     }
 
@@ -357,7 +347,6 @@ class User implements UserInterface, \Serializable
     public function setPays(string $pays): self
     {
         $this->pays = $pays;
-
         return $this;
     }
 
@@ -369,7 +358,6 @@ class User implements UserInterface, \Serializable
     public function setIsActive(bool $isActive): self
     {
         $this->isActive = $isActive;
-
         return $this;
     }
 
@@ -405,7 +393,6 @@ class User implements UserInterface, \Serializable
     public function setConfirmationToken(?string $confirmationToken): void
     {
         $this->confirmationToken = $confirmationToken;
-
     }
 
     public function getTarifHoraireFreelancer(): ?int
@@ -430,17 +417,16 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-
     public function getNomSociete(): ?string
     {
         return $this->nomSociete;
     }
-
     public function setNomSociete(string $nomSociete): self
     {
         $this->nomSociete = $nomSociete;
         return $this;
     }
+
     /**
      * @return Collection|Projet[]
      */
@@ -455,7 +441,6 @@ class User implements UserInterface, \Serializable
             $this->projetGerer[] = $projetGerer;
             $projetGerer->setCreePar($this);
         }
-
         return $this;
     }
 
@@ -468,7 +453,6 @@ class User implements UserInterface, \Serializable
                 $projetGerer->setCreePar(null);
             }
         }
-
         return $this;
     }
 
@@ -479,7 +463,6 @@ class User implements UserInterface, \Serializable
     {
         return $this->imageName;
     }
-
     /**
      * @param null|string $imageName
      * @return User
@@ -489,7 +472,6 @@ class User implements UserInterface, \Serializable
         $this->imageName = $imageName;
         return $this;
     }
-
     /**
      * @return null|File
      */
@@ -497,7 +479,6 @@ class User implements UserInterface, \Serializable
     {
         return $this->imageFile;
     }
-
     /**
      * @param null|File $imageFile
      * @return User
@@ -558,7 +539,6 @@ class User implements UserInterface, \Serializable
     public function setUpdatedAt(\DateTimeInterface $updated_at): self
     {
         $this->updated_at = $updated_at;
-
         return $this;
     }
     /** @see \Serializable::serialize() */
@@ -569,10 +549,9 @@ class User implements UserInterface, \Serializable
             $this->imageName,
             $this->email,
             $this->password,
-
-
         ));
     }
+
     /** @see \Serializable::unserialize() */
     public function unserialize($serialized)
     {
@@ -581,8 +560,6 @@ class User implements UserInterface, \Serializable
             $this->imageName,
             $this->email,
             $this->password,
-
-
             ) = unserialize($serialized);
     }
 
@@ -599,7 +576,6 @@ class User implements UserInterface, \Serializable
         if (!$this->listCompetence->contains($listCompetence)) {
             $this->listCompetence[] = $listCompetence;
         }
-
         return $this;
     }
 
@@ -608,10 +584,32 @@ class User implements UserInterface, \Serializable
         if ($this->listCompetence->contains($listCompetence)) {
             $this->listCompetence->removeElement($listCompetence);
         }
-
         return $this;
     }
 
+    /**
+     * @return Collection|Equipe[]
+     */
+    public function getParticipe(): Collection
+    {
+        return $this->participe;
+    }
+
+    public function addParticipe(Equipe $participe): self
+    {
+        if (!$this->participe->contains($participe)) {
+            $this->participe[] = $participe;
+        }
+        return $this;
+    }
+
+    public function removeParticipe(Equipe $participe): self
+    {
+        if ($this->participe->contains($participe)) {
+            $this->participe->removeElement($participe);
+        }
+        return $this;
+    }
 
     /**
      * @return Collection|NoteEtCommentaire[]
@@ -627,7 +625,6 @@ class User implements UserInterface, \Serializable
             $this->noteEtCommentaire[] = $noteEtCommentaire;
             $noteEtCommentaire->setDeveloppeur($this);
         }
-
         return $this;
     }
 
@@ -640,7 +637,6 @@ class User implements UserInterface, \Serializable
                 $noteEtCommentaire->setDeveloppeur(null);
             }
         }
-
         return $this;
     }
 
@@ -652,14 +648,12 @@ class User implements UserInterface, \Serializable
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
-
         return array_unique($roles);
     }
 
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
-
         return $this;
     }
 
@@ -677,7 +671,6 @@ class User implements UserInterface, \Serializable
             $this->listDesDevis[] = $listDesDevi;
             $listDesDevi->setEtabliPar($this);
         }
-
         return $this;
     }
 
@@ -690,7 +683,6 @@ class User implements UserInterface, \Serializable
                 $listDesDevi->setEtabliPar(null);
             }
         }
-
         return $this;
     }
 
@@ -708,7 +700,6 @@ class User implements UserInterface, \Serializable
             $this->equipeGerer[] = $equipeGerer;
             $equipeGerer->setChefDeProjet($this);
         }
-
         return $this;
     }
 
@@ -721,7 +712,6 @@ class User implements UserInterface, \Serializable
                 $equipeGerer->setChefDeProjet(null);
             }
         }
-
         return $this;
     }
 
@@ -742,29 +732,39 @@ class User implements UserInterface, \Serializable
         $this->titreFreelancer = $titreFreelancer;
         return $this;
     }
+
+    
+    public function getMessages(): ?string
+    {
+        return $this->messages;
+    }
+
+    public function setMessages(?string $messages): self
+    {
+        $this->messages = $messages;
+
+        return $this;
+    }
+
+    public function getRecievedMessage(): ?string
+    {
+        return $this->recievedMessage;
+    }
+
+    public function setRecievedMessage(?string $recievedMessage): self
+    {
+        $this->recievedMessage = $recievedMessage;
+
+        return $this;
+    }
     /**
-     * @return Collection|Equipe[]
+     * toString
+     * @return string
      */
-    public function getParticipe(): Collection
+    public function __toString()
     {
-        return $this->participe;
+        return (string)$this->messages;
+
     }
 
-    public function addParticipe(Equipe $participe): self
-    {
-        if (!$this->participe->contains($participe)) {
-            $this->participe[] = $participe;
-        }
-
-        return $this;
-    }
-
-    public function removeParticipe(Equipe $participe): self
-    {
-        if ($this->participe->contains($participe)) {
-            $this->participe->removeElement($participe);
-        }
-
-        return $this;
-    }
 }

@@ -14,6 +14,7 @@ var $ = require('jquery');
 require('popper.js');
 require('bootstrap-star-rating');
 require('infinite-scroll');
+require('jquery-ui');
 
 
 
