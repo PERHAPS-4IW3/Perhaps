@@ -12,35 +12,70 @@
                 <a href="{{ path('user_projet_new') }}" class="btn btn-success">Publier un projet</a>
             </div>
         </div>
+        
+        
+        
         <table class="table table-striped container mt-10">
             <thead>
                 <tr class="row">
                     <th class="col">Prénom</th>
                     <th class="col">Nom</th>
+                    <th class="col">Commentaire</th>
+                    <th class="col">Note</th>
                     <th class="col">Rôle</th>
                     <th class="col">Noter</th>
                 </tr>
             </thead>
             <tbody>
             {% set i =1 %}
+            {% set j =1 %}
+            {% set check = false %}
             {% for items in listeDesequipe %}
                 <tr class="row">
-                    <td class="col" id="id_p" style="display : none;" value ="{{ items.idProjet.id}}">{{ items.idProjet.id}}</td>
-                    <td class="col" id="id_U" style="display : none;" value ="{{ items.chefDeProjet.id}}">{{ items.chefDeProjet.id}}</td>
-                    <td class="col" id="id_subn">{{ items.chefDeProjet.prenomUser}}</td>
-                    <td class="col" id="id_name">{{ items.chefDeProjet.nomUser }}</td>
+                    <td class="col" id="id_p_{{j }}" style="display : none;" value ="{{ items.idProjet.id}}" >{{ items.idProjet.id}}</td>
+                    <td class="col" id="id_U_{{j }}" style="display : none;" value ="{{ items.chefDeProjet.id}}" >{{ items.chefDeProjet.id}}</td>
+                    <td class="col" id="id_subn_{{j }}">{{ items.chefDeProjet.prenomUser}}</td>
+                    <td class="col" id="id_name_{{ j}}">{{ items.chefDeProjet.nomUser }}</td>
+                    {% for note in notation %}
+                        {% if note.developpeur.id == items.idProjet.id %}
+                            <td class="col" id="id_commentaire_{{ j}}">{{ note.commentaire}}</td>
+                            <td class="col" id="id_note_{{ j}}">{{ note.note }}</td>
+                            {% set check = true %}
+                        {% endif %}
+                    {% endfor %}
+                    {% if check == false %}
+                            <td class="col" id="id_commentaire_{{ j}}"> </td>
+                            <td class="col" id="id_note_{{ j}}"> </td>
+                    {% endif %}
+                    
                     <td class="col">Chef de l'équipe {{ i  }}</td>
-                    <td class="col"><button type="submit" id="ProjetCo" name="ProjetCo" class="btn-primary btn" >Noter</button></td>
+                    <td class="col"><button type="submit" id="ProjetCo{{ j}}" class="btn-primary btn" onClick="setModalNot({{j}})">Noter</button></td>
                 </tr>
+                
+                {% set j=j+1 %}
                 {% for row in items.listParticipants %}
                     <tr class="row">
-                        <td class="col" id="id_p" style="display : none;">{{ items.idProjet.id}}</td>
-                        <td class="col" id="id_U" style="display : none;">{{ row.id}}</td>
-                        <td class="col" id="id_subn">{{ row.prenomUser}}</td>
-                        <td class="col" id="id_name">{{ row.nomUser }}</td>
+                        <td class="col" id="id_p_{{ j}}" style="display : none;">{{ items.idProjet.id}}</td>
+                        <td class="col" id="id_U_{{ j}}" style="display : none;">{{ row.id}}</td>
+                        <td class="col" id="id_subn_{{j }}">{{ row.prenomUser}}</td>
+                        <td class="col" id="id_name_{{ j}}">{{ row.nomUser }}</td>
+                        {% set check = false %}
+                        {% for note in notation %}
+                            {% if note.developpeur.id == row.id %}
+                                <td class="col" id="id_commentaire_{{ j}}">{{ note.commentaire}}</td>
+                                <td class="col" id="id_note_{{ j}}">{{ note.note }}</td>
+                                {% set check = true %}
+                            {% endif %}
+                        {% endfor %}
+                        {% if check == false %}
+                                <td class="col" id="id_commentaire_{{ j}}"> </td>
+                                <td class="col" id="id_note_{{ j}}"> </td>
+                        {% endif %}
                         <td class="col">Développeur dans l'équipe {{ i  }}</td>
-                        <td class="col"><button type="submit" id="ProjetCo" name="ProjetCo" class="btn-primary btn">Noter</button></td>
+                        <td class="col"><button type="submit" id="ProjetCo" class="btn-primary btn" onClick="setModalNot({{j}})">Noter</button></td>
                     </tr>
+                    
+            {% set j=j+1 %}
                 {% endfor %}
             {% set i=i+1 %}
     
@@ -78,7 +113,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-info" id="Sauvegarder">Sauvegarder</button>
+        <button type="button" class="btn-primary btn" id="Sauvegarder">Sauvegarder</button>
       </div>
     </div>
   </div>
@@ -89,14 +124,18 @@
     {% block javascripts %}
 
             <script type="application/javascript">
+                var current_id = 0;
                 function ajaxCall(array)
                 {
                     let xmlhttp = new XMLHttpRequest();
                     xmlhttp.onreadystatechange = function() {
                         if (xmlhttp.readyState == XMLHttpRequest.DONE) {
                             if (xmlhttp.status == 200) {
-                                alert('La note a été ajouter');          
+                                //alert('La note a été ajouter');          
                                 $('#exampleModal').modal('hide');
+
+                                $('#id_note_'+current_id).text( $('#note').val());
+                                $('#id_commentaire_'+current_id).text(  $('#commentaire').val());
                             }
                             else if (xmlhttp.status == 400) {
                                 //alert('There was an error 400');
@@ -114,28 +153,16 @@
                     xmlhttp.send(JSON.stringify(array));
                 }
 
-                $(".btn-primary").click(function() {
-                    let tab = {};
-                    
-                    document.getElementById('modalTitle').innerText ="";
-                    $.each($(this).parent().parent().children(), function (key, value) {
-                        
-                    console.log(value);
-                        let id = value.id;
-                        if (id.includes("id_p")) {
-                           document.getElementById('projet').innerText =  value.innerText;
-                        } else if (id.includes("id_U")) {
-                           document.getElementById('user').innerText =  value.innerText;
-                        } else if (id.includes("id_subn")) {
-                           document.getElementById('modalTitle').innerText +=  value.innerText+" ";
-                        } else if (id.includes("id_name")) {
-                          document.getElementById('modalTitle').innerText +=  value.innerText+" ";
-                        }
-                    });
-                   $('#note').val(0);
-                   $('#commentaire').val("");
-                   $('#exampleModal').modal('show');
-                })
+                function setModalNot(id) 
+                {
+                    current_id = id;
+                    $('#modalTitle').text( $('#id_subn_'+id).text()+" "+ $('#id_name_'+id).text());
+                    $('#projet').text( $('#id_p_'+id).text());
+                    $('#user').text( $('#id_U_'+id).text());
+                    $('#note').val( $('#id_note_'+id).text());
+                    $('#commentaire').text(  $('#id_commentaire_'+id).text());
+                    $('#exampleModal').modal('show');
+                }
 
                  $("#Sauvegarder").click(function() {
                      let tab  = {};
@@ -143,7 +170,6 @@
                      tab["projet"] = $('#projet').text();
                      tab["commentaire"] = $('#commentaire').val();
                      tab["note"] = $('#note').val();
-                     console.log(tab);
                     ajaxCall(tab);
                 })
 
