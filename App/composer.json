@@ -13,6 +13,7 @@
         "jms/payment-paypal-bundle": "^1.2",
         "knplabs/knp-paginator-bundle": "^2.8",
         "liip/imagine-bundle": "^2.1",
+        "pugx/autocompleter-bundle": "^1.4",
         "sensio/framework-extra-bundle": "^5.1",
         "snapappointments/bootstrap-select": "^1.13",
         "stripe/stripe-php": "^6.30",
@@ -34,7 +35,7 @@
         "symfony/twig-bundle": "4.2.*",
         "symfony/validator": "4.2.*",
         "symfony/web-link": "4.2.*",
-        "symfony/webpack-encore-bundle": "^1.1",
+        "symfony/webpack-encore-bundle": "^1.5",
         "symfony/webpack-encore-pack": "^1.0",
         "symfony/yaml": "4.2.*",
         "vich/uploader-bundle": "^1.9"

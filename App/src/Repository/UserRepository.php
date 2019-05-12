@@ -81,6 +81,14 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
         return $query->getQuery();
     }
 
+    public function findLikeName(){
+        return $this->findVisibleFreelancerQuery()
+            ->where('f.nomUser LIKE :nomUser')
+            ->setParameter('nomUser', '%$nomUser%')
+            ->getQuery()
+            ->execute();
+    }
+
     /**
      * @return array
      * Fonction qui liste tous les Porteurs de Projets actifs
@@ -107,6 +115,17 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
 
     /**
      * @return array
+     * Fonction pour API
+     */
+    public function findVisibleAllFreelancerQueryAPI(): array
+    {
+        return $this->findVisibleFreelancerQuery()
+            ->getQuery()
+            ->getArrayResult();
+    }
+
+    /**
+     * @return array
      * Fonction qui liste tous les utilisateurs (freelancer et porteur de projet) actif
      */
     public function findAllVisibleUserQuery(): array
@@ -115,7 +134,6 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
             ->getQuery()
             ->getResult();
     }
-
 
     private function findVisibleQuery(): QueryBuilder
     {

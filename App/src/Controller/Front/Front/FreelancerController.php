@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controller\Front\Front;
 
 use App\Entity\User;
@@ -11,9 +10,14 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 use App\Repository\UserRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+
 
 class FreelancerController extends AbstractController
 {
@@ -29,7 +33,6 @@ class FreelancerController extends AbstractController
         $this->repository = $repository;
         $this->em = $em;
     }
-
 
     /**
      * @param Request $request
@@ -47,12 +50,18 @@ class FreelancerController extends AbstractController
             $this->repository->findFreelancers($search),
             $request->query->getInt('page', 1),
             9/*limit per page*/
-        );
+            );
 
         return $this->render('Front/freelancer/index.html.twig', [
             'freelancers'   => $freelancers,
             'form'      => $form->createView()
         ]);
+    }
+
+    public function getFreelancer($id = null){
+       $freelancer = $this->repository->find($id);
+
+       return $this->json($freelancer->getNomUser());
     }
 
 
@@ -74,6 +83,20 @@ class FreelancerController extends AbstractController
             'user' => $user,
             'current_menu' => 'users'
         ]);
+    }
+
+    /**
+     * @Route("/freelancer/API", name="free_api", methods={"GET"})
+     * @return Response
+     */
+    public function getAllFreelancer(){
+
+        $freelancers = $this->repository->findVisibleAllFreelancerQueryAPI();
+
+        $response = new Response(json_encode($freelancers));
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
     }
 
 }
