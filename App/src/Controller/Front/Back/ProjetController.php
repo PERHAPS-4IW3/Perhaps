@@ -145,6 +145,11 @@ class ProjetController extends AbstractController
         return $this->redirectToRoute('user_projet_index');
     }
 
+ 
+     
+
+
+
     /**
      * @Route(name="user_projet_offers", path="/user/projets/offers/{id}", methods={"GET", "POST"})
      * @param Projet $projet
@@ -203,7 +208,9 @@ class ProjetController extends AbstractController
         $noteEtCommentaire->setCommentaire($data["commentaire"]);
         $noteEtCommentaire->setNote(intval($data["note"]));
         $noteEtCommentaire->setDeveloppeur($this->em->getRepository(User::class)->findOneBy(['id' => $data["user"]]));
-        $noteEtCommentaire->setIdProjet($this->em->getRepository(Projet::class)->findOneBy(['id' => $data["projet"]]));        
+        $noteEtCommentaire->setIdProjet($this->em->getRepository(Projet::class)->findOneBy(['id' => $data["projet"]]));  
+
+
         $this->em->merge($noteEtCommentaire);
         $this->em->flush();
 
@@ -214,6 +221,55 @@ class ProjetController extends AbstractController
         );
         return $response;
     }     
+
+
+     /**
+     * @Route(name="user_projet_delete_Freelancer", path="/user/projets/freelancer/deleteFreelancer", methods={"GET"})
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteFreelancer(Request $request)
+    {
+        $data = json_decode($request->query->get("data"), true);
+        $equipe = $this->em->getRepository(Equipe::class)->findOneBy(['id' => $data["id_equipe"]]);
+        $equipe = $this->em->getRepository(Equipe::class)->findOneBy(['id' => $data["id_equipe"]]);
+
+        $equipe->removeListParticipant($this->em->getRepository(User::class)->findOneBy(['id' => $data["id_user"]]));
+        $this->em->flush();
+        $response = new Response(
+            '',
+            Response::HTTP_OK,
+            ['content-type' => 'text/html']
+        );
+        return $response;
+    }
+
+     /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @Route(name="user_projet_Freelancer_equipe", path="/user/projets/freelancer/ajouterfreelancer", methods={"GET"})
+     */
+    public function ajouterFreelancer(Request $request)
+    {
+        $data = json_decode($request->query->get("data"), true);
+        $projet = $this->em->getRepository(Projet::class)->findOneBy(['id' => $data["id_projet"]]);
+        if($projet->getListDesEquipes()->isEmpty())
+        {
+            $equipe = new Equipe();
+            $equipe->setChefDeProjet($this->em->getRepository(User::class)->findOneBy(['id' => $data["id_user"]]));
+            $projet->addListDesEquipes($equipe);
+        }else
+        {
+            $projet->getListDesEquipes(){0}->addListParticipant($this->em->getRepository(User::class)->findOneBy(['id' => $data["id_user"]]));
+        }
+
+        $this->em->flush();
+        $response = new Response(
+            '',
+            Response::HTTP_OK,
+            ['content-type' => 'text/html']
+        );
+        return $response;
+    }
 
 
 

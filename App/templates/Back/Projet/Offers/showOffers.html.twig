@@ -12,8 +12,9 @@
 
     <div class="container">
         <div class="row flex">
+
             {% for devi in devis %}
-            <div class="col-md-12">
+            <div class="col-md-12" id="{{devi.etabliPar.id}}">
                 <div class="card flex-row flex-wrap">
                     <div class="card-header border-0">
                         {% if vich_uploader_asset(devi.etabliPar, 'imageFile') is null %}
@@ -33,7 +34,7 @@
                 </div>
                 <div class="w-100"></div>
                 <div class="card-footer w-100 text-muted">
-                    <a href="#" class="btn btn-primary">Choisir ce Freelancer</a>
+                    <button onClick="setAccepterFreelancer('{{devi.projet.id}}','{{devi.etabliPar.id}}')" class="btn btn-primary">Choisir ce Freelancer</button>
                 </div>
                 <br>
                 {% else %}
@@ -52,4 +53,47 @@
             </div>
         </div>
     </div>
+    {% block javascripts %}
+            <script type="application/javascript">
+                function ajaxCall(array, url)
+                {
+                    let xmlhttp = new XMLHttpRequest();
+                    xmlhttp.onreadystatechange = function() {
+                        if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+                            if (xmlhttp.status == 200) {
+                                //alert('La note a été ajouter');          
+                                $('#exampleModal').modal('hide');
+
+                                $('#id_note_'+current_id).text( $('#note').val());
+                                $('#id_commentaire_'+current_id).text(  $('#commentaire').val());
+                            }
+                            else if (xmlhttp.status == 400) {
+                                //alert('There was an error 400');
+                            }
+                            else {
+                                //alert('something else other than 200 was returned');
+                            }
+                        }
+                    };
+                    url = url+"?data=" + encodeURIComponent(JSON.stringify(array));
+
+                    xmlhttp.open("GET", url);
+
+                    xmlhttp.setRequestHeader("Content-Type", "application/json");
+                    xmlhttp.send(JSON.stringify(array));
+                }
+
+
+                 function setAccepterFreelancer(id_projet, id_user) 
+                {
+                    let tab  = {};
+                    tab["id_projet"] =id_projet;
+                    tab["id_user"] = id_user;
+                    $( "#"+id_user ).hide();
+                    ajaxCall(tab, "{{ path('user_projet_Freelancer_equipe') }}");
+                }
+
+
+            </script>
+        {% endblock %}
 {% endblock %}

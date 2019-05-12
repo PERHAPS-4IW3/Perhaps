@@ -24,6 +24,7 @@
                     <th class="col">Note</th>
                     <th class="col">Rôle</th>
                     <th class="col">Noter</th>
+                    <th class="col">Supprimer</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,30 +32,34 @@
             {% set j =1 %}
             {% set check = false %}
             {% for items in listeDesequipe %}
-                <tr class="row">
-                    <td class="col" id="id_p_{{j }}" style="display : none;" value ="{{ items.idProjet.id}}" >{{ items.idProjet.id}}</td>
-                    <td class="col" id="id_U_{{j }}" style="display : none;" value ="{{ items.chefDeProjet.id}}" >{{ items.chefDeProjet.id}}</td>
-                    <td class="col" id="id_subn_{{j }}">{{ items.chefDeProjet.prenomUser}}</td>
-                    <td class="col" id="id_name_{{ j}}">{{ items.chefDeProjet.nomUser }}</td>
-                    {% for note in notation %}
-                        {% if note.developpeur.id == items.idProjet.id %}
-                            <td class="col" id="id_commentaire_{{ j}}">{{ note.commentaire}}</td>
-                            <td class="col" id="id_note_{{ j}}">{{ note.note }}</td>
-                            {% set check = true %}
+                {% if items.chefDeProjet %}
+                    <tr class="row" id="{{j }}">
+                        <td class="col" id="id_p_{{j }}" style="display : none;" value ="{{ items.idProjet.id}}" >{{ items.idProjet.id}}</td>
+                        <td class="col" id="id_U_{{j }}" style="display : none;" value ="{{ items.chefDeProjet.id}}" >{{ items.chefDeProjet.id}}</td>
+                        <td class="col" id="id_subn_{{j }}">{{ items.chefDeProjet.prenomUser}}</td>
+                        <td class="col" id="id_name_{{ j}}">{{ items.chefDeProjet.nomUser }}</td>
+                        {% for note in notation %}
+                            {% if note.developpeur.id == items.idProjet.id %}
+                                <td class="col" id="id_commentaire_{{ j}}">{{ note.commentaire}}</td>
+                                <td class="col" id="id_note_{{ j}}">{{ note.note }}</td>
+                                {% set check = true %}
+                            {% endif %}
+                        {% endfor %}
+                        {% if check == false %}
+                                <td class="col" id="id_commentaire_{{ j}}"> </td>
+                                <td class="col" id="id_note_{{ j}}"> </td>
                         {% endif %}
-                    {% endfor %}
-                    {% if check == false %}
-                            <td class="col" id="id_commentaire_{{ j}}"> </td>
-                            <td class="col" id="id_note_{{ j}}"> </td>
-                    {% endif %}
+                        
+                        <td class="col">Chef de l'équipe {{ i  }}</td>
+                        <td class="col"><button type="submit" id="ProjetCo{{ j}}" class="btn-primary btn" onClick="setModalNot({{j}})">Noter</button></td>
+                        
+                        <td class="col"></td><!--<td class="col"><button type="submit" id="supFree{{ j}}" class="btn-primary btn" onClick="supprimerFreelancer({{j}}, {{ items.id}}, true)">Retirer du projet</button></td>-->
                     
-                    <td class="col">Chef de l'équipe {{ i  }}</td>
-                    <td class="col"><button type="submit" id="ProjetCo{{ j}}" class="btn-primary btn" onClick="setModalNot({{j}})">Noter</button></td>
-                </tr>
-                
+                    </tr>
+                {% endif %}
                 {% set j=j+1 %}
                 {% for row in items.listParticipants %}
-                    <tr class="row">
+                    <tr class="row" id="{{j }}">
                         <td class="col" id="id_p_{{ j}}" style="display : none;">{{ items.idProjet.id}}</td>
                         <td class="col" id="id_U_{{ j}}" style="display : none;">{{ row.id}}</td>
                         <td class="col" id="id_subn_{{j }}">{{ row.prenomUser}}</td>
@@ -73,6 +78,8 @@
                         {% endif %}
                         <td class="col">Développeur dans l'équipe {{ i  }}</td>
                         <td class="col"><button type="submit" id="ProjetCo" class="btn-primary btn" onClick="setModalNot({{j}})">Noter</button></td>
+                        <td class="col"><button type="submit" id="supFree{{ j}}" class="btn-primary btn" onClick="supprimerFreelancer({{j}}, {{ items.id}}, false )">Retirer du projet</button></td>
+                    
                     </tr>
                     
             {% set j=j+1 %}
@@ -125,7 +132,7 @@
 
             <script type="application/javascript">
                 var current_id = 0;
-                function ajaxCall(array)
+                function ajaxCall(array, url)
                 {
                     let xmlhttp = new XMLHttpRequest();
                     xmlhttp.onreadystatechange = function() {
@@ -145,7 +152,7 @@
                             }
                         }
                     };
-                    var url = "{{ path('user_projet_setNote') }}?data=" + encodeURIComponent(JSON.stringify(array));
+                    url = url+"?data=" + encodeURIComponent(JSON.stringify(array));
 
                     xmlhttp.open("GET", url);
 
@@ -164,13 +171,25 @@
                     $('#exampleModal').modal('show');
                 }
 
+                 function supprimerFreelancer(id, id_equipe,isChef) 
+                {
+                    let tab  = {};
+                    tab["id_equipe"] =id_equipe;
+                    tab["id_user"] = $('#id_U_'+id).text();
+                    tab["chef"] = isChef;
+                    console.log(id_equipe);
+                    $( "#"+id ).hide();
+                    ajaxCall(tab, "{{ path('user_projet_delete_Freelancer') }}");
+                }
+
+
                  $("#Sauvegarder").click(function() {
                      let tab  = {};
                      tab["user"] = $('#user').text();
                      tab["projet"] = $('#projet').text();
                      tab["commentaire"] = $('#commentaire').val();
                      tab["note"] = $('#note').val();
-                    ajaxCall(tab);
+                    ajaxCall(tab, "{{ path('user_projet_setNote') }}");
                 })
 
                 
