@@ -1,0 +1,50 @@
+{% extends "base.html.twig" %}
+
+{% block title %}ma boite de messages{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+    <div class="row flex">
+        <div class="col-8">
+            <h2>Mes messages</h2>
+        </div>
+        <div class="col-2 mb-4">
+            <a href="{{ path('message_new') }}" class="btn btn-success">Nouveau message</a>
+        </div>
+    </div>
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <div class="container mt-4">
+        <div class="row flex">
+            {% for message in messages %}
+                <div class="col-lg-4 d-flex align-items-stretch containerProj" id="cardprj">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                {{ message.sender }}
+                            </h5>
+                            <p class="card-text">
+                                {{ message.content }}
+                            </p>
+                            <p class="card-text">
+                                {{ message.createdAt |date("m/d/Y") }}
+                            </p>
+
+                                <a href="{{ path('message_edit', {id: message.id}) }}" class="btn btn-primary" style="display: inline-block;">Éditer</a>
+                                <a href="{{ path('message_delete', {id: message.id, '_token': csrf_token('delete-message')}) }}" class="btn btn-danger" onclick="return confirm('Etes-vous sûr ?')">Supprimer</a>
+                                <a href="{{ path('message_new', {id: message.id}) }}" class="btn btn-success" style="display: inline-block;">nouveau</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                Vous n'avez encore aucun message
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

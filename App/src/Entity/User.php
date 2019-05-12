@@ -196,6 +196,18 @@ class User implements UserInterface, \Serializable
     private $equipeGerer;
 
     /**
+     *@ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="sender")
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $messages;
+
+    /**
+     *@ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="receiver")
+     * @ORM\Column(type="text", length=255, nullable=true)
+     */
+    private $recievedMessage;
+
+    /**
      * User constructor.
      */
     public function __construct()
@@ -764,6 +776,39 @@ class User implements UserInterface, \Serializable
     {
         $this->titreFreelancer = $titreFreelancer;
         return $this;
+    }
+
+    public function getMessages(): ?string
+    {
+        return $this->messages;
+    }
+
+    public function setMessages(?string $messages): self
+    {
+        $this->messages = $messages;
+
+        return $this;
+    }
+
+    public function getRecievedMessage(): ?string
+    {
+        return $this->recievedMessage;
+    }
+
+    public function setRecievedMessage(?string $recievedMessage): self
+    {
+        $this->recievedMessage = $recievedMessage;
+
+        return $this;
+    }
+    /**
+     * toString
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string)$this->messages;
+
     }
 
 }
