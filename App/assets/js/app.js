@@ -10,30 +10,32 @@ require('../css/app.css');
 require('jquery');
 require('bootstrap');
 require('@fortawesome/fontawesome-free/css/all.min.css');
-var $ = require('jquery');
+require('@fortawesome/fontawesome-free/js/all.js');
 require('popper.js');
 require('bootstrap-star-rating');
-require('infinite-scroll');
-require('jquery-ui');
 
+// Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
 
+$(document).ready(function(){
+    $('.js-datepicker').datepicker({
+        format: 'yyyy/mm/dd',
+        todayHighlight: true
+    });
+});
+
+$(document).ready(function () {
+    $('.dropdown-toggle').dropdown();
+});
 
 $('#myModal').on('shown.bs.modal', function () {
-    $('#myInput').trigger('focus');
+    $('#myInput').trigger('focus')
 });
 
 //Dès lors qu'on modifie le 'selected list'
 //Si la valeur est Freelancer alors on affiche les champs le concernant et on les rend obligatoire
 $(document).ready(function(){
-
-    $('.js-datepicker').datepicker({
-        format: 'yyyy/mm/dd',
-        todayHighlight: true
-    });
-    $('.dropdown-toggle').dropdown();
-
-    $('#user_role').change(function() {
-
+    $('#user_roles_0').val("ROLE_FREELANCER");
+    $('#user_roles_0').change(function() {
         if ($('option:selected', $(this)).html() === 'Freelancer') {
             $('.freelancerField').css("display", "block");
             $('#user_nomSociete').attr('required', true);
@@ -51,6 +53,4 @@ $(document).ready(function(){
             $('.js-multiple-select').attr('required', false);
         }
     });
-
-
 });

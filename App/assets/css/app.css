@@ -92,7 +92,7 @@ ul, ol {
 }
 
 #footer{
-   /*margin-top: 20px;*/
+    /*margin-top: 20px;*/
     position: absolute;
     bottom: 0;
     left:0;
@@ -273,7 +273,6 @@ section .section-title {
     height: 180px;
 }
 
-<<<<<<< HEAD
 .containerProj{
     position: relative;
 }
@@ -328,47 +327,4 @@ div#home-div-values h1 {
     position: absolute;
     bottom: 0;
     margin-bottom: 5px;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>>  first
-=======
-=======
-=======
-=======
-=======
->>>>>>>  first
->>>>>>>  first
-=======
-
->>>>>>> 75eb20f0a846f40a03c2d2df1068bc24ba89ce21
-}
-
-#scrollBox {
-    background-color: lightblue;
-    width: 110px;
-    height: 110px;
-    overflow: auto;
-}
-
-tr{
-    margin-bottom: 10px;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>>  first
-=======
-=======
->>>>>>>  first
-=======
->>>>>>>  first
-=======
->>>>>>>  first
->>>>>>>  first
-=======
->>>>>>> 75eb20f0a846f40a03c2d2df1068bc24ba89ce21
 }
