@@ -12,9 +12,9 @@
 
     <div class="container">
         <div class="row flex">
-
+            {% set i =1 %}
             {% for devi in devis %}
-            <div class="col-md-12" id="{{devi.etabliPar.id}}">
+            <div class="col-md-12" id="{{i}}">
                 <div class="card flex-row flex-wrap">
                     <div class="card-header border-0">
                         {% if vich_uploader_asset(devi.etabliPar, 'imageFile') is null %}
@@ -34,7 +34,7 @@
                 </div>
                 <div class="w-100"></div>
                 <div class="card-footer w-100 text-muted">
-                    <button onClick="setAccepterFreelancer('{{devi.projet.id}}','{{devi.etabliPar.id}}')" class="btn btn-primary">Choisir ce Freelancer</button>
+                    <button onClick="setAccepterFreelancer('{{devi.projet.id}}','{{devi.etabliPar.id}}', '{{i}}')" class="btn btn-primary">Choisir ce Freelancer</button>
                 </div>
                 <br>
                 {% else %}
@@ -49,6 +49,7 @@
                             <a href="{{ path('registration') }}" class="btn btn-primary">Je m'inscris</a>
                         </div>
                     </div>
+                    {% set i=i+1 %}
                 {% endfor %}
             </div>
         </div>
@@ -84,12 +85,12 @@
                 }
 
 
-                 function setAccepterFreelancer(id_projet, id_user) 
+                 function setAccepterFreelancer(id_projet, id_user, id)
                 {
                     let tab  = {};
                     tab["id_projet"] =id_projet;
                     tab["id_user"] = id_user;
-                    $( "#"+id_user ).hide();
+                    $( "#"+id ).hide();
                     ajaxCall(tab, "{{ path('user_projet_Freelancer_equipe') }}");
                 }
 
