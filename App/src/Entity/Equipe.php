@@ -58,11 +58,6 @@ class Equipe
         return $this;
     }
 
-    public function getIdChefProjet(): ?User
-    {
-        return $this->idChefProjet;
-    }
-
 
 
     public function getChefDeProjet(): ?User

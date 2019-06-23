@@ -9,13 +9,13 @@
                 <h2>Gérer les freelancers</h2>
             </div>
             <div class="col-2 mb-4">
-                <a href="{{ path('user_projet_new') }}" class="btn btn-success">Publier un projet</a>
+            <button type="submit" id="sss" class="btn-primary btn" onClick="setModalD()">Choisir un freelancer</button>
             </div>
         </div>
+        <p id="identifiant_glo_du_projet" style="display : none;"></p>
+
         
-        
-        
-        <table class="table table-striped container mt-10">
+        <table class="table table-striped container mt-10" id="table_Freelancer">
             <thead>
                 <tr class="row">
                     <th class="col">Prénom</th>
@@ -27,7 +27,7 @@
                     <th class="col">Supprimer</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="TBtable_Freelancer">
             {% set i =1 %}
             {% set j =1 %}
             {% set check = false %}
@@ -52,8 +52,7 @@
                         
                         <td class="col">Chef de l'équipe {{ i  }}</td>
                         <td class="col"><button type="submit" id="ProjetCo{{ j}}" class="btn-primary btn" onClick="setModalNot({{j}})">Noter</button></td>
-                        
-                        <td class="col"></td><!--<td class="col"><button type="submit" id="supFree{{ j}}" class="btn-primary btn" onClick="supprimerFreelancer({{j}}, {{ items.id}}, true)">Retirer du projet</button></td>-->
+                        <td class="col"><button type="submit" id="supFree{{ j}}" class="btn-primary btn" onClick="supprimerFreelancer({{j}}, {{ items.id}}, true)">Retirer chef du projet</button></td>
                     
                     </tr>
                 {% endif %}
@@ -90,41 +89,120 @@
             </tbody>
         </table>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modalTitle">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group" style="display : none;">
-            <input type="text" class="form-control" id="user" >
-         
+        <div class="modal fade" id="noteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group" style="display : none;">
+                        <input type="text" class="form-control" id="user" >
+                    
+                    </div>
+                    <div class="form-group" style="display : none;">
+                        <input type="text" class="form-control" id="projet" >
+                    
+                    </div>
+                    <div class="form-group">
+                        <label for="Commentaire">Commentaire</label>
+                        <textarea class="form-control" id="commentaire" ></textarea>
+                    
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Note</label>
+                        <input type="number" class="form-control" id="note" min="0" max="5" class="numberlimit form-control">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn-primary btn" id="Sauvegarder">Sauvegarder</button>
+                </div>
+                </div>
+            </div>
         </div>
-        <div class="form-group" style="display : none;">
-            <input type="text" class="form-control" id="projet" >
-         
+
+
+        <div class="modal fade" id="FreelancerModal"   tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document" >
+                <div class="modal-content" >
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTitle">Choisir un freelancer</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                            <div class="container">
+                                <div class="row flex">
+                                    {% if devis is empty %}                                                                            
+                                        <div class="card flex-row flex-wrap">
+                                            <div class="card-block px-2">
+                                                <h4 class="card-title">Il n'y a aucune offre pour le moment.</h4>
+                                                <p class="card-text mb-4">Si vous êtes un Freelancer et que vous souhaitez postuler à cette offre,<br>
+                                                    inscrivez-vous si ce n'est pas déjà fait !</p>
+                                            </div>
+                                            <div class="w-100"></div>
+                                            <div class="card-footer w-100 text-muted">
+                                                <a href="{{ path('registration') }}" class="btn btn-primary">Je m'inscris</a>
+                                            </div>
+                                        </div>
+                                    {% else %}
+                                        {% for devi in devis %}
+                                            {% if devi.flag is null %}    
+                                                <div class="col-md-12" id="devi_{{devi.etabliPar.id}}">
+                                                    <div class="card ">
+                                                        <div class="card-header border-0">
+                                                            {% if vich_uploader_asset(devi.etabliPar, 'imageFile') is null %}
+                                                                <img id ="imagecard" src="{{ asset('images/user.svg') }}" alt="card image" >
+                                                            {% else %}
+                                                                <img id ="imagecard" src="{{ vich_uploader_asset(devi.etabliPar, 'imageFile')| imagine_filter('thumb') }}" alt>
+                                                            {% endif %}
+                                                        </div>
+                                                        <div class="card-block px-4">
+                                                            <p><em>Offre déposée le {{ devi.dateDevis|date("d/m/Y") }}</em></p>
+                                                            <h4 class="card-title">
+                                                                <a href="{{ path('user_show', {id: devi.etabliPar.id, slug: devi.etabliPar.slug}) }}">{{ devi.etabliPar.nomUser }} {{ devi.etabliPar.prenomUser }}</a>
+                                                            </h4>
+                                                            <p class="card-text">{{ devi.etabliPar.pays }}, {{ devi.etabliPar.ville }}, {{ devi.etabliPar.codePostalUser }}</p>
+                                                            <p><strong>Prix du devis : <i class="fas fa-lock"></i> {{ devi.offreDevis }} € </strong></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="w-100"></div>
+                                                    <div class="card-footer w-100 text-muted">
+                                                        <button onClick="setAccepterFreelancer('{{devi.projet.id}}','{{devi.etabliPar.id}}', '{{devi.id}}')" class="btn btn-primary">Choisir ce Freelancer</button>
+                                                    </div>
+                                                    <br>
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                            
+                                </div>
+                            </div>
+
+
+
+
+
+                    </div> 
+                    </div>        
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="Commentaire">Commentaire</label>
-            <textarea class="form-control" id="commentaire" ></textarea>
-         
-        </div>
-        <div class="form-group">
-            <label for="exampleInputPassword1">Note</label>
-            <input type="number" class="form-control" id="note" min="0" max="5" class="numberlimit form-control">
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn-primary btn" id="Sauvegarder">Sauvegarder</button>
-      </div>
-    </div>
-  </div>
-</div>
+
+
+
+
+
+
+
+
+
+
             
     </div>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"/>
@@ -138,11 +216,25 @@
                     xmlhttp.onreadystatechange = function() {
                         if (xmlhttp.readyState == XMLHttpRequest.DONE) {
                             if (xmlhttp.status == 200) {
-                                //alert('La note a été ajouter');          
-                                $('#exampleModal').modal('hide');
+                                //alert('La note a été ajouter');    
+                                if($('#noteModal').hasClass('in'))    
+                                {
+                                    $('#noteModal').modal('hide');
 
-                                $('#id_note_'+current_id).text( $('#note').val());
-                                $('#id_commentaire_'+current_id).text(  $('#commentaire').val());
+                                    $('#id_note_'+current_id).text( $('#note').val());
+                                    $('#id_commentaire_'+current_id).text(  $('#commentaire').val());
+                                }else      
+                                {
+                                    jdecode = JSON.parse(xmlhttp.response);
+                                    console.log(jdecode.ischef)
+                                    if(jdecode.ischef)
+                                    {
+                                        addRowChef(jdecode);
+                                    }else
+                                    {
+                                        addRowmembre(jdecode);
+                                    }
+                                }    
                             }
                             else if (xmlhttp.status == 400) {
                                 //alert('There was an error 400');
@@ -168,7 +260,14 @@
                     $('#user').text( $('#id_U_'+id).text());
                     $('#note').val( $('#id_note_'+id).text());
                     $('#commentaire').text(  $('#id_commentaire_'+id).text());
-                    $('#exampleModal').modal('show');
+                    $('#noteModal').modal('show');
+                }
+
+
+                function setModalD()
+                {
+                    
+                    $('#FreelancerModal').modal('show');
                 }
 
                  function supprimerFreelancer(id, id_equipe,isChef) 
@@ -223,8 +322,54 @@
                         return false;
                     }
                         document.getElementById('note').addEventListener('keypress', ForNumbers, false);
-                
+                    function setAccepterFreelancer(id_projet, id_user, id_devi) 
+                    {
+                        let tab  = {};
+                        tab["id_projet"] =id_projet;
+                        tab["id_user"] = id_user;
+                        tab["id_devi"] = id_devi;
+                        $( "#devi_"+id_user ).hide();
+                        ajaxCall(tab, "{{ path('user_projet_Freelancer_equipe') }}");
+                    }
 
+                    function addRowChef(tab)
+                    {
+                        console.log(tab);
+                        let j = $("#TBtable_Freelancer tr").length+1;
+                        let row = '<tr class="row" id="'+j+'">';
+                        row +='<td class="col" id="id_p_'+j+'" style="display : none;" value ="'+tab.idProjet.id+'" >'+tab.idProjet+'</td>';
+                        row += '<td class="col" id="id_U_'+j+'" style="display : none;" value ="'+tab.chefDeProjet.id+'" >'+tab.chefDeProjet+'</td>';
+                        row += '<td class="col" id="id_subn_'+j+'">'+tab.prenomUser+'</td>';
+                        row += '<td class="col" id="id_name_'+j+'">'+tab.nomUser+'</td>';
+                        row += '<td class="col" id="id_commentaire_'+j+'"> </td>';
+                        row += '<td class="col" id="id_note_'+j+'"> </td>'           ;
+                        row += '<td class="col">Chef de l\'équipe 1</td>';
+                        row += '<td class="col"><button type="submit" id="ProjetCo'+j+'" class="btn-primary btn" onClick="setModalNot('+j+')">Noter</button></td>';
+                        row += '<td class="col"><button type="submit" id="supFree'+j+'" class="btn-primary btn" onClick="supprimerFreelancer('+j+', '+tab.equipeid+', '+true+')">Retirer chef du projet</button></td></tr>';
+                        //$("#table_Freelancer").append('<tbody  id="TBtable_Freelancer"></tbody>');
+                        $("#TBtable_Freelancer").append(row);
+                        console.log($("#TBtable_Freelancer"));
+                        console.log($("#TBtable_Freelancer tr").length);
+                    }
+
+                    function addRowmembre(tab)
+                    {
+                        console.log(tab);
+                        let j = $("#TBtable_Freelancer tr").length+1;
+                        let row = '<tr class="row" id="'+j+'">';
+                        row +='<td class="col" id="id_p_'+j+'" style="display : none;" value ="'+tab.idProjet+'" >'+tab.idProjet+'</td>';
+                        row += '<td class="col" id="id_U_'+j+'" style="display : none;" value ="'+tab.chefDeProjet+'" >'+tab.chefDeProjet+'</td>';
+                        row += '<td class="col" id="id_subn_'+j+'">'+tab.prenomUser+'</td>';
+                        row += '<td class="col" id="id_name_'+j+'">'+tab.nomUser+'</td>';
+                        row += '<td class="col" id="id_commentaire_'+j+'"> </td>';
+                        row += '<td class="col" id="id_note_'+j+'"> </td>'           ;
+                        row += '<td class="col">Développeur de l\'équipe 1</td>';
+                        row += '<td class="col"><button type="submit" id="ProjetCo'+j+'" class="btn-primary btn" onClick="setModalNot('+j+')">Noter</button></td>';
+                        row += '<td class="col"><button type="submit" id="supFree'+j+'" class="btn-primary btn" onClick="supprimerFreelancer('+j+', '+tab.equipeid+', false)">Retirer du projet</button></td></tr>';
+                        $("#TBtable_Freelancer").append(row);
+                        console.log(row);
+                    }
+                    
             </script>
         {% endblock %}
 

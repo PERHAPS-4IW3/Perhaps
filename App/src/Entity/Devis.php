@@ -46,6 +46,11 @@ class Devis
      * @ORM\JoinColumn(nullable=false)
      */
     private $etabliPar;
+
+    /**
+     * @ORM\Column(type="smallint", nullable=true)
+     */
+    private $flag;
     /**
      * Devis constructor.
      */
@@ -123,6 +128,18 @@ class Devis
     public function setEtabliPar(?User $etabliPar): self
     {
         $this->etabliPar = $etabliPar;
+        return $this;
+    }
+
+    public function getFlag(): ?int
+    {
+        return $this->flag;
+    }
+
+    public function setFlag(?int $flag): self
+    {
+        $this->flag = $flag;
+
         return $this;
     }
 }

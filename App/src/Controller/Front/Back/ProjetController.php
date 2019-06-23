@@ -12,6 +12,7 @@ namespace App\Controller\Front\Back;
 use App\Entity\Equipe;
 use App\Entity\NoteEtCommentaire;
 use App\Entity\Projet;
+use App\Entity\Devis;
 use App\Entity\User;
 use App\Entity\UserCollection;
 use Symfony\Component\HttpFoundation\Response;
@@ -172,9 +173,12 @@ class ProjetController extends AbstractController
      */
     public function manageFreelancer(Projet $projet): Response
     {
+        $devi = $this->em->getRepository(Devis::class)->findOneBy(['id' => 10]);
+        $devi->setFlag(NULL);
         return $this->render('Back/Projet/Manage/index.html.twig', [
             'listeDesequipe' => $projet->getListDesEquipes(),
-            'notation' => $projet->getListCommentaireEtNote()
+            'notation' => $projet->getListCommentaireEtNote(),
+            'devis'=> $projet->getListDevis()
         ]);
     }
 
@@ -230,10 +234,28 @@ class ProjetController extends AbstractController
     public function deleteFreelancer(Request $request)
     {
         $data = json_decode($request->query->get("data"), true);
-        $equipe = $this->em->getRepository(Equipe::class)->findOneBy(['id' => $data["id_equipe"]]);
-        $equipe = $this->em->getRepository(Equipe::class)->findOneBy(['id' => $data["id_equipe"]]);
-
-        $equipe->removeListParticipant($this->em->getRepository(User::class)->findOneBy(['id' => $data["id_user"]]));
+        if($data["id_equipe"])
+        {
+            $equipe = $this->em->getRepository(Equipe::class)->findOneBy(['id' => $data["id_equipe"]]);
+            if( $equipe->getListParticipants()->count()>1)
+            {
+                $user = $equipe->getListParticipants()[0];
+                $equipe->setChefDeProjet($user);
+                $equipe->removeListParticipant($user);
+            }else
+            {
+                $this->em->remove($equipe);
+                /*$projet = $equipe->getIdProjet();
+                $projet->removeListDesEquipe($equipe);
+                $equipe = new Equipe();
+                $projet->addListDesEquipe($equipe);
+                $this->em->persist($projet);*/
+            }
+        }
+        else{
+            $equipe = $this->em->getRepository(Equipe::class)->findOneBy(['id' => $data["id_equipe"]]);
+            $equipe->removeListParticipant($this->em->getRepository(User::class)->findOneBy(['id' => $data["id_user"]]));    
+        }
         $this->em->flush();
         $response = new Response(
             '',
@@ -252,21 +274,36 @@ class ProjetController extends AbstractController
     {
         $data = json_decode($request->query->get("data"), true);
         $projet = $this->em->getRepository(Projet::class)->findOneBy(['id' => $data["id_projet"]]);
+        $devi = $this->em->getRepository(Devis::class)->findOneBy(['id' => $data["id_devi"]]);
+        $devi->setFlag(0);
+        $equipe = new Equipe();
+        $ischef = false;
+        $user = $this->em->getRepository(User::class)->findOneBy(['id' => $data["id_user"]]);
         if($projet->getListDesEquipes()->isEmpty())
         {
-            $equipe = new Equipe();
-            $equipe->setChefDeProjet($this->em->getRepository(User::class)->findOneBy(['id' => $data["id_user"]]));
-            $projet->addListDesEquipes($equipe);
+            $ischef = true;
+            $equipe->setChefDeProjet($user);
+            $equipe->setIdProjet($projet);
+            $this->em->persist($equipe);
         }else
         {
-            $projet->getListDesEquipes(){0}->addListParticipant($this->em->getRepository(User::class)->findOneBy(['id' => $data["id_user"]]));
+            $projet->getListDesEquipes(){0}->addListParticipant($user);
+            $equipe=$projet->getListDesEquipes(){0};
         }
-
         $this->em->flush();
+        //var_dump($equipe);
+        
         $response = new Response(
-            '',
+            json_encode([
+                'equipeid'=> $equipe->getId(),
+                'ischef'=>$ischef,
+                'idProjet'=> $equipe->getIdProjet()->getId(),
+                'chefDeProjet'=>$user->getId(),
+                'prenomUser'=> $user->getPrenomUser(),
+                'nomUser'=>$user->getNomUser()
+            ]),
             Response::HTTP_OK,
-            ['content-type' => 'text/html']
+            ['content-type' => 'application/json']
         );
         return $response;
     }

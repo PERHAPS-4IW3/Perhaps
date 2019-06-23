@@ -362,7 +362,7 @@ class User implements UserInterface, \Serializable
     }
 
     //contrôler la validité du token
-    public function getPasswordRequestedAt(): string
+    public function getPasswordRequestedAt()
     {
         return $this->passwordRequestedAt;
     }

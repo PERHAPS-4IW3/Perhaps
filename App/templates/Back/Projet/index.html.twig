@@ -37,8 +37,7 @@
                                 <div class="containerButton">
                                     <a href="{{ path('user_projet_edit', {id: projet.id}) }}" class="btn btn-primary" style="display: inline-block;">Éditer</a>
                                     <a href="{{ path('user_projet_delete', {id: projet.id, '_token': csrf_token('delete-project')}) }}" class="btn btn-danger" onclick="return confirm('Etes-vous sûr ?')">Supprimer</a>
-                                    <a href="{{ path('user_projet_offers', {id: projet.id}) }}" class="btn btn-success" style="display: inline-block;">Voir les offres</a>
-                                    <a href="{{ path('user_projet_noter_user', {id: projet.id}) }}" class="btn btn-success" style="display: inline-block;">Noter les freelancers</a>
+                                    <a href="{{ path('user_projet_noter_user', {id: projet.id}) }}" class="btn btn-success" style="display: inline-block;">Gérer les équipes</a>
                                 </div>
                             </div>
                         </div>
