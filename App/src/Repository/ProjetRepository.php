@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Projet;
 use App\Entity\ProjetSearch;
 use App\Entity\User;
+use App\Entity\Devis;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
@@ -42,6 +43,8 @@ class ProjetRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+
 
     /**
      * @return array
@@ -92,6 +95,30 @@ class ProjetRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('p')
             ->Where('p.isVisible = true');
     }
+
+    public function getNb(User $user)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.creePar = :user')
+            ->setParameter('user', $user)
+            ->select('COUNT(p.id)')
+            ->getQuery() ->getSingleScalarResult();
+    
+    }
+    public function TotalProjet(Projet $projet)
+    {
+
+        $devis = $projet->getListDevis()->getValues();
+
+        return $this->count($devis);
+
+    }
+
+
+
+
+
+
     // /**
     //  * @return Projet[] Returns an array of Projet objects
     //  */

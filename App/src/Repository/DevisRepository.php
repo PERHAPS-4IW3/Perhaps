@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Devis;
 use App\Entity\Projet;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -19,6 +20,18 @@ class DevisRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Devis::class);
     }
+
+    public function getNbOffre(User $user)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.etabliPar = :user')
+            ->setParameter('user', $user)
+            ->select('COUNT(p.id)')
+            ->getQuery() ->getSingleScalarResult();
+
+    }
+
+
 
     /**
      * @return Devis[] Returns an array of Devis objects

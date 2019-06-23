@@ -47,4 +47,26 @@
                 {% endfor %}
             </div>
         </div>
+    <h2 class="card-title" >
+        {{ nbr}} projets créés par vous
+    </h2>
+    <div class="container">
+        <div class="row flex">
+            <img id ="imagecard" src="{{ asset('images/Statistique.jpg') }}" alt="card image" >
+            <div class="col-lg-4 d-flex align-items-stretch containerProj" id="cardprj">
+
+                            <h2 class="card-title" >
+                                {{ total }} projets proposés
+                            </h2>
+            </div>
+
+            <div class="col-lg-4 d-flex align-items-stretch containerProj" id="cardprj">
+
+                <h2 class="card-title" >
+                 {{ offre }} offre Déposée
+                 </h2>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

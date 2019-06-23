@@ -11,8 +11,10 @@ namespace App\Controller\Front\Back;
 
 use App\Entity\Projet;
 use App\Entity\User;
+use App\entity\Devis;
 use App\Form\ProjetType;
 use App\Repository\ProjetRepository;
+use App\Repository\DevisRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -47,11 +49,12 @@ class ProjetController extends AbstractController
      * @param ProjetRepository $repository
      * @param ObjectManager $em
      */
-    public function __construct(ProjetRepository $repository, ObjectManager $em)
+    public function __construct(ProjetRepository $repository, ObjectManager $em, DevisRepository $repo)
     {
 
         $this->repository = $repository;
         $this->em = $em;
+        $this->repo = $repo;
     }
 
     /**
@@ -61,11 +64,28 @@ class ProjetController extends AbstractController
     public function index()
     {
         $user = $this->getUser();
-
+        $projet = new Projet();
         $projets = $this->repository->findProjectByUser($user);
+
+
+        $nbr =$this->repository->getNb($user);
+        $offre =$this->repo->getNbOffre($user);
+        $total = $this->repository->TotalProjet($projet);
+
         return $this->render('Back/Projet/index.html.twig', [
+
             'projets'=> $projets,
+
+            'nbr' => $nbr,
+
+            'offre' => $offre,
+
+            'total' =>$total,
+
+
         ]);
+
+
     }
 
     /**
@@ -144,10 +164,12 @@ class ProjetController extends AbstractController
     public function showOffers(Projet $projet): Response
     {
         $devis = $projet->getListDevis()->getValues();
+        $total= count($devis);
 
         return $this->render('Back/Projet/Offers/showOffers.html.twig', [
             'projet' => $projet,
             'devis' => $devis,
+            'total' => $total,
         ]);
     }
 }

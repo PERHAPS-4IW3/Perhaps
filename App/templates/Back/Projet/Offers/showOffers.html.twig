@@ -7,11 +7,14 @@
     <div class="jumbotron">
         <div class="container mt-4">
             <h3 class="text-center">Toutes les offres pour le projet : {{ projet.nomProjet }}</h3>
+
         </div>
     </div>
 
     <div class="container">
         <div class="row flex">
+            <div><h2>Il y a {{ total }} offre(s) déposée(s) pour ce projet:</h2></div>
+            </br>
             {% for devi in devis %}
             <div class="col-md-12">
                 <div class="card flex-row flex-wrap">
@@ -31,6 +34,7 @@
                         <p><strong>Prix du devis : <i class="fas fa-lock"></i> {{ devi.offreDevis }} € </strong></p>
                     </div>
                 </div>
+
                 <div class="w-100"></div>
                 <div class="card-footer w-100 text-muted">
                     <a href="#" class="btn btn-primary">Choisir ce Freelancer</a>
