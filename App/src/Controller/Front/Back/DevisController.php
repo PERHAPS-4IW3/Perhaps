@@ -52,7 +52,6 @@ class DevisController extends AbstractController
         $descriptionDevis = $request->request->get('descriptionDevis');
         $offreDevis = $request->request->get('offreDevis');
         $em = $this->getDoctrine()->getManager();
-
         if($user != null){
             if($request->isMethod('POST')) {
                 $devis = new Devis();
@@ -61,6 +60,7 @@ class DevisController extends AbstractController
                 $devis->setEtabliPar($user);
                 $devis->setOffreDevis($offreDevis);
                 $devis->setDescriptionDevis($descriptionDevis);
+
 
                 try{
                     $em->persist($devis);

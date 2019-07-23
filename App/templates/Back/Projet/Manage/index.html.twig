@@ -125,7 +125,6 @@
             </div>
         </div>
 
-
         <div class="modal fade" id="FreelancerModal"   tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document" >
                 <div class="modal-content" >
@@ -152,7 +151,8 @@
                                         </div>
                                     {% else %}
                                         {% for devi in devis %}
-                                            {% if devi.flag is null %}    
+                  
+                                            {% if devi.flag is null %}   
                                                 <div class="col-md-12" id="devi_{{devi.etabliPar.id}}">
                                                     <div class="card ">
                                                         <div class="card-header border-0">
@@ -176,7 +176,7 @@
                                                         <button onClick="setAccepterFreelancer('{{devi.projet.id}}','{{devi.etabliPar.id}}', '{{devi.id}}')" class="btn btn-primary">Choisir ce Freelancer</button>
                                                     </div>
                                                     <br>
-                                                </div>
+                                                </div>                                            
                                             {% endif %}
                                         {% endfor %}
                                     {% endif %}
@@ -210,23 +210,22 @@
 
             <script type="application/javascript">
                 var current_id = 0;
+                var isNotation= false;
                 function ajaxCall(array, url)
                 {
                     let xmlhttp = new XMLHttpRequest();
                     xmlhttp.onreadystatechange = function() {
                         if (xmlhttp.readyState == XMLHttpRequest.DONE) {
-                            if (xmlhttp.status == 200) {
-                                //alert('La note a été ajouter');    
-                                if($('#noteModal').hasClass('in'))    
+                            if (xmlhttp.status == 200) { 
+                                if(isNotation)    
                                 {
                                     $('#noteModal').modal('hide');
-
+                                    isNotation = false;
                                     $('#id_note_'+current_id).text( $('#note').val());
                                     $('#id_commentaire_'+current_id).text(  $('#commentaire').val());
-                                }else      
+                                }else  if(xmlhttp.response!= undefined && xmlhttp.response!='')    
                                 {
                                     jdecode = JSON.parse(xmlhttp.response);
-                                    console.log(jdecode.ischef)
                                     if(jdecode.ischef)
                                     {
                                         addRowChef(jdecode);
@@ -276,7 +275,6 @@
                     tab["id_equipe"] =id_equipe;
                     tab["id_user"] = $('#id_U_'+id).text();
                     tab["chef"] = isChef;
-                    console.log(id_equipe);
                     $( "#"+id ).hide();
                     ajaxCall(tab, "{{ path('user_projet_delete_Freelancer') }}");
                 }
@@ -284,6 +282,7 @@
 
                  $("#Sauvegarder").click(function() {
                      let tab  = {};
+                     isNotation = true;
                      tab["user"] = $('#user').text();
                      tab["projet"] = $('#projet').text();
                      tab["commentaire"] = $('#commentaire').val();
@@ -334,7 +333,6 @@
 
                     function addRowChef(tab)
                     {
-                        console.log(tab);
                         let j = $("#TBtable_Freelancer tr").length+1;
                         let row = '<tr class="row" id="'+j+'">';
                         row +='<td class="col" id="id_p_'+j+'" style="display : none;" value ="'+tab.idProjet.id+'" >'+tab.idProjet+'</td>';
@@ -348,13 +346,10 @@
                         row += '<td class="col"><button type="submit" id="supFree'+j+'" class="btn-primary btn" onClick="supprimerFreelancer('+j+', '+tab.equipeid+', '+true+')">Retirer chef du projet</button></td></tr>';
                         //$("#table_Freelancer").append('<tbody  id="TBtable_Freelancer"></tbody>');
                         $("#TBtable_Freelancer").append(row);
-                        console.log($("#TBtable_Freelancer"));
-                        console.log($("#TBtable_Freelancer tr").length);
                     }
 
                     function addRowmembre(tab)
                     {
-                        console.log(tab);
                         let j = $("#TBtable_Freelancer tr").length+1;
                         let row = '<tr class="row" id="'+j+'">';
                         row +='<td class="col" id="id_p_'+j+'" style="display : none;" value ="'+tab.idProjet+'" >'+tab.idProjet+'</td>';
@@ -367,7 +362,6 @@
                         row += '<td class="col"><button type="submit" id="ProjetCo'+j+'" class="btn-primary btn" onClick="setModalNot('+j+')">Noter</button></td>';
                         row += '<td class="col"><button type="submit" id="supFree'+j+'" class="btn-primary btn" onClick="supprimerFreelancer('+j+', '+tab.equipeid+', false)">Retirer du projet</button></td></tr>';
                         $("#TBtable_Freelancer").append(row);
-                        console.log(row);
                     }
                     
             </script>

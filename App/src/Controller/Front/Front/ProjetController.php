@@ -80,8 +80,10 @@ class ProjetController extends AbstractController
      */
     public function show(Projet $projet, string $slug): Response
     {
+       // var_dump($projet);
         $devis = $projet->getListDevis()->getValues();
         $projets = $this->getDoctrine()->getManager()->getRepository(Projet::class)->findAll();
+ 
         $competences = $this->getDoctrine()->getManager()->getRepository(User::class)->findAll();
         $equipe = $this->getDoctrine()->getManager()->getRepository(Equipe::class)->findAll();
 
@@ -93,7 +95,7 @@ class ProjetController extends AbstractController
         foreach ($projet->getListDesEquipes() as $value) {
             foreach ($value->getListParticipants() as $valuex) {
 
-                var_dump($valuex );
+                //var_dump($valuex );
             }
         }
         if($projet->getSlug() !== $slug){
